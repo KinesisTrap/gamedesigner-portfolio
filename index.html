@@ -7,397 +7,461 @@
 <meta name="description" content="Petr Gorskin — Game Designer. Systems design, prototyping, level design and narrative portfolio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0c0d10;
-    --bg-alt:#111318;
-    --surface:#161922;
-    --surface-2:#1c202b;
-    --border:#272c38;
-    --text:#eceef2;
-    --text-dim:#9aa1b0;
-    --text-faint:#6b7280;
-    --accent:#f5a623;
-    --accent-dim:#8a5f1e;
-    --blue:#6c9bd1;
-    --purple:#a67fc0;
-    --teal:#2bb3ad;
-    --green:#7fbf6a;
-    --red:#d16c6c;
-    --radius:14px;
-    --maxw:1180px;
-    --shadow:0 20px 50px -20px rgba(0,0,0,.6);
-  }
-  *,*::before,*::after{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,h4{
-    font-family:'Sora',sans-serif;
-    color:var(--text);
-    margin:0 0 .5em;
-    line-height:1.2;
-  }
-  p{margin:0 0 1em;color:var(--text-dim);}
-  a{color:var(--accent);text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  ul{margin:0;padding:0;}
-  li{list-style:none;}
-  img{max-width:100%;display:block;}
-  code, .mono{font-family:'JetBrains Mono',monospace;}
 
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
-  section{padding:96px 0;position:relative;}
-  .section-tag{
-    display:inline-block;
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--accent);
-    background:rgba(245,166,35,.08);
-    border:1px solid rgba(245,166,35,.25);
-    padding:5px 12px;
-    border-radius:999px;
-    margin-bottom:18px;
-  }
-  .section-head{max-width:720px;margin-bottom:56px;}
-  .section-head h2{font-size:clamp(28px,4vw,40px);}
-  .section-head p{font-size:17px;}
+:root{
+  --bg:#f3f6f4;
+  --bg-alt:#fafbf9;
+  --surface:#ffffff;
+  --surface-2:#e8efeb;
+  --border:#d5e0da;
+  --text:#18201c;
+  --text-dim:#5a6860;
+  --text-faint:#87948c;
+  --accent:#1a9a86;
+  --accent-soft:#dff5ef;
+  --accent-ink:#0d6b5c;
+  --ink:#121916;
+  --warm:#e8a07a;
+  --warm-soft:#fff0e6;
+  --mint:#b8e0d2;
+  --radius:28px;
+  --maxw:1040px;
+  --shadow:0 28px 60px -32px rgba(24,32,28,.35);
+  --shadow-soft:0 14px 36px -20px rgba(24,32,28,.22);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Manrope',sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;color:var(--text);margin:0 0 .4em;line-height:1.12;letter-spacing:-.02em;}
+p{margin:0 0 1em;color:var(--text-dim);}
+a{color:var(--accent-ink);text-decoration:none;}
+a:hover{text-decoration:underline;}
+ul{margin:0;padding:0;}li{list-style:none;}
+img{max-width:100%;display:block;}
 
-  /* ---------- NAV ---------- */
-  header.site-nav{
-    position:sticky;top:0;z-index:100;
-    background:rgba(12,13,16,.82);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
-  }
-  .nav-inner{
-    max-width:var(--maxw);margin:0 auto;padding:0 24px;
-    height:68px;display:flex;align-items:center;justify-content:space-between;
-  }
-  .logo{
-    font-family:'Sora',sans-serif;font-weight:700;font-size:17px;color:var(--text);
-    letter-spacing:.02em;
-  }
-  .logo span{color:var(--accent);}
-  nav.nav-links{display:flex;gap:32px;align-items:center;}
-  nav.nav-links a{
-    color:var(--text-dim);font-size:14px;font-weight:500;
-  }
-  nav.nav-links a:hover{color:var(--text);text-decoration:none;}
-  .nav-cta{display:flex;align-items:center;gap:14px;}
-  .nav-toggle{display:none;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text);width:40px;height:40px;cursor:pointer;font-size:18px;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+.section-tag{
+  display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);
+  background:var(--accent-soft);border:1px solid rgba(26,154,134,.22);
+  padding:6px 12px;border-radius:999px;margin-bottom:14px;
+}
+.section-head{max-width:560px;margin:0 auto 48px;text-align:center;}
+.section-head h2{font-size:clamp(30px,4.4vw,44px);font-weight:750;}
+.section-head p{margin:0 auto;}
 
-  .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;
-    border:1px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, border-color .2s ease;
-    white-space:nowrap;
-  }
-  .btn:hover{text-decoration:none;transform:translateY(-1px);}
-  .btn-primary{background:var(--accent);color:#191100;}
-  .btn-primary:hover{background:#ffb946;}
-  .btn-ghost{background:transparent;color:var(--text);border-color:var(--border);}
-  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-  .btn-sm{padding:8px 16px;font-size:13px;}
+header.site-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,251,249,.78);backdrop-filter:blur(16px) saturate(1.15);
+  border-bottom:1px solid transparent;
+}
+.nav-inner{
+  max-width:var(--maxw);margin:0 auto;padding:0 28px;height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:var(--ink);letter-spacing:-.03em;}
+.logo span{color:var(--accent);}
+nav.nav-links{display:flex;gap:28px;}
+nav.nav-links a{color:var(--text-dim);font-size:14px;font-weight:600;}
+nav.nav-links a:hover{color:var(--text);text-decoration:none;}
+.nav-cta{display:flex;align-items:center;gap:12px;}
+.nav-toggle{display:none;background:#fff;border:1px solid var(--border);border-radius:12px;width:40px;height:40px;cursor:pointer;font-size:18px;}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    padding:110px 0 90px;
-    background:
-      radial-gradient(ellipse 60% 50% at 80% -10%, rgba(245,166,35,.12), transparent 60%),
-      radial-gradient(ellipse 50% 40% at 0% 10%, rgba(108,155,209,.10), transparent 60%);
-    border-bottom:1px solid var(--border);
-    overflow:hidden;
-  }
-  .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:48px;align-items:center;}
-  .eyebrow{
-    font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:13px;
-    letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;display:block;
-  }
-  .hero h1{font-size:clamp(38px,6vw,60px);letter-spacing:-.02em;}
-  .hero .role{font-size:clamp(17px,2vw,20px);color:var(--text-dim);font-weight:500;margin-bottom:22px;}
-  .hero .desc{font-size:16px;max-width:560px;}
-  .hero-meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 32px;font-size:14px;color:var(--text-dim);}
-  .hero-meta span{display:flex;align-items:center;gap:7px;}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;
+  font-weight:700;font-size:14px;border:1px solid transparent;cursor:pointer;
+  transition:transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  white-space:nowrap;font-family:'Manrope',sans-serif;
+}
+.btn:hover{text-decoration:none;transform:translateY(-2px);}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:0 12px 28px -14px rgba(18,25,22,.5);}
+.btn-primary:hover{background:#243028;}
+.btn-ghost{background:rgba(255,255,255,.55);color:var(--text);border-color:rgba(213,224,218,.9);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);}
+.btn-sm{padding:9px 15px;font-size:13px;}
 
-  .hero-card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:28px;box-shadow:var(--shadow);
-  }
-  .hero-card h3{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:18px;}
-  .hero-stat{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
-  .hero-stat:last-child{border-bottom:none;}
-  .hero-stat b{color:var(--text);font-size:14px;font-weight:600;}
-  .hero-stat span{color:var(--text-faint);font-size:13px;}
+.hero{
+  padding:120px 0 88px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 55% 50% at 12% 30%, rgba(184,224,210,.55), transparent 60%),
+    radial-gradient(ellipse 45% 45% at 88% 20%, rgba(232,160,122,.28), transparent 55%),
+    radial-gradient(ellipse 40% 40% at 70% 85%, rgba(26,154,134,.12), transparent 50%),
+    linear-gradient(165deg, #fafbf9 0%, #eef5f1 55%, #f7f3ef 100%);
+}
+.hero-blob{
+  position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none;opacity:.9;
+}
+.hero-blob.a{width:420px;height:420px;left:-120px;top:-40px;background:rgba(184,224,210,.45);}
+.hero-blob.b{width:320px;height:320px;right:-80px;top:60px;background:rgba(232,160,122,.22);}
+.hero-blob.c{width:260px;height:260px;right:18%;bottom:-60px;background:rgba(26,154,134,.12);}
+.hero .wrap{position:relative;z-index:1;max-width:720px;}
+.hero h1{font-size:clamp(46px,8vw,78px);font-weight:800;letter-spacing:-.045em;margin-bottom:6px;animation:rise .75s ease both;}
+.hero .role{
+  font-family:'Syne',sans-serif;font-size:clamp(24px,3.2vw,34px);font-weight:700;
+  color:var(--accent-ink);margin-bottom:20px;animation:rise .75s .06s ease both;
+}
+.hero .desc{max-width:540px;font-size:17.5px;animation:rise .75s .12s ease both;}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 18px;margin:24px 0 0;font-size:14px;color:var(--text-dim);animation:rise .75s .18s ease both;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 4px rgba(26,154,134,.18);margin-right:6px;}
+.hero-scroll{
+  display:inline-flex;align-items:center;gap:8px;margin-top:44px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-faint);animation:rise .75s .24s ease both;
+}
+.hero-scroll:hover{color:var(--accent-ink);text-decoration:none;}
+.hero-scroll .chev{animation:bob 1.5s ease-in-out infinite;}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 
-  /* ---------- CARDS / GRIDS ---------- */
-  .grid{display:grid;gap:20px;}
-  .grid-3{grid-template-columns:repeat(3,1fr);}
-  .grid-2{grid-template-columns:repeat(2,1fr);}
-  .card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:26px;
-  }
-  .card h3{font-size:17px;margin-bottom:10px;}
-  .card p{font-size:14.5px;margin-bottom:0;}
-  .card-icon{
-    width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-    background:rgba(245,166,35,.1);color:var(--accent);margin-bottom:16px;font-size:19px;
-  }
+.wave-sep{display:block;width:100%;height:72px;margin-top:-1px;color:#fafbf9;}
+.wave-sep path{fill:currentColor;}
 
-  /* ---------- ABOUT ---------- */
-  .about-focus{margin-top:44px;}
-  .about-focus h4{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-faint);margin-bottom:22px;}
 
-  /* ---------- EXPERIENCE ---------- */
-  .exp-block{margin-bottom:64px;}
-  .exp-block:last-child{margin-bottom:0;}
-  .exp-block > h3{
-    font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-faint);
-    margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);
-  }
-  .exp-item{
-    display:grid;grid-template-columns:200px 1fr;gap:28px;padding:26px 0;border-bottom:1px solid var(--border);
-  }
-  .exp-item:last-child{border-bottom:none;}
-  .exp-date{color:var(--text-faint);font-size:13px;font-family:'JetBrains Mono',monospace;}
-  .exp-role h4{font-size:17px;margin-bottom:2px;}
-  .exp-role .exp-org{color:var(--accent);font-size:14px;font-weight:500;margin-bottom:14px;display:block;}
-  .exp-role ul{margin-top:6px;}
-  .exp-role li{
-    position:relative;padding-left:18px;font-size:14.5px;color:var(--text-dim);margin-bottom:9px;
-  }
-  .exp-role li::before{
-    content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--accent);
-  }
-  .edu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.projects{padding:0;position:relative;}
+/* Scroll-driven walk: tall scene, sticky stage, characters move along the road */
+.trail{position:relative;height:620vh;}
+.trail-stage{
+  position:sticky;top:0;height:100vh;overflow:hidden;
+  /* distant meadow backdrop: fills the corners the 3D floor plane can't reach */
+  background:linear-gradient(180deg, #f2f4ec 0%, #e9eddc 26%, #d6dfbe 36%, #b3c48d 58%, #9cb277 100%);
+}
+/* Runner-style ground + trees are drawn on a single canvas (cheap: one layer) */
+.trail-canvas{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none;}
+.trail-fog{
+  position:absolute;left:0;right:0;top:0;height:48vh;z-index:3;pointer-events:none;
+  background:linear-gradient(180deg, #f7f8f2 0%, #eef0e2 38%, #e4e9d3 66%, rgba(228,233,211,.55) 82%, rgba(228,233,211,0) 100%);
+}
+.trail-fade-top{
+  position:absolute;left:0;right:0;top:0;height:13vh;z-index:300;pointer-events:none;
+  background:linear-gradient(180deg, #fafbf9 0%, rgba(250,251,249,.45) 50%, transparent 100%);
+}
+.trail-fade-bottom{
+  position:absolute;inset:0;z-index:400;pointer-events:none;opacity:0;
+  background:var(--bg);
+}
+.trail-fade-in{
+  position:absolute;inset:0;z-index:300;pointer-events:none;
+  background:var(--bg);
+}
+.trail-head{
+  position:absolute;z-index:350;top:9vh;left:0;right:0;margin:0 auto;
+  width:min(640px, calc(100vw - 32px));text-align:center;padding:18px 40px 26px;
+  background:radial-gradient(ellipse 58% 66% at 50% 45%, rgba(250,251,249,.97) 0%, rgba(250,251,249,.82) 45%, rgba(250,251,249,.35) 70%, rgba(250,251,249,0) 88%);
+}
+.trail-head h2{font-size:clamp(30px,4.4vw,44px);font-weight:750;}
+.trail-head p{color:var(--text);text-shadow:0 1px 10px rgba(250,251,249,.9);margin:0;}
+.trail-hint{
+  position:absolute;z-index:350;bottom:4.5vh;left:50%;transform:translateX(-50%);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-dim);background:rgba(250,251,249,.78);padding:9px 16px;border-radius:999px;
+  backdrop-filter:blur(6px);border:1px solid rgba(213,224,218,.7);white-space:nowrap;pointer-events:none;
+}
+.trail-hint span{display:inline-block;animation:bob 1.4s ease-in-out infinite;}
+/* Near trees: pooled DOM layers driven by JS (same art as the canvas ones) */
+.trail-tree{
+  position:absolute;left:0;top:0;opacity:0;
+  transform-origin:bottom center;pointer-events:none;
+}
+.trail-tree img{
+  height:100%;width:auto;max-width:none;display:block;
+  transform-origin:50% 100%;
+  animation:treeSway 7s ease-in-out infinite alternate;
+}
+@keyframes treeSway{from{transform:rotate(-.4deg)}to{transform:rotate(.5deg)}}
+/* Characters: height is the size at "pass-by" distance; JS drives position + scale */
+.trail-char{
+  position:absolute;left:0;top:0;z-index:10;opacity:0;
+  transform-origin:bottom center;
+  background:none;border:none;padding:0;cursor:pointer;font:inherit;
+  -webkit-tap-highlight-color:transparent;
+  will-change:transform,opacity;
+}
+.trail-char > img{
+  height:100%;width:auto;max-width:none;display:block;
+  filter:drop-shadow(0 14px 12px rgba(24,32,28,.35));
+  transition:filter .3s ease, transform .35s ease;
+  transform-origin:bottom center;
+}
+.trail-char::after{
+  content:"";position:absolute;left:50%;bottom:2%;
+  width:52%;height:4.5%;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center, rgba(24,32,28,.38) 0%, rgba(24,32,28,.12) 45%, transparent 72%);
+  pointer-events:none;z-index:-1;
+}
+.trail-tree::after{
+  content:"";position:absolute;left:50%;bottom:1%;
+  width:58%;height:3.8%;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center, rgba(24,32,28,.34) 0%, rgba(24,32,28,.1) 48%, transparent 72%);
+  pointer-events:none;z-index:-1;
+}
+.trail-char:hover > img,.trail-char:focus-visible > img{
+  transform:scale(1.045);
+  filter:drop-shadow(0 16px 15px rgba(24,32,28,.42)) brightness(1.06);
+}
+.trail-char:focus-visible{outline:none;}
+.char-plate{
+  position:absolute;top:calc(100% - 5px);left:50%;transform:translateX(-50%);
+  display:inline-flex;flex-direction:column;align-items:center;white-space:nowrap;
+  padding:6px 15px 7px;border-radius:14px;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(10px);
+  border:1px solid rgba(213,224,218,.95);box-shadow:var(--shadow-soft);
+  transition:border-color .35s ease, opacity .3s ease;
+}
+.trail-char:hover .char-plate,.trail-char:focus-visible .char-plate{border-color:var(--accent);}
+.char-plate em{
+  font-style:normal;font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--accent-ink);
+}
+.char-plate strong{
+  font-family:'Syne',sans-serif;font-weight:750;font-size:15px;
+  color:var(--text);letter-spacing:-.01em;
+}
 
-  .exp-block-head{
-    display:flex;align-items:center;justify-content:space-between;gap:16px;
-    margin-bottom:0;padding-bottom:12px;border-bottom:1px solid var(--border);
-  }
-  .exp-block-head > h3{margin-bottom:0;padding-bottom:0;border-bottom:none;}
-  .exp-teaser{color:var(--text-dim);font-size:14.5px;margin:18px 0 0;}
-  .exp-toggle{
-    flex:none;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
-    border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text-dim);
-    font-size:12.5px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em;cursor:pointer;
-    transition:border-color .2s ease, color .2s ease;
-  }
-  .exp-toggle:hover{border-color:var(--accent);color:var(--accent);}
-  .exp-toggle .exp-toggle-icon{display:inline-block;transition:transform .25s ease;font-size:10px;}
-  .exp-toggle[aria-expanded="true"] .exp-toggle-icon{transform:rotate(180deg);}
-  .exp-collapsible{
-    max-height:0;overflow:hidden;opacity:0;
-    transition:max-height .4s ease, opacity .3s ease;
-  }
-  .exp-collapsible.is-open{max-height:4000px;opacity:1;margin-top:8px;}
+/* Pokemon-style dialog anchored above the hovered character */
+.trail-dialog{
+  position:absolute;z-index:500;
+  width:min(540px, calc(100vw - 24px));
+  transform:translateY(12px) scale(.94);transform-origin:50% 100%;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .24s ease, transform .3s cubic-bezier(.2,.7,.2,1), visibility .24s;
+}
+.trail-dialog.is-on{opacity:1;visibility:visible;transform:none;}
+.trail-dialog.is-touch{pointer-events:auto;}
+.trail-dialog-inner{
+  display:flex;gap:18px;align-items:flex-start;
+  background:rgba(255,255,255,.97);
+  border:3px solid var(--ink);border-radius:22px;
+  box-shadow:0 10px 0 -4px rgba(18,25,22,.16), 0 30px 70px -26px rgba(18,25,22,.5);
+  padding:16px 18px;
+}
+.td-cover{flex:none;}
+.td-cover img{
+  width:128px;height:128px;object-fit:cover;border-radius:14px;
+  border:2px solid var(--ink);background:var(--surface-2);
+}
+.td-text{min-width:0;flex:1;}
+.td-type{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent-ink);
+}
+.td-text h3{font-size:21px;margin:2px 0 6px;}
+.td-line{
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.6;
+  color:var(--text);margin:0 0 8px;min-height:60px;
+}
+.td-caret{
+  display:inline-block;width:8px;height:13px;background:var(--accent);
+  vertical-align:-2px;margin-left:3px;animation:caretBlink .9s steps(1) infinite;
+}
+@keyframes caretBlink{0%,60%{opacity:1}61%,100%{opacity:0}}
+.td-hint{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-faint);
+}
+.td-hint .td-arrow{animation:bob 1.3s ease-in-out infinite;}
+.td-tail{
+  position:absolute;top:100%;left:50%;margin:-11px 0 0 -10px;
+  width:20px;height:20px;background:#fff;
+  border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  transform:rotate(45deg);border-radius:0 0 4px 0;
+}
 
-  /* ---------- SKILLS ---------- */
-  .skill-card{border-left:2px solid var(--accent);}
+/* Dialog bubble */
+.bubble-backdrop{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(18,25,22,.42);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .3s ease, visibility .3s ease;
+}
+.bubble-backdrop.is-open{opacity:1;visibility:visible;pointer-events:auto;}
+.project-bubble{
+  position:fixed;z-index:210;
+  left:50%;top:50%;
+  width:min(720px, calc(100vw - 32px));
+  max-height:min(82vh, 860px);
+  transform:translate(-50%, -46%) scale(.92);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .32s ease, transform .4s cubic-bezier(.2,.7,.2,1), visibility .32s;
+}
+.project-bubble.is-open{
+  opacity:1;visibility:visible;pointer-events:auto;
+  transform:translate(-50%, -50%) scale(1);
+}
+.bubble-panel{
+  position:relative;
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(213,224,218,.95);
+  border-radius:28px;
+  box-shadow:0 30px 80px -28px rgba(18,25,22,.45), 0 0 0 1px rgba(255,255,255,.4) inset;
+  max-height:min(82vh, 860px);overflow:auto;
+  padding:28px 28px 24px;
+}
+.bubble-panel::before{
+  content:"";position:absolute;left:48px;top:-10px;width:22px;height:22px;
+  background:rgba(255,255,255,.94);border-left:1px solid rgba(213,224,218,.95);
+  border-top:1px solid rgba(213,224,218,.95);
+  transform:rotate(45deg);border-radius:4px;
+}
+.bubble-close{
+  position:sticky;top:0;float:right;z-index:2;
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--border);
+  background:#fff;cursor:pointer;font-size:18px;line-height:1;color:var(--text-dim);
+  display:inline-flex;align-items:center;justify-content:center;
+  margin:-4px -4px 8px 8px;
+  transition:background .2s ease, color .2s ease;
+}
+.bubble-close:hover{background:var(--accent-soft);color:var(--accent-ink);}
+.bubble-body{clear:both;}
+.bubble-body .ptype{margin-bottom:8px;}
+.bubble-body h3{font-size:clamp(24px,3vw,32px);margin-bottom:6px;}
+.bubble-body .project-meta{margin-bottom:12px;color:var(--text-faint);font-family:'JetBrains Mono',monospace;font-size:12px;}
+.bubble-body > p{font-size:15px;}
+.project-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:4px;}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);background:#fff;border:1px solid var(--border);padding:5px 10px;border-radius:999px;}
+blockquote{margin:0 0 18px;padding:16px 18px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 16px 16px 0;font-style:italic;color:var(--text);font-size:15px;}
+.gdd-table{width:100%;border-collapse:collapse;margin:12px 0 16px;font-size:13.5px;}
+.gdd-table th,.gdd-table td{border:1px solid var(--border);padding:9px 11px;text-align:left;}
+.gdd-table th{background:var(--surface-2);font-family:'Syne',sans-serif;}
+.shot-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:8px;}
+.shot-item{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff;}
+.shot-item img{width:100%;height:120px;object-fit:cover;object-position:top;}
+.shot-item figcaption{padding:9px 11px;font-size:12px;color:var(--text-dim);margin:0;line-height:1.4;}
+.legend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 14px;margin-bottom:14px;}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-dim);}
+.legend-swatch{width:14px;height:14px;border-radius:4px;flex:none;}
+.diagram-embed{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff;min-height:420px;}
+.pdf-viewer{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:#fff;}
+.pdf-viewer-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);}
+.pdf-viewer-bar strong{font-family:'Syne',sans-serif;font-size:13.5px;}
+.pdf-viewer-stage{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 10px;min-height:420px;background:var(--bg);}
+.pdf-page-wrap{position:relative;max-width:min(560px,100%);width:100%;border-radius:8px;overflow:hidden;box-shadow:var(--shadow);background:#fff;transition:transform .14s ease,opacity .14s ease;}
+.pdf-page-wrap.is-flipping-next{transform:translateX(-10px);opacity:.35;}
+.pdf-page-wrap.is-flipping-prev{transform:translateX(10px);opacity:.35;}
+.pdf-page-wrap img{width:100%;height:auto;}
+.pdf-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);color:var(--text-dim);font-size:14px;}
+.pdf-arrow{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:#fff;font-size:18px;cursor:pointer;flex:none;}
+.pdf-arrow:hover:not(:disabled){border-color:var(--accent);color:var(--accent-ink);}
+.pdf-arrow:disabled{opacity:.35;cursor:default;}
+.pdf-viewer-footer{padding:10px 16px;border-top:1px solid var(--border);text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-faint);}
+.bubble-panel .detail-block{display:none;}
+.bubble-panel .detail-block.is-active{display:block;}
+body.bubble-open{overflow:hidden;}
 
-  /* ---------- PORTFOLIO / TABS ---------- */
-  .tabs-nav{
-    display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:40px;
-    overflow-x:auto;
-  }
-  .tab-btn{
-    background:none;border:none;color:var(--text-dim);font-family:'Inter',sans-serif;
-    font-size:14.5px;font-weight:600;padding:14px 20px;cursor:pointer;position:relative;
-    white-space:nowrap;transition:color .2s ease;
-  }
-  .tab-btn:hover{color:var(--text);}
-  .tab-btn.active{color:var(--accent);}
-  .tab-btn.active::after{
-    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);
-  }
-  .tab-panel{display:none;animation:fadeIn .35s ease;}
-  .tab-panel.active{display:block;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@media (max-width:880px){
+  .trail{height:560vh;}
+  .trail-head{padding:12px 20px 16px;top:11vh;}
+  .char-plate em{font-size:8.5px;}
+  .char-plate strong{font-size:13px;}
+  .trail-dialog{width:min(360px, calc(100vw - 24px));}
+  .trail-dialog-inner{gap:12px;padding:12px 13px;}
+  .td-cover img{width:84px;height:84px;}
+  .td-text h3{font-size:17px;}
+  .td-line{font-size:11.5px;min-height:72px;}
+  .project-bubble{width:calc(100vw - 20px);}
+  .bubble-panel{padding:20px 16px;border-radius:22px;}
+  .bubble-panel::before{left:28px;}
+  .legend-grid{grid-template-columns:1fr;}
+}
 
-  .panel-head{max-width:760px;margin-bottom:32px;}
-  .panel-head h3{font-size:24px;}
-  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;}
-  .tag{
-    font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-dim);
-    background:var(--surface-2);border:1px solid var(--border);padding:4px 10px;border-radius:6px;
-  }
+.about,.experience,.skills{padding:88px 0;position:relative;}
+.about{
+  background:
+    radial-gradient(ellipse 40% 50% at 0% 50%, rgba(184,224,210,.35), transparent 60%),
+    var(--bg);
+}
+.experience{
+  background:
+    radial-gradient(ellipse 45% 40% at 100% 20%, rgba(232,160,122,.18), transparent 55%),
+    var(--bg-alt);
+}
+.skills{background:var(--bg);}
+.focus-list{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px;margin-top:20px;}
+.focus-item{padding:16px 0;border-top:1px solid var(--border);}
+.focus-item h3{font-size:17px;margin-bottom:6px;}
+.focus-item p{font-size:14.5px;margin:0;}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.skill{padding:24px;border:1px solid var(--border);border-radius:22px;background:rgba(255,255,255,.8);box-shadow:var(--shadow-soft);}
+.skill h3{font-size:16px;margin-bottom:8px;}
+.skill p{font-size:14px;margin:0;}
 
-  .pdf-viewer{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    overflow:hidden;margin-top:24px;
-  }
-  .pdf-viewer-bar{
-    display:flex;align-items:center;justify-content:space-between;padding:14px 20px;
-    border-bottom:1px solid var(--border);background:var(--surface-2);
-  }
-  .pdf-viewer-bar strong{font-size:13.5px;color:var(--text);}
-  .pdf-viewer-stage{
-    display:flex;align-items:center;justify-content:center;gap:18px;
-    padding:36px 16px;min-height:560px;position:relative;
-    background:
-      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(245,166,35,.07), transparent 65%),
-      var(--bg-alt);
-    touch-action:pan-y;
-    user-select:none;
-  }
-  .pdf-page-wrap{
-    position:relative;background:#fff;border-radius:5px;overflow:hidden;
-    box-shadow:0 30px 70px -25px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.06);
-    max-width:100%;
-    transition:opacity .22s ease, transform .22s ease;
-  }
-  .pdf-page-wrap.is-flipping-next{opacity:0;transform:translateX(-14px) scale(.985);}
-  .pdf-page-wrap.is-flipping-prev{opacity:0;transform:translateX(14px) scale(.985);}
-  .pdf-page-wrap img{display:block;width:auto;height:auto;max-width:100%;max-height:70vh;}
-  .pdf-loading{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    color:var(--text-faint);font-size:13px;font-family:'JetBrains Mono',monospace;background:#fff;
-  }
-  .pdf-arrow{
-    flex:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--border);
-    background:var(--surface);color:var(--text);font-size:22px;line-height:1;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    transition:border-color .2s ease, color .2s ease, opacity .2s ease, transform .15s ease;
-  }
-  .pdf-arrow:hover:not(:disabled){border-color:var(--accent);color:var(--accent);transform:translateY(-1px);}
-  .pdf-arrow:disabled{opacity:.25;cursor:default;}
-  .pdf-viewer-footer{
-    display:flex;align-items:center;justify-content:center;padding:14px;
-    border-top:1px solid var(--border);background:var(--surface-2);
-    font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--text-dim);letter-spacing:.03em;
-  }
+.exp-block{margin-bottom:48px;}
+.exp-block > h3,.exp-block-head > h3{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-faint);font-family:'JetBrains Mono',monospace;font-weight:500;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.exp-block-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:0;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.exp-block-head > h3{margin:0;padding:0;border:none;}
+.exp-teaser{font-size:14.5px;margin:16px 0 0;}
+.exp-toggle{flex:none;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--text-dim);font-size:12px;font-family:'JetBrains Mono',monospace;cursor:pointer;}
+.exp-toggle:hover{border-color:var(--accent);color:var(--accent-ink);}
+.exp-toggle .exp-toggle-icon{transition:transform .25s ease;font-size:10px;}
+.exp-toggle[aria-expanded="true"] .exp-toggle-icon{transform:rotate(180deg);}
+.exp-collapsible{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s ease,opacity .3s ease,margin-top .3s ease;}
+.exp-collapsible.is-open{max-height:4000px;opacity:1;margin-top:8px;}
+.exp-item{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--border);}
+.exp-item:last-child{border-bottom:none;}
+.exp-date{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-faint);}
+.exp-role h4{font-size:17px;margin-bottom:2px;}
+.exp-org{color:var(--accent-ink);font-size:14px;font-weight:600;display:block;margin-bottom:12px;}
+.exp-role li{position:relative;padding-left:16px;font-size:14.5px;color:var(--text-dim);margin-bottom:8px;}
+.exp-role li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.edu-grid .card,.mini-grid .card{padding:20px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.85);}
+.edu-grid h3,.mini-grid h3{font-size:15px;margin-bottom:6px;}
+.edu-grid p,.mini-grid p{font-size:13.5px;margin:0;}
+.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;}
 
-  .diagram-embed{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:20px;margin-top:24px;
-  }
-  .mxgraph{max-width:100%;}
+.contact-section{
+  background:
+    radial-gradient(ellipse 50% 60% at 85% 20%,rgba(26,154,134,.18),transparent 55%),
+    radial-gradient(ellipse 35% 40% at 10% 80%,rgba(232,160,122,.12),transparent 50%),
+    var(--ink);
+  padding:96px 0;color:#fff;position:relative;
+}
+.contact-section .section-tag{background:rgba(26,154,134,.22);color:#9fe8df;border-color:rgba(159,232,223,.28);}
+.contact-section h2{color:#fff;font-size:clamp(28px,4vw,40px);}
+.contact-section p{color:rgba(255,255,255,.7);}
+.contact-section .btn-primary{background:#fff;color:var(--ink);}
+.contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;}
+.contact-links{display:flex;flex-direction:column;gap:10px;}
+.contact-link{display:flex;align-items:center;gap:14px;padding:15px 16px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;}
+.contact-link:hover{background:rgba(255,255,255,.1);text-decoration:none;transform:translateX(3px);}
+.contact-link .ico{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(26,154,134,.25);color:#9fe8df;font-weight:700;flex:none;}
+.contact-link span{display:flex;flex-direction:column;gap:2px;font-weight:600;font-size:14.5px;}
+.contact-link small{font-weight:500;font-size:12px;color:rgba(255,255,255,.5);}
+footer{background:var(--ink);padding:20px 0;border-top:1px solid rgba(255,255,255,.08);}
+.footer-inner{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+footer p{margin:0;font-size:13px;color:rgba(255,255,255,.5);}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{color:rgba(255,255,255,.7);font-size:13px;font-weight:600;}
+.footer-links a:hover{color:var(--accent);}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.is-visible{opacity:1;transform:none;}
 
-  .legend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
-  .legend-item{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--text-dim);}
-  .legend-swatch{width:14px;height:14px;border-radius:4px;flex:none;}
+@media (max-width:880px){
+  nav.nav-links{display:none;}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;}
+  .focus-list,.skills-grid,.edu-grid,.mini-grid,.contact-grid{grid-template-columns:1fr;}
+  .exp-item{grid-template-columns:1fr;gap:6px;}
+  .pdf-viewer-stage{min-height:400px;padding:16px 6px;}
+  .pdf-arrow{width:34px;height:34px;}
+  .hero{padding:96px 0 64px;}
+}
 
-  .mech-card{margin-bottom:28px;}
-  .mech-card:last-child{margin-bottom:0;}
-  .mech-card-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
-  .mech-card-head h4{font-size:19px;margin:0;}
-  .status-pill{
-    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;
-    padding:4px 10px;border-radius:999px;border:1px solid;text-transform:uppercase;
-  }
-  .status-pill.ready{color:var(--green);border-color:rgba(127,191,106,.4);background:rgba(127,191,106,.08);}
-  .status-pill.proto{color:var(--blue);border-color:rgba(108,155,209,.4);background:rgba(108,155,209,.08);}
-
-  table.gdd-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;}
-  table.gdd-table th, table.gdd-table td{
-    border:1px solid var(--border);padding:9px 12px;text-align:left;color:var(--text-dim);
-  }
-  table.gdd-table th{color:var(--text);background:var(--surface-2);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.03em;}
-  table.gdd-table td:last-child, table.gdd-table th:last-child{color:var(--text);}
-
-  blockquote{
-    margin:18px 0;padding:16px 20px;border-left:3px solid var(--accent);
-    background:var(--surface-2);border-radius:0 8px 8px 0;font-style:italic;color:var(--text-dim);font-size:14.5px;
-  }
-
-  .proto-card{
-    display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:var(--radius);
-    overflow:hidden;background:var(--surface);margin-bottom:24px;
-  }
-  .proto-card:last-child{margin-bottom:0;}
-  .proto-visual{
-    background:linear-gradient(135deg, var(--surface-2), var(--bg-alt));
-    display:flex;align-items:center;justify-content:center;min-height:220px;
-    border-right:1px solid var(--border);overflow:hidden;
-  }
-  .proto-visual img{width:100%;height:100%;object-fit:cover;display:block;}
-  .proto-body{padding:30px;}
-  .proto-body h4{font-size:20px;margin-bottom:8px;}
-
-  .repo-card{
-    border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
-    padding:22px;display:flex;flex-direction:column;gap:10px;
-  }
-  .repo-card-top{display:flex;align-items:center;justify-content:space-between;}
-  .repo-card h4{font-size:16px;margin:0;}
-  .repo-links{display:flex;gap:14px;font-size:13px;margin-top:6px;}
-
-  .shot-gallery{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:20px;
-  }
-  .shot-item{
-    border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface-2);
-  }
-  .shot-item img{display:block;width:100%;height:150px;object-fit:cover;object-position:top;}
-  .shot-item figcaption{
-    padding:10px 12px;font-size:12px;line-height:1.4;color:var(--text-dim);margin:0;
-  }
-
-  /* ---------- CONTACT / FOOTER ---------- */
-  .contact-section{
-    background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  }
-  .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;}
-  .contact-links{display:flex;flex-direction:column;gap:16px;margin-top:24px;}
-  .contact-link{
-    display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--surface);
-    border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:14.5px;font-weight:500;
-  }
-  .contact-link:hover{border-color:var(--accent);text-decoration:none;}
-  .contact-link .ico{color:var(--accent);font-size:17px;}
-  .contact-link small{display:block;color:var(--text-faint);font-weight:400;font-size:12.5px;margin-top:2px;}
-
-  footer{padding:34px 0;}
-  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
-  .footer-inner p{margin:0;font-size:13px;color:var(--text-faint);}
-  .footer-links{display:flex;gap:20px;}
-  .footer-links a{font-size:13px;color:var(--text-faint);}
-  .footer-links a:hover{color:var(--accent);}
-
-  @media (max-width: 880px){
-    nav.nav-links{display:none;}
-    .nav-toggle{display:block;}
-    .hero-grid{grid-template-columns:1fr;}
-    .grid-3{grid-template-columns:repeat(2,1fr);}
-    .grid-2{grid-template-columns:1fr;}
-    .exp-item{grid-template-columns:1fr;gap:8px;}
-    .edu-grid{grid-template-columns:1fr;}
-    .legend-grid{grid-template-columns:1fr 1fr;}
-    .proto-card{grid-template-columns:1fr;}
-    .proto-visual{border-right:none;border-bottom:1px solid var(--border);}
-    .contact-grid{grid-template-columns:1fr;}
-  }
-  @media (max-width: 560px){
-    .grid-3{grid-template-columns:1fr;}
-    section{padding:64px 0;}
-    .legend-grid{grid-template-columns:1fr;}
-    .pdf-viewer-stage{padding:20px 8px;gap:8px;min-height:420px;}
-    .pdf-arrow{width:36px;height:36px;font-size:18px;}
-  }
 </style>
 </head>
 <body>
-
 <header class="site-nav">
   <div class="nav-inner">
     <a href="#top" class="logo">Petr Gorskin<span>.</span></a>
     <nav class="nav-links" id="navLinks">
-      <a href="#experience">Experience</a>
-      <a href="#portfolio">Portfolio</a>
+      <a href="#projects">Projects</a>
       <a href="#about">About</a>
-      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-cta">
@@ -408,63 +472,261 @@
 </header>
 
 <main id="top">
-
-  <!-- ============ HERO ============ -->
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">Game Designer &mdash; Systems &middot; Prototyping &middot; Level Design</span>
-        <h1>Petr Gorskin</h1>
-        <p class="role">Turning vague feature ideas into structured, testable, iterative game systems.</p>
-        <p class="desc">Game Designer transitioning from 6+ years in QA/SDET leadership. Hands-on with Unreal Engine 4/5 and Unity through gameplay prototypes, graybox levels, and AI-assisted prototyping. Deep interest in story-driven RPGs, systemic gameplay, and level flow.</p>
-        <div class="hero-meta">
-          <span><i class="dot"></i> Open to relocation &mdash; anywhere in the world</span>
-          <span>&#9993; <a href="mailto:errorbest@gmail.com">errorbest@gmail.com</a></span>
-          <span>&#9742; +7 985 249-10-52</span>
-        </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="assets/cv/Petr-Gorskin-Game-Designer-CV.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
-          <a class="btn btn-ghost" href="#portfolio">View Portfolio</a>
-          <a class="btn btn-ghost" href="https://github.com/KinesisTrap" target="_blank" rel="noopener">GitHub &#8599;</a>
-        </div>
+    <div class="hero-blob a" aria-hidden="true"></div>
+    <div class="hero-blob b" aria-hidden="true"></div>
+    <div class="hero-blob c" aria-hidden="true"></div>
+    <div class="wrap">
+      <h1>Petr Gorskin</h1>
+      <p class="role">Game Designer</p>
+      <p class="desc">Hi — I design systems, prototypes, and levels with a focus on clear player decisions and testable rules. Background in QA/SDET leadership; hands-on with Unreal Engine 4/5 and Unity.</p>
+      <div class="hero-meta">
+        <span><i class="dot"></i>Open to relocation — worldwide</span>
+        <span><a href="mailto:errorbest@gmail.com">errorbest@gmail.com</a></span>
       </div>
-      <div class="hero-card">
-        <h3>Snapshot</h3>
-        <div class="hero-stat"><span>Current focus</span><b>Game Design &amp; Prototyping</b></div>
-        <div class="hero-stat"><span>Background</span><b>QA / SDET Leadership, 6+ yrs</b></div>
-        <div class="hero-stat"><span>Engines</span><b>Unreal Engine 4/5, Unity</b></div>
-        <div class="hero-stat"><span>Languages</span><b>Russian (native), English (B2)</b></div>
-        <div class="hero-stat"><span>Education</span><b>MPEI &middot; MSc, IT &amp; CS</b></div>
+      <a class="hero-scroll" href="#projects">Scroll to projects <span class="chev">&#8595;</span></a>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <div class="trail" id="trailScene">
+      <div class="trail-stage" id="trailStage">
+        <canvas class="trail-canvas" id="trailCanvas" aria-hidden="true"></canvas>
+        <div class="trail-fog" aria-hidden="true"></div>
+        <button type="button" class="trail-char" data-size="60" data-open="project-arcane"
+          data-cover="assets/prototypes/arcane-duel-cover.jpg"
+          data-type="Playable Prototype" data-title="Arcane Duel"
+          data-line="Two archmages, two resources, one duel. I built a deck-building CCG where tempo fights investment — playable right in your browser.">
+          <img src="assets/characters/char-arcane-duel-cut.png" alt="Arcane Duel — playable prototype">
+          <span class="char-plate"><em>Playable Prototype</em><strong>Arcane Duel</strong></span>
+        </button>
+        <button type="button" class="trail-char" data-size="55" data-open="project-lockpick"
+          data-cover="assets/prototypes/lockpick-preview.png"
+          data-type="Systems Prototype" data-title="Lockpick Mechanic"
+          data-line="Shhh... every failed pick raises the Noise. Pin dice, pressure, and Monte Carlo balance — a tension system you can playtest today.">
+          <img src="assets/characters/char-lockpick-cut.png" alt="Lockpick Mechanic — systems prototype">
+          <span class="char-plate"><em>Systems Prototype</em><strong>Lockpick Mechanic</strong></span>
+        </button>
+        <button type="button" class="trail-char" data-size="38" data-open="project-badbot"
+          data-cover="assets/ue5-badbot/bad-bot-cover.jpg"
+          data-type="Unreal Engine 5" data-title="BadBotGame"
+          data-line="Beep! I am made of MetaSound, Niagara VFX, materials, Blueprints and Nanite sockets. A UE5 combat slice, wired end to end.">
+          <img src="assets/characters/char-badbot-cut.png" alt="BadBotGame — Unreal Engine 5">
+          <span class="char-plate"><em>Unreal Engine 5</em><strong>BadBotGame</strong></span>
+        </button>
+        <button type="button" class="trail-char" data-size="56" data-open="project-narrative"
+          data-cover="assets/narrative/pages/page-01.jpg"
+          data-type="Narrative Design" data-title="Flinn Farm Chapter"
+          data-line="Welcome to the farm, traveler. Seventeen pages of branching story — time-of-day gates, story cards, and consequences that follow you.">
+          <img src="assets/characters/char-narrative-cut.png" alt="Flinn Farm Chapter — narrative design">
+          <span class="char-plate"><em>Narrative Design</em><strong>Flinn Farm Chapter</strong></span>
+        </button>
+        <button type="button" class="trail-char" data-size="57" data-open="project-level"
+          data-cover="assets/leveldesign/flinn-family-route-preview.jpg"
+          data-type="Level &amp; Quest Design" data-title="Flinn Family Route"
+          data-line="Every path is mapped. A full quest flowchart across two locations — branches, checks, and story cards that never gate by accident.">
+          <img src="assets/characters/char-leveldesign-cut.png" alt="Flinn Family Route — level and quest design">
+          <span class="char-plate"><em>Level &amp; Quest Design</em><strong>Flinn Family Route</strong></span>
+        </button>
+        <button type="button" class="trail-char" data-size="58" data-open="project-social"
+          data-cover="assets/narrative/pages/page-08.jpg"
+          data-type="Game Mechanics" data-title="Social Encounter"
+          data-line="Words are my weapon. A diplomacy deck against personality-driven defenses — push Influence to the goal before Tension snaps.">
+          <img src="assets/characters/char-social-cut.png" alt="Social Encounter — game mechanics">
+          <span class="char-plate"><em>Game Mechanics</em><strong>Social Encounter</strong></span>
+        </button>
+        <div class="trail-fade-top" aria-hidden="true"></div>
+        <div class="trail-fade-in" id="trailFadeIn" aria-hidden="true"></div>
+        <div class="trail-fade-bottom" id="trailFadeBottom" aria-hidden="true"></div>
+        <div class="trail-head" id="trailHead">
+          <span class="section-tag">Projects</span>
+          <h2>Walk the trail</h2>
+          <p>Six projects wait along the road. Keep scrolling — every character you pass tells its own story.</p>
+        </div>
+        <div class="trail-hint" id="trailHint">Scroll to walk <span>&#8595;</span></div>
+        <div class="trail-dialog" id="trailDialog" role="status" aria-live="polite">
+          <div class="trail-dialog-inner">
+            <div class="td-cover"><img id="tdCover" src="" alt=""></div>
+            <div class="td-text">
+              <span class="td-type" id="tdType"></span>
+              <h3 id="tdTitle"></h3>
+              <p class="td-line"><span id="tdLine"></span><span class="td-caret" id="tdCaret"></span></p>
+              <span class="td-hint">Click to open <span class="td-arrow">&#9662;</span></span>
+            </div>
+          </div>
+          <div class="td-tail" id="tdTail"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ EXPERIENCE ============ -->
-  <section id="experience" style="background:var(--bg-alt);border-bottom:1px solid var(--border);">
+  <div class="bubble-backdrop" id="bubbleBackdrop" hidden></div>
+  <div class="project-bubble" id="projectBubble" role="dialog" aria-modal="true" aria-labelledby="bubbleTitle" hidden>
+    <div class="bubble-panel">
+      <button type="button" class="bubble-close" id="bubbleClose" aria-label="Close">&#10005;</button>
+      <div class="bubble-body" id="bubbleBody">
+        <div class="detail-block" id="detail-project-arcane" data-project="project-arcane">
+          <span class="ptype">Playable Prototype</span>
+          <h3>Arcane Duel</h3>
+          <div class="project-meta">Deckbuilding × CCG · TypeScript / React</div>
+          <p>A fast, decision-dense duel: two archmages channel Arcane Power into spells and creatures.</p>
+          <div class="tag-row"><span class="tag">Two resources</span><span class="tag">Fire vs Water</span><span class="tag">10–15 min</span><span class="tag">vs AI</span></div>
+          <p>Per-turn Arcane vs bankable Essence creates tempo-vs-investment tension. Cards in hand are free to play; resources buy new cards into the deck. Combat is automatic and deterministic.</p>
+          <p style="margin-bottom:14px;">Shipped as a playable vertical slice with a data-driven TypeScript rules core decoupled from React/Vite presentation.</p>
+          <div class="project-actions">
+            <a class="btn btn-primary btn-sm" href="https://kinesistrap.github.io/arcane-duel-game-prototype/" target="_blank" rel="noopener">Play Now &#8599;</a>
+            <a class="btn btn-ghost btn-sm" href="https://github.com/KinesisTrap/arcane-duel-game-prototype" target="_blank" rel="noopener">Source &#8599;</a>
+          </div>
+        </div>
+        <div class="detail-block" id="detail-project-lockpick" data-project="project-lockpick">
+          <span class="ptype">Systems Prototype</span>
+          <h3>Lockpick Mechanic</h3>
+          <div class="project-meta">Pin-based · Monte Carlo balanced</div>
+          <p>Tension-driven lockpicking with modifier dice and Scene Noise.</p>
+          <div class="tag-row"><span class="tag">Playtest Ready</span><span class="tag">Noise &amp; Pressure</span><span class="tag">Skill investment</span></div>
+          <p><strong>Core loop:</strong> each lock is a set of colored D6 pins with a revealed target. Matching fixes a pin; unresolved dice re-roll with Modifier Dice from skill.</p>
+          <table class="gdd-table"><tr><th>Difficulty</th><th>Pins</th><th>Noise Threshold</th></tr>
+          <tr><td>Easy</td><td>3</td><td>2–3</td></tr><tr><td>Medium</td><td>4</td><td>2</td></tr><tr><td>Hard</td><td>5</td><td>1–2</td></tr></table>
+          <p style="margin-bottom:14px;">Failed attempts accumulate Lock Pressure; past the threshold it becomes Scene Noise — without blocking progress. Balanced with Monte Carlo simulations.</p>
+          <div class="project-actions">
+            <a class="btn btn-primary btn-sm" href="https://kinesistrap.github.io/lockpick-mechanic-prototype/" target="_blank" rel="noopener">Play Now &#8599;</a>
+            <a class="btn btn-ghost btn-sm" href="https://github.com/KinesisTrap/lockpick-mechanic-prototype" target="_blank" rel="noopener">Source &#8599;</a>
+          </div>
+        </div>
+        <div class="detail-block" id="detail-project-badbot" data-project="project-badbot">
+          <span class="ptype">Unreal Engine 5</span>
+          <h3>BadBotGame</h3>
+          <div class="project-meta">MetaSound · Niagara · Blueprints</div>
+          <p>Bot-enemy combat vertical slice across audio, VFX, materials, and AI.</p>
+          <div class="tag-row"><span class="tag">MetaSound</span><span class="tag">Niagara VFX</span><span class="tag">Materials</span><span class="tag">Blueprints</span><span class="tag">Nanite &amp; Sockets</span></div>
+          <div class="shot-gallery">
+            <figure class="shot-item"><img src="assets/ue5-badbot/metasound-energy-rifle.png" alt="MetaSound" loading="lazy"><figcaption>SFX_EnergyRifle MetaSound — randomized wave selection and pitch variation.</figcaption></figure>
+            <figure class="shot-item"><img src="assets/ue5-badbot/niagara-beam-burst.png" alt="Niagara" loading="lazy"><figcaption>NS_BeamBurst Niagara — synced OmnidirectionalBurst emitters.</figcaption></figure>
+            <figure class="shot-item"><img src="assets/ue5-badbot/material-blaster-beam.png" alt="Material" loading="lazy"><figcaption>M_BlasterBeam — driven emissive for beam glow.</figcaption></figure>
+            <figure class="shot-item"><img src="assets/ue5-badbot/blueprint-spawn-blaster-beam.png" alt="Blueprint" loading="lazy"><figcaption>BP_Bot SpawnBlasterBeam — targeting, rotation, spawn.</figcaption></figure>
+            <figure class="shot-item"><img src="assets/ue5-badbot/material-drone.png" alt="Drone material" loading="lazy"><figcaption>M_Drone — base color, normal, ORM texture samples.</figcaption></figure>
+            <figure class="shot-item"><img src="assets/ue5-badbot/mesh-sockets-nanite.png" alt="Sockets" loading="lazy"><figcaption>Nanite drone mesh with Rifle_L / Rifle_R sockets.</figcaption></figure>
+          </div>
+        </div>
+        <div class="detail-block" id="detail-project-narrative" data-project="project-narrative">
+          <span class="ptype">Narrative Design</span>
+          <h3>Flinn Farm Chapter</h3>
+          <div class="project-meta">17-page branching location</div>
+          <p>Time-of-day gates, story cards, and consequence-driven NPC dialogue.</p>
+          <div class="tag-row"><span class="tag">Branching Narrative</span><span class="tag">Story Cards</span><span class="tag">NPC Chains</span></div>
+          <blockquote>“The trail from Red Creek thins to packed earth and hoof-churned mud. By the time you reach the fence line, the sun has slipped behind the ridge…”</blockquote>
+          <ul style="margin:0 0 16px;">
+            <li style="padding-left:16px;margin-bottom:8px;font-size:14.5px;color:var(--text-dim);">• Four time-of-day branches gating content and NPC availability.</li>
+            <li style="padding-left:16px;margin-bottom:8px;font-size:14.5px;color:var(--text-dim);">• Persistent story-card flags carrying consequences across visits.</li>
+            <li style="padding-left:16px;margin-bottom:8px;font-size:14.5px;color:var(--text-dim);">• Integration with Lockpicking and Social Encounter as diegetic obstacles.</li>
+          </ul>
+          <div class="pdf-viewer" id="narrativePdfViewer" data-pages-base="assets/narrative/pages/" data-total-pages="17">
+            <div class="pdf-viewer-bar">
+              <strong>Flinn Farm — Location Chapter.pdf</strong>
+              <a class="btn btn-ghost btn-sm" href="assets/narrative/Flinn-Farm-Location-Chapter.pdf" target="_blank" rel="noopener">Open / Download &#8599;</a>
+            </div>
+            <div class="pdf-viewer-stage">
+              <button class="pdf-arrow pdf-arrow-prev" id="pdfPrevBtn" aria-label="Previous page" disabled>&#8249;</button>
+              <div class="pdf-page-wrap" id="pdfPageWrap">
+                <img id="pdfPageImage" alt="Flinn Farm page" />
+                <div class="pdf-loading" id="pdfLoading">Loading pages&hellip;</div>
+              </div>
+              <button class="pdf-arrow pdf-arrow-next" id="pdfNextBtn" aria-label="Next page" disabled>&#8250;</button>
+            </div>
+            <div class="pdf-viewer-footer"><span id="pdfPageIndicator">&nbsp;</span></div>
+          </div>
+        </div>
+        <div class="detail-block" id="detail-project-level" data-project="project-level">
+          <span class="ptype">Level & Quest Design</span>
+          <h3>Flinn Family Route</h3>
+          <div class="project-meta">Quest flowchart · draw.io</div>
+          <p>Branching quest flow across cemetery and farm locations.</p>
+          <div class="tag-row"><span class="tag">Quest Flow</span><span class="tag">Branch Mapping</span><span class="tag">draw.io</span></div>
+          <div class="legend-grid">
+            <div class="legend-item"><span class="legend-swatch" style="background:#b0e3e6;border:1px solid #0e8088;"></span> Location entry</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#dae8fc;border:1px solid #6c8ebf;"></span> Encounter step</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#e1d5e7;border:1px solid #9673a6;"></span> Social Encounter</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#fff2cc;border:1px solid #d6b656;"></span> Condition check</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#ffe6cc;border:1px solid #d79b00;"></span> Story card granted</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#d5e8d4;border:1px solid #82b366;"></span> Quest result</div>
+          </div>
+          <p style="font-size:13px;"><strong>Rule:</strong> cards never gate the next step by arrow — only diamond checks do.</p>
+          <div class="diagram-embed"><div class="mxgraph" id="levelDesignDiagram" style="max-width:100%;border:none;"></div></div>
+          <p style="font-size:12.5px;margin-top:12px;margin-bottom:0;">
+            <a href="assets/leveldesign/01-1-Flinn-Family-Route.drawio" target="_blank" rel="noopener">Download .drawio &#8599;</a>
+            · Scroll / drag to pan; zoom in the bottom-right.
+          </p>
+        </div>
+        <div class="detail-block" id="detail-project-social" data-project="project-social">
+          <span class="ptype">Game Mechanics</span>
+          <h3>Social Encounter</h3>
+          <div class="project-meta">Diplomacy deck · design draft</div>
+          <p>Personality-driven defenses, Influence, and Tension tracks.</p>
+          <div class="tag-row"><span class="tag">Design Draft</span><span class="tag">Influence / Tension</span><span class="tag">Personality-driven</span></div>
+          <blockquote>The NPC presents social defenses based on personality. Players respond from their Diplomacy Deck before Tension hits the limit.</blockquote>
+          <p>Character Profiles from three trait pairs assemble a 15-card Defense Deck. Players use six Diplomacy Types — Seal, Blade, Heart, Mask, Coin, Freedom.</p>
+          <table class="gdd-table"><tr><th>Track</th><th>Range</th><th>Effect</th></tr>
+          <tr><td>Influence</td><td>-2 to 10</td><td>Progress toward the goal</td></tr>
+          <tr><td>Tension</td><td>0 to 10</td><td>Limit fails the encounter</td></tr></table>
+          <p style="margin:0;font-size:13.5px;">Personality drives defense style — Lawful NPCs escalate Tension formally; Outlaw NPCs disrupt structure and reduce Influence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="about" class="about reveal">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-tag">About</span>
+        <h2>How I design</h2>
+        <p>Strong at turning vague feature ideas into structured, documented, testable, and iterative systems — mechanics, rules, player flows, feedback loops, risk/reward, balance, and quality criteria.</p>
+      </div>
+      <div class="focus-list">
+        <div class="focus-item"><h3>Systems Design</h3><p>Mechanics, resources, constraints, choices, failure states, and how rules create player behavior.</p></div>
+        <div class="focus-item"><h3>Level Design</h3><p>Grayboxing, spatial readability, arena flow, pacing, interaction placement, and iteration after playability checks.</p></div>
+        <div class="focus-item"><h3>Player Experience</h3><p>Emotional impact, clarity, friction, feedback, tension, reward moments, learning curves, and fun as a practical goal.</p></div>
+        <div class="focus-item"><h3>Design-to-QA Mindset</h3><p>Writing mechanics so they can be implemented, tested, tuned, debugged, and improved through playtest feedback.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="skills reveal">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-tag">Skills</span>
+        <h2>What I bring</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill"><h3>Game Design</h3><p>Mechanics, systems design, player experience, feedback loops, progression, difficulty curves, playtesting mindset.</p></div>
+        <div class="skill"><h3>Prototyping</h3><p>Gameplay prototypes, rapid iteration, grayboxing, proof-of-concept features, AI-assisted prototyping.</p></div>
+        <div class="skill"><h3>Level Design</h3><p>Graybox levels, level flow, player pathing, encounter spaces, readable layouts, pacing.</p></div>
+        <div class="skill"><h3>Engines &amp; Tools</h3><p>Unreal Engine 4/5, Unity, Blueprints, Niagara, MetaSound, Warcraft III World Editor, Jira, Confluence, Git.</p></div>
+        <div class="skill"><h3>Documentation</h3><p>Pitch docs, GDD-style specs, subsystem briefs, QA-friendly requirements, clear implementation handoff.</p></div>
+        <div class="skill"><h3>Technical &amp; QA</h3><p>Test design, risk analysis, Monte Carlo balancing, Java/Python scripting, CI/CD, debugging-oriented thinking.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="experience reveal">
     <div class="wrap">
       <div class="section-head">
         <span class="section-tag">Experience</span>
-        <h2>Where the design work happens</h2>
+        <h2>Background</h2>
       </div>
 
       <div class="exp-block">
         <h3>Game Design Experience</h3>
         <div class="exp-item">
-          <div class="exp-date">May 2026 &mdash; Present</div>
+          <div class="exp-date">May 2026 — Present</div>
           <div class="exp-role">
             <h4>Independent Game Design &amp; Development Practice</h4>
-            <span class="exp-org">Self-directed / LinkedIn devlog &mdash; Remote</span>
+            <span class="exp-org">Self-directed / LinkedIn devlog — Remote</span>
             <ul>
-              <li>Run a public LinkedIn devlog about moving into game development, documenting Unreal learning, prototype breakdowns, design decisions, playability issues, QA observations, and iteration takeaways.</li>
-              <li>Create gameplay prototypes and level experiments in Unreal Engine 4/5 and Unity, including graybox levels, editor workflows, gameplay triggers, Actor spawning, Blueprint/function logic, spawn points, and feedback messages.</li>
-              <li>Built <a href="https://github.com/KinesisTrap/BadBotGame" target="_blank" rel="noopener">BadBotGame</a>, a bot-enemy combat project in Unreal Engine 5 covering procedural weapon audio in MetaSound, Niagara VFX systems, custom material graphs, Blueprint gameplay/AI logic, and socket-driven weapon attachment on a Nanite-enabled mesh.</li>
-              <li>Practice prototyping and level design through closed arenas, simple combat/collection loops, bot behavior experiments, player pathing, level readability, pacing, and moment-to-moment interaction flow.</li>
-              <li>Design and document game mechanics and subsystems for board game and digital game prototypes, including rules, resources, constraints, player actions, failure states, difficulty tuning, and implementation notes.</li>
-              <li>Iterated a deck-driven diplomacy/dialogue concept with NPC personality traits, resistance/defense cards, player action decks, tension/influence resources, and social lockpicking style decision-making.</li>
-              <li>Designed and balanced a lockpicking subsystem using Monte Carlo simulations to validate difficulty curves, average attempts, noise/risk, skill impact, and edge cases.</li>
-              <li>Created game concepts, pitch documents, GDD-style documentation, and subsystem descriptions with a focus on clear design intent, readable specs, and QA-friendly validation criteria.</li>
-              <li>Studied game design principles through <em>The Art of Game Design</em> by Jesse Schell and actively analyze player experience, feedback loops, balance, emotional impact, progression, and how modern games keep players engaged.</li>
-              <li>Long-time creator of custom content and maps in Warcraft III World Editor, with experience in design constraints, scripting-like logic, iteration, and player-facing content quality.</li>
+              <li>Public LinkedIn devlog on moving into game development: Unreal learning, prototype breakdowns, design decisions, playability issues, and iteration takeaways.</li>
+              <li>Gameplay prototypes and level experiments in Unreal Engine 4/5 and Unity — graybox levels, triggers, Actor spawning, Blueprint logic.</li>
+              <li>Built <a href="https://github.com/KinesisTrap/BadBotGame" target="_blank" rel="noopener">BadBotGame</a> in UE5: MetaSound, Niagara, materials, Blueprints/AI, Nanite sockets.</li>
+              <li>Designed and documented mechanics for board and digital prototypes, including lockpicking (Monte Carlo balanced) and social encounter systems.</li>
+              <li>Long-time Warcraft III World Editor creator — design constraints, scripting-like logic, iteration, player-facing content quality.</li>
             </ul>
           </div>
         </div>
@@ -478,462 +740,73 @@
             <span class="exp-toggle-icon">&#9662;</span>
           </button>
         </div>
-        <p class="exp-teaser">6+ years in QA/SDET leadership at a national payment platform &mdash; engineering management, test automation, and release quality systems, most recently as Engineering Manager / QA Expert.</p>
+        <p class="exp-teaser">6+ years in QA/SDET leadership at a national payment platform — engineering management, test automation, and release quality systems.</p>
         <div class="exp-collapsible" id="professionalExpItems">
-          <div class="exp-item">
-            <div class="exp-date">Nov 2022 &mdash; Present</div>
-            <div class="exp-role">
-              <h4>Engineering Manager / QA Expert</h4>
-              <span class="exp-org">National Payment Card System (NSPK), Moscow &mdash; 40B+ annual transaction platform</span>
-              <ul>
-                <li>Led 20+ engineers across three autonomous teams, aligning delivery ownership, quality expectations, technical risks, stakeholder visibility, and release predictability.</li>
-                <li>Scaled the organization from one team to three self-managing units in under 12 months by designing an operating model with delegated ownership and team leads.</li>
-                <li>Grew the QA organization from 5 to 20+ engineers; personally conducted 350+ technical and behavioral interviews for QA, SDET, and engineering roles.</li>
-                <li>Founded an internal SDET School: launched 2 live cohorts, converted the program into an on-demand curriculum, trained 60+ engineers, and helped 5 engineers progress into the core QA team.</li>
-                <li>Redesigned release process by introducing priority triage, hard release gates, release-readiness checks, and production defect leakage tracking &mdash; reduced release cycle time from 3 days to 2 and lowered defect leakage by 30%.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="exp-item">
-            <div class="exp-date">Nov 2021 &mdash; Oct 2022</div>
-            <div class="exp-role">
-              <h4>Senior SDET</h4>
-              <span class="exp-org">National Payment Card System (NSPK), Moscow</span>
-              <ul>
-                <li>Standardized test automation practices across teams and integrated automated suites into CI/CD pipelines, reducing manual regression effort.</li>
-                <li>Migrated automation framework to Java 17, JUnit5, Selenide, and RestAssured, enabling maintainable API/E2E coverage and faster feedback loops.</li>
-                <li>Mentored junior engineers in automation, CI/CD, technical QA practices, test design, and maintainable test architecture.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="exp-item">
-            <div class="exp-date">Nov 2020 &mdash; Oct 2021</div>
-            <div class="exp-role">
-              <h4>Middle SDET</h4>
-              <span class="exp-org">National Payment Card System (NSPK), Moscow</span>
-              <ul>
-                <li>Built and maintained automated test suites for complex payment systems, focusing on API and E2E flows across distributed transaction workflows.</li>
-                <li>Improved QA documentation and standardized procedures to make testing more repeatable, transparent, and maintainable.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="exp-item">
-            <div class="exp-date">Jun 2019 &mdash; Oct 2020</div>
-            <div class="exp-role">
-              <h4>Middle QA Engineer</h4>
-              <span class="exp-org">Open Broker, Moscow</span>
-              <ul>
-                <li>Led a mobile QA team of 6 covering iOS and Android applications; coordinated manual and automated testing across releases.</li>
-                <li>Managed outsourced QA specialists, knowledge transfer, defect triage, and regression planning during peak delivery periods.</li>
-              </ul>
-            </div>
-          </div>
+          <div class="exp-item"><div class="exp-date">Nov 2022 — Present</div><div class="exp-role">
+            <h4>Engineering Manager / QA Expert</h4>
+            <span class="exp-org">National Payment Card System (NSPK), Moscow</span>
+            <ul>
+              <li>Led 20+ engineers across three teams; scaled from one team to three self-managing units in under 12 months.</li>
+              <li>Grew QA from 5 to 20+ engineers; 350+ technical and behavioral interviews.</li>
+              <li>Founded internal SDET School — 60+ engineers trained; redesigned release process, cutting cycle time and defect leakage.</li>
+            </ul>
+          </div></div>
+          <div class="exp-item"><div class="exp-date">Nov 2021 — Oct 2022</div><div class="exp-role">
+            <h4>Senior SDET</h4>
+            <span class="exp-org">National Payment Card System (NSPK), Moscow</span>
+            <ul>
+              <li>Standardized automation practices and CI/CD integration; migrated framework to Java 17, JUnit5, Selenide, RestAssured.</li>
+              <li>Mentored juniors in automation, CI/CD, and maintainable test architecture.</li>
+            </ul>
+          </div></div>
+          <div class="exp-item"><div class="exp-date">Nov 2020 — Oct 2021</div><div class="exp-role">
+            <h4>Middle SDET</h4>
+            <span class="exp-org">National Payment Card System (NSPK), Moscow</span>
+            <ul>
+              <li>Built automated suites for complex payment systems — API and E2E across distributed transaction workflows.</li>
+            </ul>
+          </div></div>
+          <div class="exp-item"><div class="exp-date">Jun 2019 — Oct 2020</div><div class="exp-role">
+            <h4>Middle QA Engineer</h4>
+            <span class="exp-org">Open Broker, Moscow</span>
+            <ul>
+              <li>Led a mobile QA team of 6 for iOS and Android; coordinated manual and automated testing across releases.</li>
+            </ul>
+          </div></div>
         </div>
       </div>
 
       <div class="exp-block">
         <h3>Education &amp; Languages</h3>
         <div class="edu-grid">
-          <div class="card">
-            <h3>Moscow Power Engineering Institute (MPEI)</h3>
-            <p>Master&rsquo;s degree, Information Technologies and Computer Science &mdash; 2015</p>
-          </div>
-          <div class="card">
-            <h3>Financial University under the Government of the RF</h3>
-            <p>Bachelor&rsquo;s degree, Financial Markets and Banks &mdash; 2022</p>
-          </div>
+          <div class="card"><h3>Moscow Power Engineering Institute (MPEI)</h3><p>Master’s degree, Information Technologies and Computer Science — 2015</p></div>
+          <div class="card"><h3>Financial University under the Government of the RF</h3><p>Bachelor’s degree, Financial Markets and Banks — 2022</p></div>
         </div>
-        <div class="grid grid-3" style="margin-top:20px;">
-          <div class="card"><h3>Languages</h3><p>Russian: Native &middot; English: B2 &middot; Chinese: A1</p></div>
+        <div class="mini-grid">
+          <div class="card"><h3>Languages</h3><p>Russian: Native · English: B2 · Chinese: A1</p></div>
           <div class="card"><h3>Professional Development</h3><p>Magic of IT: Leadership Skills Mastery</p></div>
-          <div class="card"><h3>Full Resume</h3><p><a href="assets/cv/Petr-Gorskin-Game-Designer-CV.pdf" target="_blank" rel="noopener">Download the complete CV (PDF) &#8599;</a></p></div>
+          <div class="card"><h3>Full Resume</h3><p><a href="assets/cv/Petr-Gorskin-Game-Designer-CV.pdf" target="_blank" rel="noopener">Download CV (PDF) &#8599;</a></p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ PORTFOLIO ============ -->
-  <section id="portfolio">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="section-tag">Portfolio</span>
-        <h2>Game design portfolio</h2>
-        <p>Narrative writing, level/quest design, mechanic design and playable prototypes from an ongoing untitled narrative board game project, plus browser-playable digital prototypes.</p>
-      </div>
-
-      <div class="tabs-nav" id="tabsNav">
-        <button class="tab-btn active" data-tab="tab-github">GitHub</button>
-        <button class="tab-btn" data-tab="tab-narrative">Narrative</button>
-        <button class="tab-btn" data-tab="tab-level">Level Design</button>
-        <button class="tab-btn" data-tab="tab-mechanics">Game Mechanics</button>
-        <button class="tab-btn" data-tab="tab-prototypes">Prototypes</button>
-        <button class="tab-btn" data-tab="tab-ue5">UE5 Systems</button>
-      </div>
-
-      <!-- GITHUB -->
-      <div class="tab-panel active" id="tab-github">
-        <div class="panel-head">
-          <h3>GitHub</h3>
-          <p>Source code, rules engines, and design documentation for playable prototypes.</p>
-        </div>
-        <div class="card" style="margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-          <div>
-            <h3 style="margin-bottom:4px;">github.com/KinesisTrap</h3>
-            <p style="margin:0;">Game design and prototyping repositories: rules engines, card data, GDDs, and browser-playable builds.</p>
-          </div>
-          <a class="btn btn-primary" href="https://github.com/KinesisTrap" target="_blank" rel="noopener">Open Profile &#8599;</a>
-        </div>
-        <div class="grid grid-2">
-          <div class="repo-card">
-            <div class="repo-card-top">
-              <h4>arcane-duel-game-prototype</h4>
-              <span class="tag">TypeScript</span>
-            </div>
-            <p style="font-size:14px;">Deckbuilding &times; CCG hybrid duel prototype. Engine-agnostic rules core (state, actions, events, AI) with a React/Vite presentation layer.</p>
-            <div class="repo-links">
-              <a href="https://github.com/KinesisTrap/arcane-duel-game-prototype" target="_blank" rel="noopener">Repository &#8599;</a>
-              <a href="https://kinesistrap.github.io/arcane-duel-game-prototype/" target="_blank" rel="noopener">Live demo &#8599;</a>
-            </div>
-          </div>
-          <div class="repo-card">
-            <div class="repo-card-top">
-              <h4>lockpick-mechanic-prototype</h4>
-              <span class="tag">Prototype</span>
-            </div>
-            <p style="font-size:14px;">Playable implementation of the pin-based Lockpicking subsystem &mdash; the same design featured in the Game Mechanics tab.</p>
-            <div class="repo-links">
-              <a href="https://github.com/KinesisTrap/lockpick-mechanic-prototype" target="_blank" rel="noopener">Repository &#8599;</a>
-              <a href="https://kinesistrap.github.io/lockpick-mechanic-prototype/" target="_blank" rel="noopener">Live demo &#8599;</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- NARRATIVE -->
-      <div class="tab-panel" id="tab-narrative">
-        <div class="panel-head">
-          <h3>Flinn Farm &mdash; Location Chapter</h3>
-          <p>A 17-page fully branching location chapter written for an untitled narrative-driven board game. It demonstrates time-of-day gated content, persistent story-card state tracking, and consequence-driven dialogue between recurring NPCs.</p>
-          <div class="tag-row">
-            <span class="tag">Branching Narrative</span>
-            <span class="tag">Story Cards</span>
-            <span class="tag">NPC Consequence Chains</span>
-            <span class="tag">Adventure Book format</span>
-          </div>
-        </div>
-
-        <blockquote>
-          &ldquo;The trail from Red Creek thins to packed earth and hoof-churned mud. By the time you reach the fence line, the sun has slipped behind the ridge; the farmhouse is a low silhouette against a sky the colour of cooled iron.&rdquo;
-        </blockquote>
-
-        <p><strong>Design highlights:</strong></p>
-        <ul style="margin:0 0 8px 0;">
-          <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Four independent time-of-day branches (Evening / Night / Morning / Day), each gating different content and NPC availability.</li>
-          <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Persistent story-card flags (FF-1 through FF-7) that carry consequences across visits &mdash; injuries, suspicion, trust, and reputation.</li>
-          <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Direct integration with the Lockpicking and Social Encounter subsystems as diegetic obstacles (a padlocked barn, a wary NPC).</li>
-          <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Two named NPCs (Abigail &amp; Thomas Flinn) whose tone and dialogue shift based on prior player choices and Scene Noise/Suspicion state.</li>
-        </ul>
-
-        <div class="pdf-viewer" id="narrativePdfViewer" data-pages-base="assets/narrative/pages/" data-total-pages="17">
-          <div class="pdf-viewer-bar">
-            <strong>Flinn Farm — Location Chapter.pdf</strong>
-            <a class="btn btn-ghost btn-sm" href="assets/narrative/Flinn-Farm-Location-Chapter.pdf" target="_blank" rel="noopener">Open / Download &#8599;</a>
-          </div>
-          <div class="pdf-viewer-stage">
-            <button class="pdf-arrow pdf-arrow-prev" id="pdfPrevBtn" aria-label="Previous page" disabled>&#8249;</button>
-            <div class="pdf-page-wrap" id="pdfPageWrap">
-              <img id="pdfPageImage" alt="Flinn Farm — Location Chapter page" />
-              <div class="pdf-loading" id="pdfLoading">Loading pages&hellip;</div>
-            </div>
-            <button class="pdf-arrow pdf-arrow-next" id="pdfNextBtn" aria-label="Next page" disabled>&#8250;</button>
-          </div>
-          <div class="pdf-viewer-footer">
-            <span id="pdfPageIndicator">&nbsp;</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- LEVEL DESIGN -->
-      <div class="tab-panel" id="tab-level">
-        <div class="panel-head">
-          <h3>01-1 Flinn Family Route &mdash; Quest Flowchart</h3>
-          <p>An interactive branching flowchart mapping the full &ldquo;Find the Trace of Will&rdquo; quest across two independent locations &mdash; Churchyard Cemetery and Flinn Farm &mdash; each gated by time-of-day and story-card state. Built in draw.io as a quest-design planning tool prior to implementation.</p>
-          <div class="tag-row">
-            <span class="tag">Quest Flow</span>
-            <span class="tag">Branch Mapping</span>
-            <span class="tag">draw.io / diagrams.net</span>
-          </div>
-        </div>
-
-        <div class="legend-grid">
-          <div class="legend-item"><span class="legend-swatch" style="background:#b0e3e6;border:1px solid #0e8088;"></span> Location entry (independent)</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#dae8fc;border:1px solid #6c8ebf;"></span> Encounter step</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#e1d5e7;border:1px solid #9673a6;"></span> Social Encounter</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#fff2cc;border:1px solid #d6b656;"></span> Condition / card check</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#ffe6cc;border:1px solid #d79b00;"></span> Story card granted (dashed)</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#d5e8d4;border:1px solid #82b366;"></span> Quest result</div>
-        </div>
-        <p style="font-size:13.5px;"><strong>Rule:</strong> cards never gate the next step by arrow &mdash; only diamond (&#9670;) checks do.</p>
-
-        <div class="diagram-embed">
-          <div class="mxgraph" id="levelDesignDiagram" style="max-width:100%;border:none;"></div>
-        </div>
-        <p style="font-size:13px;margin-top:14px;">
-          <a href="assets/leveldesign/01-1-Flinn-Family-Route.drawio" target="_blank" rel="noopener">Download the source .drawio file &#8599;</a>
-          &nbsp;&middot;&nbsp; Scroll / drag to pan, use the zoom controls in the bottom-right corner.
-        </p>
-      </div>
-
-      <!-- GAME MECHANICS -->
-      <div class="tab-panel" id="tab-mechanics">
-        <div class="panel-head">
-          <h3>Game Mechanics</h3>
-          <p>Three original subsystems designed, documented and balanced as part of the same board-game &amp; prototype ecosystem.</p>
-        </div>
-
-        <!-- LOCKPICKING -->
-        <div class="card mech-card">
-          <div class="mech-card-head">
-            <h4>Lockpicking System</h4>
-            <span class="status-pill ready">Playtest Ready &middot; v0.1</span>
-          </div>
-          <p>Allows players to gain access to locked doors, chests, safes and archives during exploration and heist scenarios. Designed to create tension during infiltration, reward investment into the Lockpicking skill, and avoid hard-locking the game on failed rolls.</p>
-          <p><strong>Core loop:</strong> each lock is a set of colored D6 &ldquo;pins&rdquo; with a revealed target combination. Matching a die to its target fixes that pin; unresolved dice are re-rolled together with Modifier Dice earned from the character&rsquo;s skill level, which can nudge, re-roll, or directly fix pins.</p>
-          <table class="gdd-table">
-            <tr><th>Difficulty</th><th>Pins</th><th>Recommended Noise Threshold</th></tr>
-            <tr><td>Easy</td><td>3</td><td>2&ndash;3</td></tr>
-            <tr><td>Medium</td><td>4</td><td>2</td></tr>
-            <tr><td>Hard</td><td>5</td><td>1&ndash;2</td></tr>
-          </table>
-          <p style="font-size:13.5px;">Failed attempts accumulate local <strong>Lock Pressure</strong>; once it crosses the lock&rsquo;s Noise Threshold, it converts into global <strong>Scene Noise</strong> &mdash; driving stealth consequences (patrols, guard arrival, alarms) without ever fully blocking progress. Balanced with Monte Carlo simulations across skill levels.</p>
-          <p style="margin-top:14px;"><a href="https://kinesistrap.github.io/lockpick-mechanic-prototype/" target="_blank" rel="noopener">Play the Lockpicking prototype &#8599;</a></p>
-        </div>
-
-        <!-- SOCIAL ENCOUNTER -->
-        <div class="card mech-card">
-          <div class="mech-card-head">
-            <h4>Social Encounter System</h4>
-            <span class="status-pill proto">Design Draft</span>
-          </div>
-          <blockquote>The NPC presents a sequence of social defenses based on their personality. A player responds with cards from their Diplomacy Deck. The group tries to gain enough Influence before the conversation reaches its Tension limit.</blockquote>
-          <p>Each NPC has a Character Profile built from three trait pairs (Legality, Temperament, Generosity), which assembles a 15-card Diplomacy Defense Deck from six underlying Defense Decks. Players respond using cards from six Diplomacy Types &mdash; Seal, Blade, Heart, Mask, Coin, Freedom.</p>
-          <p><strong>Round structure:</strong> gain Tension &rarr; draw 3 cards &rarr; reveal 1 NPC Defense Card &rarr; play response cards &rarr; resolve Influence/Tension &rarr; discard &amp; repeat. Tension reaching the NPC&rsquo;s limit fails the encounter immediately, even if an Influence target was reached the same round.</p>
-          <table class="gdd-table">
-            <tr><th>Track</th><th>Range</th><th>Effect</th></tr>
-            <tr><td>Influence</td><td>-2 to 10</td><td>Progress toward the conversation goal</td></tr>
-            <tr><td>Tension</td><td>0 to 10</td><td>Reaching the NPC&rsquo;s limit fails the encounter</td></tr>
-          </table>
-          <p style="font-size:13.5px;">Design intent: NPC personality drives defense style rather than a flat difficulty number &mdash; Lawful NPCs escalate Tension formally, Outlaw NPCs disrupt structure and reduce Influence, and future traits (Prideful, Cowardly, Greedy, Generous) each get a distinct pressure pattern.</p>
-        </div>
-
-        <!-- CARD DUEL -->
-        <div class="card mech-card">
-          <div class="mech-card-head">
-            <h4>Arcane Duel &mdash; Card Duel Mechanic</h4>
-            <span class="status-pill ready">Playable Vertical Slice</span>
-          </div>
-          <p>A fast, decision-dense deckbuilding &times; CCG hybrid: two archmages duel by channelling Arcane Power into spells, creatures and artifacts, upgrading a personal deck and overwhelming the opponent. A single match lasts roughly 10&ndash;15 minutes.</p>
-          <ul style="margin:12px 0;">
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Two resources</strong> &mdash; per-turn Arcane (resets each turn) vs. bankable Essence, creating a tempo-vs-investment tension.</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Two identities</strong> &mdash; Fire (aggression and reach) vs. Water (sustain and resilience).</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Free play, paid acquisition</strong> &mdash; cards in hand are free to play; Arcane and Essence are spent to buy new cards into the deck.</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Automatic, deterministic combat</strong> and low variance &mdash; randomness limited to deck shuffles and market order.</li>
-          </ul>
-          <p style="font-size:13.5px;">Shipped as a playable vertical slice with an engine-agnostic, data-driven rules core (TypeScript) decoupled from its React/Vite presentation layer, so it can migrate to a commercial engine without a rewrite.</p>
-          <p style="margin-top:14px;"><a href="https://kinesistrap.github.io/arcane-duel-game-prototype/" target="_blank" rel="noopener">Play the Arcane Duel demo &#8599;</a></p>
-        </div>
-      </div>
-
-      <!-- PROTOTYPES -->
-      <div class="tab-panel" id="tab-prototypes">
-        <div class="panel-head">
-          <h3>Playable Prototypes</h3>
-          <p>Browser-playable builds &mdash; no install required. Both update automatically on every push via GitHub Actions / Pages.</p>
-        </div>
-
-        <div class="proto-card">
-          <div class="proto-visual"><img src="assets/prototypes/arcane-duel-preview.png" alt="Arcane Duel prototype screenshot" loading="lazy"></div>
-          <div class="proto-body">
-            <h4>Arcane Duel</h4>
-            <p>Deckbuilding &times; CCG hybrid duel. Two archmages, two resources, ~10&ndash;15 minute matches, single-player vs. AI.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="https://kinesistrap.github.io/arcane-duel-game-prototype/" target="_blank" rel="noopener">Play Now &#8599;</a>
-              <a class="btn btn-ghost" href="https://github.com/KinesisTrap/arcane-duel-game-prototype" target="_blank" rel="noopener">Source &#8599;</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="proto-card">
-          <div class="proto-visual"><img src="assets/prototypes/lockpick-preview.png" alt="Lockpick Mechanic prototype screenshot" loading="lazy"></div>
-          <div class="proto-body">
-            <h4>Lockpick Mechanic</h4>
-            <p>Standalone playable implementation of the pin-based Lockpicking subsystem &mdash; try the difficulty curve and modifier-dice strategy first-hand.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="https://kinesistrap.github.io/lockpick-mechanic-prototype/" target="_blank" rel="noopener">Play Now &#8599;</a>
-              <a class="btn btn-ghost" href="https://github.com/KinesisTrap/lockpick-mechanic-prototype" target="_blank" rel="noopener">Source &#8599;</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- UE5 SYSTEMS -->
-      <div class="tab-panel" id="tab-ue5">
-        <div class="panel-head">
-          <h3>BadBotGame &mdash; Unreal Engine 5 Systems Project</h3>
-          <p>A bot-enemy combat vertical slice used to learn UE5 end to end: procedural weapon audio, VFX, material authoring, gameplay/AI Blueprints, and socket-driven mesh setup on a Nanite asset.</p>
-        </div>
-        <div class="card" style="margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-          <div>
-            <h3 style="margin-bottom:4px;">github.com/KinesisTrap/BadBotGame</h3>
-            <div class="tag-row" style="margin-top:10px;">
-              <span class="tag">MetaSound</span>
-              <span class="tag">Niagara VFX</span>
-              <span class="tag">Material Graphs</span>
-              <span class="tag">Blueprints &amp; AI</span>
-              <span class="tag">Nanite &amp; Sockets</span>
-            </div>
-          </div>
-          <a class="btn btn-primary" href="https://github.com/KinesisTrap/BadBotGame" target="_blank" rel="noopener">Repository &#8599;</a>
-        </div>
-        <div class="shot-gallery">
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/metasound-energy-rifle.png" alt="SFX_EnergyRifle MetaSound graph" loading="lazy">
-            <figcaption>SFX_EnergyRifle MetaSound graph &mdash; randomized wave-asset selection driving pitch/playback variation on the bot's energy rifle.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/gameplay-blaster-beam.png" alt="Blaster beam VFX in-engine" loading="lazy">
-            <figcaption>In-engine result &mdash; the bot firing a blaster beam under bloom-heavy lighting.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/niagara-beam-burst.png" alt="NS_BeamBurst Niagara system" loading="lazy">
-            <figcaption>NS_BeamBurst Niagara system &mdash; three synced OmnidirectionalBurst emitters driving the beam impact.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/material-blaster-beam.png" alt="M_BlasterBeam material graph" loading="lazy">
-            <figcaption>M_BlasterBeam material graph &mdash; a driven emissive constant powering the beam's glow.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/blueprint-spawn-blaster-beam.png" alt="BP_Bot SpawnBlasterBeam Blueprint" loading="lazy">
-            <figcaption>BP_Bot Blueprint &mdash; SpawnBlasterBeam function handling targeting, rotation interp and beam spawn.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/material-drone.png" alt="M_Drone material graph" loading="lazy">
-            <figcaption>M_Drone material graph &mdash; layered texture samples driving base color, normal and ORM.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/mesh-sockets-nanite.png" alt="Nanite drone mesh with weapon sockets" loading="lazy">
-            <figcaption>Nanite-enabled drone mesh with Rifle_L / Rifle_R weapon sockets and collision setup.</figcaption>
-          </figure>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============ ABOUT ============ -->
-  <section id="about" style="background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="section-tag">About</span>
-        <h2>Summary</h2>
-        <p>Strong at turning vague feature ideas into structured, documented, testable, and iterative systems &mdash; mechanics, rules, player flows, feedback loops, risk/reward, balance, edge cases, and quality criteria. Created game concepts, pitch documents, GDD-style documentation, subsystem specs, board game and digital game prototypes, and balancing simulations.</p>
-      </div>
-
-      <div class="about-focus">
-        <h4>Selected Design Focus</h4>
-        <div class="grid grid-3">
-          <div class="card">
-            <div class="card-icon">&#9881;</div>
-            <h3>Systems Design</h3>
-            <p>Mechanics, resources, constraints, choices, failure states, and how rules create player behavior.</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">&#9974;</div>
-            <h3>Level Design</h3>
-            <p>Grayboxing, spatial readability, arena flow, pacing, interaction placement, player guidance, iteration after playability checks.</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">&#9825;</div>
-            <h3>Player Experience</h3>
-            <p>Emotional impact, clarity, friction, feedback, tension, reward moments, learning curves, and fun as a practical design goal.</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">&#128269;</div>
-            <h3>Design-to-QA Mindset</h3>
-            <p>Writing mechanics so they can be implemented, tested, tuned, debugged, and improved through data and playtest feedback.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SKILLS ============ -->
-  <section id="skills">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="section-tag">Core Skills</span>
-        <h2>What I bring to a design team</h2>
-        <p>A blend of hands-on design craft and production-grade rigor, carried over from a background in engineering leadership and quality assurance.</p>
-      </div>
-      <div class="grid grid-3">
-        <div class="card skill-card">
-          <h3>Game Design</h3>
-          <p>Game mechanics design, systems design, player experience analysis, feedback loops, progression, difficulty curves, risk/reward, playtesting mindset, iteration.</p>
-        </div>
-        <div class="card skill-card">
-          <h3>Prototyping</h3>
-          <p>Gameplay prototyping, rapid iteration, grayboxing, proof-of-concept features, AI-assisted prototyping, technical learning projects, prototype breakdowns.</p>
-        </div>
-        <div class="card skill-card">
-          <h3>Level Design</h3>
-          <p>Graybox levels, level flow, player pathing, encounter space experiments, readable layouts, pacing, player-facing content quality, design constraints.</p>
-        </div>
-        <div class="card skill-card">
-          <h3>Engines &amp; Tools</h3>
-          <p>Unreal Engine 4/5, Unity, Blueprints/functions, Actor spawning, Niagara, MetaSound, UE MCP/Cursor workflows, Warcraft III World Editor, Jira, Confluence, Git.</p>
-        </div>
-        <div class="card skill-card">
-          <h3>Documentation</h3>
-          <p>Pitch docs, GDD-style documentation, subsystem specifications, design briefs, technical documentation, QA-friendly requirements, clear handoff for implementation.</p>
-        </div>
-        <div class="card skill-card">
-          <h3>Technical &amp; QA</h3>
-          <p>Test design, risk analysis, Monte Carlo balancing simulations, API/E2E automation background, Java, Python scripting, CI/CD, debugging-oriented thinking.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT ============ -->
-  <section id="contact" class="contact-section">
+  <section id="contact" class="contact-section reveal">
     <div class="wrap contact-grid">
       <div>
         <span class="section-tag">Contact</span>
-        <h2>Let&rsquo;s talk about a game design role</h2>
-        <p>Open to relocation, anywhere in the world. Available for full-time roles, contract prototyping work, and design collaborations.</p>
+        <h2>Let’s talk about a game design role</h2>
+        <p>Open to relocation, anywhere in the world. Available for full-time roles, contract prototyping, and design collaborations.</p>
         <a class="btn btn-primary" href="assets/cv/Petr-Gorskin-Game-Designer-CV.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
       </div>
       <div class="contact-links">
-        <a class="contact-link" href="mailto:errorbest@gmail.com">
-          <span class="ico">&#9993;</span>
-          <span>errorbest@gmail.com<small>Email</small></span>
-        </a>
-        <a class="contact-link" href="tel:+79852491052">
-          <span class="ico">&#9742;</span>
-          <span>+7 985 249-10-52<small>Phone</small></span>
-        </a>
-        <a class="contact-link" href="https://linkedin.com/in/petr-gamedev" target="_blank" rel="noopener">
-          <span class="ico">in</span>
-          <span>linkedin.com/in/petr-gamedev<small>LinkedIn &mdash; devlog &amp; updates</small></span>
-        </a>
-        <a class="contact-link" href="https://github.com/KinesisTrap" target="_blank" rel="noopener">
-          <span class="ico">&#9673;</span>
-          <span>github.com/KinesisTrap<small>GitHub &mdash; code &amp; prototypes</small></span>
-        </a>
+        <a class="contact-link" href="mailto:errorbest@gmail.com"><span class="ico">&#9993;</span><span>errorbest@gmail.com<small>Email</small></span></a>
+        <a class="contact-link" href="tel:+79852491052"><span class="ico">&#9742;</span><span>+7 985 249-10-52<small>Phone</small></span></a>
+        <a class="contact-link" href="https://t.me/pgorskin" target="_blank" rel="noopener"><span class="ico">TG</span><span>@pgorskin<small>Telegram</small></span></a>
+        <a class="contact-link" href="https://github.com/KinesisTrap" target="_blank" rel="noopener"><span class="ico">&#9673;</span><span>github.com/KinesisTrap<small>GitHub</small></span></a>
       </div>
     </div>
   </section>
-
 </main>
 
 <footer>
@@ -948,55 +821,519 @@
 </footer>
 
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile nav toggle
-  var navToggle = document.getElementById('navToggle');
-  var navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', function(){
-    var isOpen = navLinks.style.display === 'flex';
-    navLinks.style.display = isOpen ? 'none' : 'flex';
-    navLinks.style.flexDirection = 'column';
-    navLinks.style.position = 'absolute';
-    navLinks.style.top = '68px';
-    navLinks.style.left = '0';
-    navLinks.style.right = '0';
-    navLinks.style.background = 'rgba(12,13,16,.98)';
-    navLinks.style.padding = '20px 24px';
-    navLinks.style.borderBottom = '1px solid #272c38';
-    navLinks.style.gap = '18px';
+var navToggle = document.getElementById('navToggle');
+var navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', function(){
+  var isOpen = navLinks.style.display === 'flex';
+  navLinks.style.display = isOpen ? 'none' : 'flex';
+  navLinks.style.flexDirection = 'column';
+  navLinks.style.position = 'absolute';
+  navLinks.style.top = '68px';
+  navLinks.style.left = '0';
+  navLinks.style.right = '0';
+  navLinks.style.background = 'rgba(247,248,250,.98)';
+  navLinks.style.padding = '20px 28px';
+  navLinks.style.borderBottom = '1px solid #dde2ea';
+  navLinks.style.gap = '16px';
+  navLinks.style.boxShadow = '0 16px 40px -20px rgba(18,21,28,.25)';
+});
+navLinks.querySelectorAll('a').forEach(function(a){
+  a.addEventListener('click', function(){
+    if (window.innerWidth <= 880) navLinks.style.display = 'none';
   });
-  navLinks.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      if (window.innerWidth <= 880) navLinks.style.display = 'none';
-    });
-  });
+});
 
-  // Portfolio tabs
-  var tabBtns = document.querySelectorAll('.tab-btn');
-  var tabPanels = document.querySelectorAll('.tab-panel');
-  tabBtns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      tabBtns.forEach(function(b){ b.classList.remove('active'); });
-      tabPanels.forEach(function(p){ p.classList.remove('active'); });
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.tab).classList.add('active');
-    });
-  });
+var bubble = document.getElementById('projectBubble');
+var backdrop = document.getElementById('bubbleBackdrop');
+var bubbleBody = document.getElementById('bubbleBody');
+var bubbleClose = document.getElementById('bubbleClose');
 
-  // Professional Experience collapsible
-  var expToggleBtn = document.getElementById('expToggleBtn');
-  var expCollapsible = document.getElementById('professionalExpItems');
-  if (expToggleBtn && expCollapsible){
-    expToggleBtn.addEventListener('click', function(){
-      var isOpen = expCollapsible.classList.toggle('is-open');
-      expToggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      expToggleBtn.querySelector('.exp-toggle-label').textContent = isOpen ? 'Hide full track record' : 'Show full track record';
+function openBubble(projectId){
+  document.querySelectorAll('.detail-block').forEach(function(el){
+    el.classList.toggle('is-active', el.getAttribute('data-project') === projectId);
+  });
+  bubble.hidden = false; backdrop.hidden = false;
+  requestAnimationFrame(function(){
+    bubble.classList.add('is-open');
+    backdrop.classList.add('is-open');
+  });
+  document.body.classList.add('bubble-open');
+  if (projectId === 'project-narrative') window.dispatchEvent(new CustomEvent('narrative-open'));
+}
+
+function closeBubble(){
+  bubble.classList.remove('is-open');
+  backdrop.classList.remove('is-open');
+  document.body.classList.remove('bubble-open');
+  setTimeout(function(){
+    if (!bubble.classList.contains('is-open')){
+      bubble.hidden = true; backdrop.hidden = true;
+    }
+  }, 320);
+}
+
+/* Trail scene: scroll drives a camera walking down the road.
+   Characters approach (grow), pass by, and fade behind. */
+var trailScene = document.getElementById('trailScene');
+var trailStage = document.getElementById('trailStage');
+var trailCanvas = document.getElementById('trailCanvas');
+var trailCtx = trailCanvas.getContext('2d', { alpha: false, desynchronized: true });
+var TRAIL_DPR = Math.min(window.devicePixelRatio || 1, 1.25);
+var trailHead = document.getElementById('trailHead');
+var trailHint = document.getElementById('trailHint');
+var trailFadeBottom = document.getElementById('trailFadeBottom');
+var trailFadeIn = document.getElementById('trailFadeIn');
+var heroWrap = document.querySelector('.hero .wrap');
+var trailDialog = document.getElementById('trailDialog');
+var tdCover = document.getElementById('tdCover');
+var tdType = document.getElementById('tdType');
+var tdTitle = document.getElementById('tdTitle');
+var tdLine = document.getElementById('tdLine');
+var tdCaret = document.getElementById('tdCaret');
+var tdTail = document.getElementById('tdTail');
+var typeTimer = null;
+var hideTimer = null;
+var canHover = window.matchMedia('(hover: hover)').matches;
+var touchActiveChar = null;
+var activeDialogChar = null;
+
+var trailStops = Array.prototype.slice.call(document.querySelectorAll('.trail-char')).map(function(el, i){
+  el.style.height = (parseFloat(el.getAttribute('data-size')) || 50) + 'vh';
+  return { el: el, plate: el.querySelector('.char-plate'), side: (i % 2 === 0) ? -1 : 1, z: i + 1, off: 0, s: 0, op: 1 };
+});
+var TRAIL_FOCAL = 0.9;
+var TRAIL_TRAVEL = trailStops.length + 0.6;
+
+/* Forest: dense decorative trees along the trail, same perspective, not interactive.
+   Generated with a seeded PRNG so the forest is stable between reloads. */
+var TREE_SPRITES = ['spruce-a-cut.png', 'spruce-b-cut.png', 'leafy-a-cut.png'];
+var trailTrees = [];
+(function(){
+  var seed = 7;
+  function rnd(){ seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; }
+  /* clusters of rows at different lateral depths — thicket, not a single alley */
+  function addRow(count, offMin, offMax, hMin, hMax, zJitter){
+    for (var i = 0; i < count; i++){
+      var tz = 0.08 + (i / count) * 7.1 + (rnd() - 0.5) * (zJitter || 0.18);
+      var side = (i % 2 === 0) ? -1 : 1;
+      var off = offMin + rnd() * (offMax - offMin);
+      /* keep a clearing around each character (chars stand at z = 1..6, alternating sides) */
+      for (var c = 1; c <= 6; c++){
+        var charSide = (c % 2 === 1) ? -1 : 1;
+        if (side === charSide && Math.abs(tz - c) < 0.9 && off < 0.62){
+          off = 0.62 + rnd() * 0.12;
+        }
+      }
+      trailTrees.push({
+        z: tz,
+        side: side,
+        off: off,
+        h: hMin + rnd() * (hMax - hMin),
+        gy: 0.915 + rnd() * 0.055,
+        v: trailTrees.length % 3,
+        ti: Math.floor(rnd() * 4)
+      });
+    }
+  }
+  addRow(52, 0.34, 0.52, 64, 118, 0.14);  /* near the path */
+  addRow(44, 0.50, 0.72, 72, 128, 0.16);  /* second belt */
+  addRow(40, 0.70, 1.00, 80, 138, 0.18);  /* mid thicket */
+  addRow(34, 0.95, 1.40, 90, 155, 0.22);  /* far sides fill the frame */
+})();
+/* painter order: far trees first */
+var treesSorted = trailTrees.slice().sort(function(a, b){ return b.z - a.z; });
+
+/* Everything non-interactive (floor + trees) is drawn on one canvas:
+   no per-tree DOM layers, no CSS filters at frame time. */
+var floorPattern = null;
+var floorImg = new Image();
+floorImg.onload = function(){
+  floorPattern = trailCtx.createPattern(floorImg, 'repeat');
+  layoutTrail();
+};
+floorImg.src = 'assets/characters/trail-floor.jpg';
+
+/* pre-tint tree sprites once (with baked shadow) instead of per-element CSS filters */
+var TREE_TINTS = [
+  'hue-rotate(-14deg) saturate(0.92) brightness(1.03)',
+  'saturate(1.0) brightness(0.97)',
+  'hue-rotate(12deg) saturate(1.08) brightness(1.04)',
+  'hue-rotate(22deg) saturate(0.88) brightness(0.93)'
+];
+var TREE_PAD = 40;
+var treeBitmaps = [];
+TREE_SPRITES.forEach(function(name, si){
+  treeBitmaps[si] = [];
+  var img = new Image();
+  img.onload = function(){
+    TREE_TINTS.forEach(function(tint, ti){
+      var c = document.createElement('canvas');
+      c.width = img.naturalWidth + TREE_PAD * 2;
+      c.height = img.naturalHeight + TREE_PAD * 2;
+      var g = c.getContext('2d');
+      /* soft contact shadow baked into the sprite */
+      g.save();
+      g.translate(c.width / 2, TREE_PAD + img.naturalHeight - 4);
+      g.scale(1, 0.22);
+      var grd = g.createRadialGradient(0, 0, 2, 0, 0, img.naturalWidth * 0.38);
+      grd.addColorStop(0, 'rgba(24,32,28,0.40)');
+      grd.addColorStop(0.55, 'rgba(24,32,28,0.14)');
+      grd.addColorStop(1, 'rgba(24,32,28,0)');
+      g.fillStyle = grd;
+      g.beginPath();
+      g.arc(0, 0, img.naturalWidth * 0.38, 0, Math.PI * 2);
+      g.fill();
+      g.restore();
+      if ('filter' in g) g.filter = tint + ' drop-shadow(0 10px 10px rgba(24,32,28,0.22))';
+      g.drawImage(img, TREE_PAD, TREE_PAD);
+      /* two mip levels: distant trees draw from a small source (much cheaper) */
+      var half = document.createElement('canvas');
+      half.width = Math.max(1, Math.round(c.width * 0.35));
+      half.height = Math.max(1, Math.round(c.height * 0.35));
+      half.getContext('2d').drawImage(c, 0, 0, half.width, half.height);
+      treeBitmaps[si][ti] = { cv: c, small: half, ih: img.naturalHeight, url: null };
+      /* blob URL: near trees become GPU-composited DOM layers with the same art */
+      (function(slot){
+        c.toBlob(function(blob){
+          if (blob) treeBitmaps[si][slot].url = URL.createObjectURL(blob);
+        }, 'image/png');
+        if (window.createImageBitmap){
+          createImageBitmap(c).then(function(bm){ treeBitmaps[si][slot].cv = bm; });
+          createImageBitmap(half).then(function(bm){ treeBitmaps[si][slot].small = bm; });
+        }
+      })(ti);
     });
+    layoutTrail();
+  };
+  img.src = 'assets/characters/' + name;
+});
+
+/* DOM layer pool for the near (big on screen) trees: canvas-scaling them every frame is
+   too expensive, while a dozen composited GPU layers is nearly free */
+var treeDomFree = [];
+var treeDomCount = 0;
+function acquireTreeDom(){
+  if (treeDomFree.length) return treeDomFree.pop();
+  var i = treeDomCount++;
+  var wrap = document.createElement('div');
+  wrap.className = 'trail-tree';
+  wrap.setAttribute('aria-hidden', 'true');
+  var im = document.createElement('img');
+  im.alt = '';
+  im.decoding = 'async';
+  im.style.animationDelay = (-i * 1.9) + 's';
+  im.style.animationDuration = (6 + (i % 5) * 0.9) + 's';
+  wrap.appendChild(im);
+  trailStage.insertBefore(wrap, trailStage.children[1]);
+  return { wrap: wrap, img: im, src: '' };
+}
+function releaseTreeDom(t){
+  if (!t.dom) return;
+  t.dom.wrap.style.opacity = 0;
+  treeDomFree.push(t.dom);
+  t.dom = null;
+}
+
+function sizeTrailCanvas(){
+  trailCanvas.width = Math.round(window.innerWidth * TRAIL_DPR);
+  trailCanvas.height = Math.round(window.innerHeight * TRAIL_DPR);
+}
+sizeTrailCanvas();
+
+function clamp01(v){ return Math.min(1, Math.max(0, v)); }
+
+/* Fixed vanishing point of the scene */
+function trailVanishingPoint(){
+  return { x: window.innerWidth * 0.5, y: window.innerHeight * 0.30 };
+}
+var FLOOR_PX_PER_Z = 1000 / TRAIL_FOCAL; /* world px along the ground per 1 z-unit */
+
+/* Mode-7 style ground + trees, one canvas pass per frame */
+function drawTrailScene(zcam, vw, vh, vp){
+  var d = TRAIL_DPR;
+  trailCtx.setTransform(1, 0, 0, 1, 0, 0);
+  trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+
+  var gy0 = vh * 0.95;              /* reference row where scale = 1 */
+  var span = gy0 - vp.y;
+  var yTop = vp.y + span * 0.05;    /* nearer the horizon the fog covers everything */
+
+  /* distant meadow under the fog (full canvas until the floor texture arrives) */
+  trailCtx.fillStyle = '#e0e6cd';
+  trailCtx.fillRect(0, 0, trailCanvas.width, floorPattern ? (yTop + 2) * d : trailCanvas.height);
+
+  if (floorPattern){
+    trailCtx.fillStyle = floorPattern;
+    var tileScale = (vw * 2) / 1024;  /* the tile spans two viewport widths at scale 1 */
+    var strip = 5;
+    for (var y = yTop; y < vh; y += strip){
+      var s = (y + strip / 2 - vp.y) / span;
+      var rel = TRAIL_FOCAL / s - TRAIL_FOCAL;
+      var vT = ((zcam + rel) * FLOOR_PX_PER_Z) / tileScale; /* texture row, tile px */
+      var S = s * tileScale * d;
+      trailCtx.setTransform(S, 0, 0, S, d * vw / 2 - S * 512, d * y - S * vT);
+      var halfW = (d * vw / 2) / S + 2;
+      trailCtx.fillRect(512 - halfW, vT - 1, halfW * 2, (strip * d) / S + 2);
+    }
+    trailCtx.setTransform(1, 0, 0, 1, 0, 0);
   }
 
-  // draw.io / diagrams.net level-design flowchart embed
-  var levelDesignDiagramXml = `<mxfile host="embed.diagrams.net" agent="Cursor">
+  /* trees, far to near. Canvas only rasterizes the tiny distant ones (cheap);
+     anything noticeable lives in a pooled DOM layer scaled by the GPU. */
+  var spread = Math.max(vw, 760) / vw;
+  var domCut = vh * 0.085;
+  for (var i = 0; i < treesSorted.length; i++){
+    var t = treesSorted[i];
+    var rel2 = t.z - zcam;
+    var s2 = TRAIL_FOCAL / (TRAIL_FOCAL + Math.max(rel2, -0.55));
+    var op = rel2 < 0 ? clamp01(1 + rel2 / 0.32) : 1;
+    op *= clamp01((s2 - 0.11) / 0.10);
+    var bmp = treeBitmaps[t.v] && treeBitmaps[t.v][t.ti];
+    if (op <= 0.01 || !bmp){ releaseTreeDom(t); continue; }
+    var gx = vw * 0.5 + t.side * vw * t.off * spread;
+    var x = vp.x + (gx - vp.x) * s2;
+    var y2 = vp.y + (vh * t.gy - vp.y) * s2;
+    var hS = (t.h / 100) * vh * s2;
+    if (hS < 4){ releaseTreeDom(t); continue; }
+    var k = hS / bmp.ih;
+    var w = bmp.cv.width * k, hh = bmp.cv.height * k;
+    var dx = x - w / 2;
+    if (dx > vw + 40 || dx + w < -40){ releaseTreeDom(t); continue; }
+
+    if (hS > domCut && bmp.url){
+      var dom = t.dom || (t.dom = acquireTreeDom());
+      if (dom.src !== bmp.url){ dom.src = bmp.url; dom.img.src = bmp.url; }
+      /* raster the layer at a quantized size close to the on-screen size:
+         re-rasters only when crossing a bucket, GPU scales the rest of the way */
+      var q = TREE_BUCKETS[0];
+      for (var b = 0; b < TREE_BUCKETS.length; b++){ q = TREE_BUCKETS[b]; if (hh <= q) break; }
+      if (dom.q !== q){ dom.q = q; dom.wrap.style.height = q + 'px'; }
+      dom.wrap.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + (y2 + TREE_PAD * k).toFixed(1) + 'px,0) translate(-50%,-100%) scale(' + (hh / q).toFixed(4) + ')';
+      dom.wrap.style.opacity = op.toFixed(3);
+      dom.wrap.style.zIndex = 10 + Math.round(s2 * 100);
+      continue;
+    }
+    releaseTreeDom(t);
+    trailCtx.globalAlpha = op;
+    /* small trees on screen -> sample the small mip */
+    var src = (hh * d < bmp.small.height) ? bmp.small : bmp.cv;
+    trailCtx.drawImage(src, dx * d, (y2 - (bmp.ih + TREE_PAD) * k) * d, w * d, hh * d);
+  }
+  trailCtx.globalAlpha = 1;
+}
+var TREE_BUCKETS = [120, 190, 300, 470, 740, 1160, 1800];
+
+var trailWasVisible = true;
+function layoutTrail(){
+  if (!trailScene) return;
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var rect = trailScene.getBoundingClientRect();
+
+  /* hero melts into white as soon as you start scrolling */
+  if (heroWrap){
+    var hf = 1 - clamp01(window.scrollY / (vh * 0.5));
+    heroWrap.style.opacity = hf;
+    heroWrap.style.pointerEvents = hf < 0.15 ? 'none' : '';
+  }
+
+  /* skip all scene work while the section is off screen (rest of the page scrolls free) */
+  var visible = rect.bottom > 0 && rect.top < vh;
+  if (!visible){
+    trailWasVisible = false;
+    return;
+  }
+  trailWasVisible = true;
+
+  var total = rect.height - vh;
+  var p = clamp01(total > 0 ? -rect.top / total : 0);
+  var zcam = p * TRAIL_TRAVEL;
+  var vp = trailVanishingPoint();
+  drawTrailScene(zcam, vw, vh, vp);
+
+  /* trail is visible from the first sticky frame; only a soft haze at the very tip */
+  trailFadeIn.style.opacity = clamp01(1 - (p + 0.12) / 0.12) * 0.35;
+
+  var introFade = clamp01(1 - zcam / 0.55);
+  trailHead.style.opacity = introFade;
+  trailHead.style.pointerEvents = introFade > 0.5 ? 'auto' : 'none';
+  trailHint.style.opacity = clamp01(1 - zcam / 0.3);
+  trailFadeBottom.style.opacity = clamp01((p - 0.84) / 0.14);
+
+  var sideSpread = vw > 880 ? 0.24 : 0.27;
+
+  function placeOnTrail(k, offFactor, gyFactor){
+    var rel = k.z - zcam;
+    var s = TRAIL_FOCAL / (TRAIL_FOCAL + Math.max(rel, -0.55));
+    var gx = vw * 0.5 + k.side * vw * offFactor;
+    var gy = vh * gyFactor;
+    var x = vp.x + (gx - vp.x) * s;
+    var y = vp.y + (gy - vp.y) * s;
+    var op = rel < 0 ? clamp01(1 + rel / 0.32) : 1;
+    /* distant sprites dissolve into the horizon haze */
+    op *= clamp01((s - 0.11) / 0.10);
+    k.s = s; k.op = op;
+    /* transform-only positioning: no layout reflow at frame time */
+    k.el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) translate(-50%,-100%) scale(' + s + ')';
+    k.el.style.opacity = op;
+    k.el.style.zIndex = 10 + Math.round(s * 100);
+  }
+
+  trailStops.forEach(function(k){
+    placeOnTrail(k, sideSpread, 0.95);
+    k.el.style.pointerEvents = (k.op > 0.6 && k.s > 0.2) ? 'auto' : 'none';
+    if (k.plate) k.plate.style.opacity = clamp01((k.s - 0.32) / 0.14) * k.op;
+  });
+
+  if (activeDialogChar){
+    var st = null;
+    for (var i = 0; i < trailStops.length; i++){
+      if (trailStops[i].el === activeDialogChar){ st = trailStops[i]; break; }
+    }
+    if (st && (st.op < 0.75 || st.s < 0.18)) hideDialogNow();
+    else positionDialog(activeDialogChar);
+  }
+}
+var trailTicking = false;
+window.addEventListener('scroll', function(){
+  if (!trailTicking){
+    trailTicking = true;
+    requestAnimationFrame(function(){ trailTicking = false; layoutTrail(); });
+  }
+}, { passive: true });
+window.addEventListener('resize', function(){ sizeTrailCanvas(); layoutTrail(); });
+layoutTrail();
+
+function typeText(text){
+  clearInterval(typeTimer);
+  tdLine.textContent = '';
+  tdCaret.style.display = 'inline-block';
+  var i = 0;
+  typeTimer = setInterval(function(){
+    i += 1;
+    tdLine.textContent = text.slice(0, i);
+    if (i >= text.length){ clearInterval(typeTimer); }
+  }, 16);
+}
+
+function positionDialog(char){
+  var kr = trailStage.getBoundingClientRect();
+  var cr = char.getBoundingClientRect();
+  var anchorX = cr.left + cr.width / 2 - kr.left;
+  var anchorY = cr.top - kr.top;
+  var w = trailDialog.offsetWidth;
+  var h = trailDialog.offsetHeight;
+  var left = Math.min(Math.max(anchorX - w / 2, 10), Math.max(10, kr.width - w - 10));
+  var top = Math.max(anchorY - h - 22, 8);
+  trailDialog.style.left = left + 'px';
+  trailDialog.style.top = top + 'px';
+  var tailX = Math.min(Math.max(anchorX - left, 26), w - 26);
+  tdTail.style.left = tailX + 'px';
+  tdTail.style.marginLeft = '-10px';
+}
+
+function showDialog(char){
+  clearTimeout(hideTimer);
+  activeDialogChar = char;
+  tdCover.src = char.getAttribute('data-cover');
+  tdCover.alt = char.getAttribute('data-title');
+  tdType.textContent = char.getAttribute('data-type');
+  tdTitle.textContent = char.getAttribute('data-title');
+  var line = char.getAttribute('data-line');
+  // measure with full text so the bubble doesn't shift while typing
+  tdLine.textContent = line;
+  positionDialog(char);
+  trailDialog.classList.add('is-on');
+  typeText(line);
+}
+
+function hideDialog(){
+  hideTimer = setTimeout(function(){
+    trailDialog.classList.remove('is-on');
+    clearInterval(typeTimer);
+    touchActiveChar = null;
+    activeDialogChar = null;
+  }, 120);
+}
+
+function hideDialogNow(){
+  clearTimeout(hideTimer);
+  trailDialog.classList.remove('is-on');
+  clearInterval(typeTimer);
+  touchActiveChar = null;
+  activeDialogChar = null;
+}
+
+document.querySelectorAll('.trail-char[data-open]').forEach(function(char){
+  if (canHover){
+    char.addEventListener('mouseenter', function(){ showDialog(char); });
+    char.addEventListener('mouseleave', hideDialog);
+    char.addEventListener('focus', function(){ showDialog(char); });
+    char.addEventListener('blur', hideDialog);
+    char.addEventListener('click', function(){
+      hideDialogNow();
+      openBubble(char.getAttribute('data-open'));
+    });
+  } else {
+    char.addEventListener('click', function(){
+      if (touchActiveChar === char){
+        var id = char.getAttribute('data-open');
+        hideDialogNow();
+        openBubble(id);
+      } else {
+        touchActiveChar = char;
+        trailDialog.classList.add('is-touch');
+        showDialog(char);
+      }
+    });
+  }
+});
+if (!canHover){
+  trailDialog.addEventListener('click', function(){
+    if (touchActiveChar){
+      var id = touchActiveChar.getAttribute('data-open');
+      hideDialogNow();
+      openBubble(id);
+    }
+  });
+  document.addEventListener('click', function(e){
+    if (touchActiveChar && !e.target.closest('.trail-char') && !e.target.closest('.trail-dialog')){
+      hideDialogNow();
+    }
+  });
+}
+
+bubbleClose.addEventListener('click', closeBubble);
+backdrop.addEventListener('click', closeBubble);
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape' && bubble.classList.contains('is-open')) closeBubble();
+});
+
+var expToggleBtn = document.getElementById('expToggleBtn');
+var expCollapsible = document.getElementById('professionalExpItems');
+if (expToggleBtn && expCollapsible){
+  expToggleBtn.addEventListener('click', function(){
+    var isOpen = expCollapsible.classList.toggle('is-open');
+    expToggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    expToggleBtn.querySelector('.exp-toggle-label').textContent = isOpen ? 'Hide full track record' : 'Show full track record';
+  });
+}
+
+if ('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
+}
+</script>
+
+<script>
+var levelDesignDiagramXml = `<mxfile host="embed.diagrams.net" agent="Cursor">
   <diagram id="01-1-flinn-family-route" name="01-1 Flinn Family Route">
     <mxGraphModel dx="982" dy="1066" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1700" math="0" shadow="0">
       <root>
@@ -1471,23 +1808,22 @@
   </diagram>
 </mxfile>
 `;
-  var mxgraphConfig = JSON.stringify({
-    highlight: "#F5A623",
-    nav: true,
-    resize: true,
-    toolbar: "zoom",
-    xml: levelDesignDiagramXml
-  });
-  document.getElementById('levelDesignDiagram').setAttribute('data-mxgraph', mxgraphConfig);
+var mxgraphConfig = JSON.stringify({
+  highlight: '#0f8f82',
+  nav: true,
+  resize: true,
+  toolbar: 'zoom layers lightbox',
+  edit: '_blank',
+  xml: levelDesignDiagramXml
+});
+document.getElementById('levelDesignDiagram').setAttribute('data-mxgraph', mxgraphConfig);
 </script>
 <script src="https://viewer.diagrams.net/js/viewer-static.min.js"></script>
 
-<!-- Narrative paginated page viewer (pre-rendered page images) -->
 <script>
 (function(){
   var viewerEl = document.getElementById('narrativePdfViewer');
   if (!viewerEl) return;
-
   var pagesBase = viewerEl.getAttribute('data-pages-base');
   var totalPages = parseInt(viewerEl.getAttribute('data-total-pages'), 10) || 0;
   var img = document.getElementById('pdfPageImage');
@@ -1496,69 +1832,42 @@
   var prevBtn = document.getElementById('pdfPrevBtn');
   var nextBtn = document.getElementById('pdfNextBtn');
   var indicator = document.getElementById('pdfPageIndicator');
-
   var currentPage = 1;
 
-  function pageUrl(num){
-    return pagesBase + 'page-' + (num < 10 ? '0' + num : num) + '.jpg';
-  }
-
-  function preload(num){
-    if (num < 1 || num > totalPages) return;
-    var pre = new Image();
-    pre.src = pageUrl(num);
-  }
-
+  function pageUrl(num){ return pagesBase + 'page-' + (num < 10 ? '0' + num : num) + '.jpg'; }
+  function preload(num){ if (num < 1 || num > totalPages) return; var pre = new Image(); pre.src = pageUrl(num); }
   function updateControls(){
     prevBtn.disabled = currentPage <= 1;
     nextBtn.disabled = currentPage >= totalPages;
     indicator.textContent = 'Page ' + currentPage + ' / ' + totalPages;
   }
-
   function showPage(num){
     if (num < 1 || num > totalPages) return;
     currentPage = num;
     loadingEl.style.display = 'flex';
     var loader = new Image();
-    loader.onload = function(){
-      img.src = loader.src;
-      loadingEl.style.display = 'none';
-      preload(currentPage + 1);
-      preload(currentPage - 1);
-    };
-    loader.onerror = function(){
-      loadingEl.textContent = 'Could not load this page.';
-      loadingEl.style.display = 'flex';
-    };
+    loader.onload = function(){ img.src = loader.src; loadingEl.style.display = 'none'; preload(currentPage + 1); preload(currentPage - 1); };
+    loader.onerror = function(){ loadingEl.textContent = 'Could not load this page.'; loadingEl.style.display = 'flex'; };
     loader.src = pageUrl(num);
     updateControls();
   }
-
   function goToPage(num, direction){
     if (num < 1 || num > totalPages || num === currentPage) return;
     var flipClass = direction === 'next' ? 'is-flipping-next' : 'is-flipping-prev';
     pageWrap.classList.add(flipClass);
-    setTimeout(function(){
-      showPage(num);
-      pageWrap.classList.remove(flipClass);
-    }, 140);
+    setTimeout(function(){ showPage(num); pageWrap.classList.remove(flipClass); }, 140);
   }
-
   prevBtn.addEventListener('click', function(){ goToPage(currentPage - 1, 'prev'); });
   nextBtn.addEventListener('click', function(){ goToPage(currentPage + 1, 'next'); });
-
   document.addEventListener('keydown', function(e){
-    var narrativePanel = document.getElementById('tab-narrative');
-    if (!narrativePanel || !narrativePanel.classList.contains('active')) return;
+    var narrativeDetail = document.getElementById('detail-project-narrative');
+    if (!bubble || !bubble.classList.contains('is-open') || !narrativeDetail || !narrativeDetail.classList.contains('is-active')) return;
     if (e.key === 'ArrowLeft') goToPage(currentPage - 1, 'prev');
     if (e.key === 'ArrowRight') goToPage(currentPage + 1, 'next');
   });
-
   var touchStartX = null;
   var stageEl = viewerEl.querySelector('.pdf-viewer-stage');
-  stageEl.addEventListener('touchstart', function(e){
-    touchStartX = e.changedTouches[0].clientX;
-  }, { passive: true });
+  stageEl.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].clientX; }, { passive: true });
   stageEl.addEventListener('touchend', function(e){
     if (touchStartX === null) return;
     var deltaX = e.changedTouches[0].clientX - touchStartX;
@@ -1568,19 +1877,17 @@
     else goToPage(currentPage - 1, 'prev');
   }, { passive: true });
 
-  var narrativeTabBtn = document.querySelector('.tab-btn[data-tab="tab-narrative"]');
   var loadedOnce = false;
-  function ensureLoaded(){
-    if (loadedOnce) return;
-    loadedOnce = true;
-    showPage(1);
-  }
-  if (narrativeTabBtn){
-    narrativeTabBtn.addEventListener('click', ensureLoaded);
-    if (narrativeTabBtn.classList.contains('active')) ensureLoaded();
+  function ensureLoaded(){ if (loadedOnce) return; loadedOnce = true; showPage(1); }
+  window.addEventListener('narrative-open', ensureLoaded);
+  if (bubble){
+    var mo = new MutationObserver(function(){
+      var d = document.getElementById('detail-project-narrative');
+      if (bubble.classList.contains('is-open') && d && d.classList.contains('is-active')) ensureLoaded();
+    });
+    mo.observe(bubble, { attributes: true, attributeFilter: ['class'] });
   }
 })();
 </script>
-
 </body>
 </html>
