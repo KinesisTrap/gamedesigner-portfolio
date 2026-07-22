@@ -341,6 +341,7 @@
     border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface-2);
   }
   .shot-item img{display:block;width:100%;height:150px;object-fit:cover;object-position:top;}
+  #tab-mechanics .shot-item img{height:190px;object-position:center top;}
   .shot-item figcaption{
     padding:10px 12px;font-size:12px;line-height:1.4;color:var(--text-dim);margin:0;
   }
@@ -458,6 +459,7 @@
               <li>Run a public LinkedIn devlog about moving into game development, documenting Unreal learning, prototype breakdowns, design decisions, playability issues, QA observations, and iteration takeaways.</li>
               <li>Create gameplay prototypes and level experiments in Unreal Engine 4/5 and Unity, including graybox levels, editor workflows, gameplay triggers, Actor spawning, Blueprint/function logic, spawn points, and feedback messages.</li>
               <li>Built <a href="https://github.com/KinesisTrap/BadBotGame" target="_blank" rel="noopener">BadBotGame</a>, a bot-enemy combat project in Unreal Engine 5 covering procedural weapon audio in MetaSound, Niagara VFX systems, custom material graphs, Blueprint gameplay/AI logic, and socket-driven weapon attachment on a Nanite-enabled mesh.</li>
+              <li>Designed core systems for <a href="https://indigiseal.itch.io/evershift" target="_blank" rel="noopener">Evershift</a> (pixel roguelike card dungeon on itch.io): combat rules, class talent trees, meta-progression and amulet systems, with written mechanics specs, playtesting, and balance iteration. Built a run-simulator metrics pipeline (parameterized batch runs &rarr; SQLite &rarr; Grafana dashboards) to validate difficulty curves and progression pacing.</li>
               <li>Practice prototyping and level design through closed arenas, simple combat/collection loops, bot behavior experiments, player pathing, level readability, pacing, and moment-to-moment interaction flow.</li>
               <li>Design and document game mechanics and subsystems for board game and digital game prototypes, including rules, resources, constraints, player actions, failure states, difficulty tuning, and implementation notes.</li>
               <li>Iterated a deck-driven diplomacy/dialogue concept with NPC personality traits, resistance/defense cards, player action decks, tension/influence resources, and social lockpicking style decision-making.</li>
@@ -688,7 +690,56 @@
       <div class="tab-panel" id="tab-mechanics">
         <div class="panel-head">
           <h3>Game Mechanics</h3>
-          <p>Three original subsystems designed, documented and balanced as part of the same board-game &amp; prototype ecosystem.</p>
+          <p>Original combat and progression systems &mdash; from Evershift&rsquo;s live card-dungeon loop to board-game subsystems designed, documented, and balanced for play.</p>
+        </div>
+
+        <!-- EVERSHIFT -->
+        <div class="card mech-card">
+          <div class="mech-card-head">
+            <h4>Evershift &mdash; Roguelike Card Dungeon</h4>
+            <span class="status-pill ready">Systems Design &middot; itch.io</span>
+          </div>
+          <p>Pixel-art card dungeon on itch.io. Designed the combat loop, class talent trees, meta-progression and amulet systems; wrote mechanics specs; ran playtests and balance iteration. Built a parameterized run simulator with metrics stored in SQLite and visualized in Grafana.</p>
+          <div class="tag-row" style="margin:12px 0 18px;">
+            <span class="tag">Combat Systems</span>
+            <span class="tag">Talent Trees</span>
+            <span class="tag">Meta-Progression</span>
+            <span class="tag">Amulets</span>
+            <span class="tag">Balance &amp; Metrics</span>
+          </div>
+          <ul style="margin:0 0 16px 0;">
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Combat &amp; classes</strong> &mdash; equipment hands, enemy rows, armor/deflect, status effects; Warrior and Rogue loadouts, armor rules, and passives.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Talent trees</strong> &mdash; Iron / Edge / Camp (Warrior) and Shadow / Ghost / Scoundrel (Rogue) with gated nodes and XP spend.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Meta &amp; amulets</strong> &mdash; between-run progression and amulet modifiers that reshape shop and floor decisions.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Balance pipeline</strong> &mdash; batch run simulator &rarr; SQLite metrics &rarr; Grafana dashboards for difficulty and pacing.</li>
+          </ul>
+          <div class="shot-gallery" style="margin-bottom:16px;">
+            <figure class="shot-item">
+              <img src="assets/evershift/hero-select.png" alt="Evershift hero select — Rogue vs Warrior" loading="lazy">
+              <figcaption>Hero select &mdash; Rogue vs Warrior kits, armor rules, and class passives.</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/warrior-talents.png" alt="Evershift Warrior talent tree" loading="lazy">
+              <figcaption>Warrior talents &mdash; Iron branch live; Edge / Camp WIP.</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/rogue-talents.png" alt="Evershift Rogue talent tree" loading="lazy">
+              <figcaption>Rogue talents &mdash; Shadow tree (Keen Edge, First Blood).</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/combat-skeletons.png" alt="Evershift combat against skeletons" loading="lazy">
+              <figcaption>Combat slice &mdash; hand, enemy grid, armor/deflect, combat log.</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/combat-boss.png" alt="Evershift Skeleton King boss fight" loading="lazy">
+              <figcaption>Boss encounter &mdash; Skeleton King with summons.</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/shop-amulets.png" alt="Evershift shop with amulet sold" loading="lazy">
+              <figcaption>Shop &amp; amulets &mdash; economy and meta-run modifiers.</figcaption>
+            </figure>
+          </div>
+          <p style="margin-top:4px;"><a href="https://indigiseal.itch.io/evershift" target="_blank" rel="noopener">Play on itch.io &#8599;</a></p>
         </div>
 
         <!-- LOCKPICKING -->
@@ -752,7 +803,7 @@
         </div>
 
         <div class="proto-card">
-          <div class="proto-visual"><img src="assets/prototypes/arcane-duel-preview.png" alt="Arcane Duel prototype screenshot" loading="lazy"></div>
+          <div class="proto-visual"><img src="assets/prototypes/arcane-duel-cover.jpg" alt="Arcane Duel prototype cover" loading="lazy"></div>
           <div class="proto-body">
             <h4>Arcane Duel</h4>
             <p>Deckbuilding &times; CCG hybrid duel. Two archmages, two resources, ~10&ndash;15 minute matches, single-player vs. AI.</p>
