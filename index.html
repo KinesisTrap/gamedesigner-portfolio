@@ -7,27 +7,35 @@
 <meta name="description" content="Petr Gorskin — Game Designer. Systems design, prototyping, level design and narrative portfolio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0c0d10;
-    --bg-alt:#111318;
-    --surface:#161922;
-    --surface-2:#1c202b;
-    --border:#272c38;
-    --text:#eceef2;
-    --text-dim:#9aa1b0;
-    --text-faint:#6b7280;
-    --accent:#f5a623;
-    --accent-dim:#8a5f1e;
-    --blue:#6c9bd1;
-    --purple:#a67fc0;
-    --teal:#2bb3ad;
-    --green:#7fbf6a;
-    --red:#d16c6c;
-    --radius:14px;
-    --maxw:1180px;
-    --shadow:0 20px 50px -20px rgba(0,0,0,.6);
+    /* Pale Tiffany mint + triad (mint / soft apricot / cool periwinkle) */
+    --mint:#81d8d0;
+    --mint-pale:#e8f7f5;
+    --mint-soft:#c9ebe6;
+    --mint-deep:#2f8f87;
+    --warm:#e8b09a;
+    --cool:#8fa3d4;
+    --bg:#f5fbfa;
+    --bg-alt:#eaf6f4;
+    --surface:#ffffff;
+    --surface-2:#f0f9f7;
+    --border:#c5e0dc;
+    --text:#163532;
+    --text-dim:#456663;
+    --text-faint:#7a9995;
+    --accent:#2f8f87;
+    --accent-dim:#1f6b65;
+    --accent-soft:rgba(47,143,135,.14);
+    --blue:#5a8fb5;
+    --purple:#8fa3d4;
+    --teal:#2f8f87;
+    --green:#5a9a4a;
+    --red:#c45c5c;
+    --radius:22px;
+    --maxw:1100px;
+    --shadow:0 22px 50px -28px rgba(22,53,50,.22);
   }
   *,*::before,*::after{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -35,12 +43,12 @@
     margin:0;
     background:var(--bg);
     color:var(--text);
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    font-family:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3,h4{
-    font-family:'Sora',sans-serif;
+    font-family:'Outfit',sans-serif;
     color:var(--text);
     margin:0 0 .5em;
     line-height:1.2;
@@ -62,8 +70,8 @@
     letter-spacing:.14em;
     text-transform:uppercase;
     color:var(--accent);
-    background:rgba(245,166,35,.08);
-    border:1px solid rgba(245,166,35,.25);
+    background:var(--accent-soft);
+    border:1px solid rgba(47,143,135,.28);
     padding:5px 12px;
     border-radius:999px;
     margin-bottom:18px;
@@ -75,16 +83,16 @@
   /* ---------- NAV ---------- */
   header.site-nav{
     position:sticky;top:0;z-index:100;
-    background:rgba(12,13,16,.82);
+    background:rgba(232,247,245,.94);
     backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
+    border-bottom:1px solid transparent;
   }
   .nav-inner{
     max-width:var(--maxw);margin:0 auto;padding:0 24px;
     height:68px;display:flex;align-items:center;justify-content:space-between;
   }
   .logo{
-    font-family:'Sora',sans-serif;font-weight:700;font-size:17px;color:var(--text);
+    font-family:'Outfit',sans-serif;font-weight:700;font-size:17px;color:var(--text);
     letter-spacing:.02em;
   }
   .logo span{color:var(--accent);}
@@ -98,48 +106,258 @@
 
   .btn{
     display:inline-flex;align-items:center;gap:8px;
-    padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;
+    padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;
     border:1px solid transparent;cursor:pointer;transition:transform .15s ease, background .2s ease, border-color .2s ease;
     white-space:nowrap;
   }
   .btn:hover{text-decoration:none;transform:translateY(-1px);}
-  .btn-primary{background:var(--accent);color:#191100;}
-  .btn-primary:hover{background:#ffb946;}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-dim);}
   .btn-ghost{background:transparent;color:var(--text);border-color:var(--border);}
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
   .btn-sm{padding:8px 16px;font-size:13px;}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    padding:110px 0 90px;
-    background:
-      radial-gradient(ellipse 60% 50% at 80% -10%, rgba(245,166,35,.12), transparent 60%),
-      radial-gradient(ellipse 50% 40% at 0% 10%, rgba(108,155,209,.10), transparent 60%);
-    border-bottom:1px solid var(--border);
-    overflow:hidden;
+  /* ---------- INTRO STAGE (hero + projects, one sticky viewport) ---------- */
+  .intro-stage{padding:0;background:#fff;position:relative;}
+  .intro-track{
+    position:relative;
+    /* tight scroll: short hero handoff + projects, almost no empty tail */
+    height:calc((var(--proj-count, 5) * 2.15 + 0.25) * 100vh);
   }
-  .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:48px;align-items:center;}
+  .intro-sticky{
+    position:sticky;top:68px;height:calc(100vh - 68px);
+    overflow:hidden;background:var(--mint-pale);
+  }
+  .hero-layer{
+    position:absolute;inset:0;z-index:3;
+    display:flex;align-items:center;
+    padding-top:0;
+    background:var(--mint-pale);
+    opacity:var(--hero-vis, 1);
+    transform:translate3d(0, calc((1 - var(--hero-vis, 1)) * -14px), 0);
+    will-change:opacity, transform;
+  }
+  .hero-layer.is-gone{pointer-events:none;}
+  .hero-blobs{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .hero-blobs .blob{position:absolute;border-radius:50%;}
+  .hero-blobs .blob-a{
+    width:min(62vw,560px);height:min(62vw,560px);
+    left:-14%;top:22%;
+    background:radial-gradient(circle at 40% 40%, var(--mint) 0%, var(--mint-soft) 55%, transparent 72%);
+    border-radius:58% 42% 48% 52% / 48% 55% 45% 52%;
+    opacity:.85;
+  }
+  .hero-blobs .blob-b{
+    width:min(48vw,420px);height:min(48vw,420px);
+    right:-8%;bottom:-18%;
+    background:radial-gradient(circle at 50% 40%, rgba(232,176,154,.55), transparent 70%);
+    border-radius:45% 55% 52% 48% / 55% 42% 58% 45%;
+    opacity:.55;
+  }
+  .hero-blobs .blob-c{
+    width:min(28vw,260px);height:min(28vw,260px);
+    left:42%;top:58%;
+    background:radial-gradient(circle at 40% 40%, rgba(143,163,212,.35), transparent 68%);
+    border-radius:50%;
+    opacity:.5;
+  }
+  .hero-layer .wrap{position:relative;z-index:1;width:100%;padding-top:0;padding-bottom:72px;}
+  .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:48px;align-items:start;}
   .eyebrow{
-    font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:13px;
-    letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;display:block;
+    font-family:'JetBrains Mono',monospace;color:var(--accent-dim);font-size:13px;
+    letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;
+    display:inline-block;padding:6px 12px;border-radius:999px;
+    background:rgba(255,255,255,.55);
   }
-  .hero h1{font-size:clamp(38px,6vw,60px);letter-spacing:-.02em;}
-  .hero .role{font-size:clamp(17px,2vw,20px);color:var(--text-dim);font-weight:500;margin-bottom:22px;}
-  .hero .desc{font-size:16px;max-width:560px;}
+  .hero-scroll-hint{
+    position:absolute;left:0;right:0;bottom:22px;z-index:2;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--accent-dim);
+    opacity:calc(var(--hero-vis, 1) * .85);
+    pointer-events:none;
+  }
+  .hero-scroll-hint .chev{
+    width:18px;height:18px;border-right:2px solid var(--accent);
+    border-bottom:2px solid var(--accent);transform:rotate(45deg);
+    animation:scroll-chev 1.6s ease-in-out infinite;
+  }
+  @keyframes scroll-chev{
+    0%,100%{transform:translateY(0) rotate(45deg);opacity:.35;}
+    50%{transform:translateY(6px) rotate(45deg);opacity:1;}
+  }
+  .hero-layer h1{font-size:clamp(38px,6vw,60px);letter-spacing:-.02em;color:var(--text);}
+  .hero-layer .role{font-size:clamp(17px,2vw,20px);color:var(--text-dim);font-weight:500;margin-bottom:22px;}
+  .hero-layer .desc{font-size:16px;max-width:560px;color:var(--text-dim);}
   .hero-meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 32px;font-size:14px;color:var(--text-dim);}
   .hero-meta span{display:flex;align-items:center;gap:7px;}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--mint-deep);display:inline-block;}
   .hero-actions{display:flex;flex-wrap:wrap;gap:14px;}
-
+  .hero-layer .btn-ghost{border-color:rgba(47,143,135,.35);color:var(--accent-dim);background:rgba(255,255,255,.45);}
+  .hero-layer .btn-ghost:hover{background:#fff;border-color:var(--accent);}
   .hero-card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:28px;box-shadow:var(--shadow);
+    background:rgba(255,255,255,.82);border:1px solid rgba(197,224,220,.8);border-radius:28px;
+    padding:28px;box-shadow:var(--shadow);backdrop-filter:blur(8px);
   }
   .hero-card h3{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:18px;}
   .hero-stat{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
   .hero-stat:last-child{border-bottom:none;}
   .hero-stat b{color:var(--text);font-size:14px;font-weight:600;}
   .hero-stat span{color:var(--text-faint);font-size:13px;}
+
+  /* Projects: title + cover with soft fade | blurb + details */
+  .proj-stage{position:absolute;inset:0;z-index:2;background:var(--mint-pale);}
+  .proj{
+    position:absolute;inset:0;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,4vw,56px);
+    align-items:center;padding:clamp(28px,4vh,48px) clamp(24px,5vw,72px);
+    opacity:0;pointer-events:none;
+    will-change:transform, opacity;
+  }
+  .proj.is-live{pointer-events:auto;}
+  .proj[data-side="right"] .proj-visual{order:2;}
+  .proj[data-side="right"] .proj-copy{order:1;text-align:right;}
+  .proj[data-side="right"] .proj-copy .proj-more{float:right;}
+  .proj-visual{min-width:0;position:relative;}
+  .proj-title{
+    position:relative;z-index:2;
+    margin:0 0 18px;font-family:'Outfit',sans-serif;
+    font-size:clamp(28px,4vw,46px);line-height:1.1;letter-spacing:-.02em;color:var(--text);
+  }
+  .proj-frame{
+    position:relative;z-index:1;
+    width:100%;
+    aspect-ratio:16 / 10;
+    max-height:min(54vh, 460px);
+    margin-inline:auto;
+    border-radius:20px;
+    overflow:hidden;
+    background:transparent;
+    border:none;box-shadow:none;
+    cursor:pointer;
+  }
+  .proj-frame img{
+    position:absolute;
+    left:50%;top:50%;
+    transform:translate(-50%, -50%);
+    max-width:100%;
+    max-height:100%;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    object-position:center;
+    display:block;
+    border-radius:20px;
+    filter:saturate(1.03) contrast(1.02);
+    /* Soft rounded rim — single shape, no H/V stacking */
+    -webkit-mask-image:radial-gradient(ellipse 100% 100% at 50% 50%,
+      #000 0%, #000 78%, rgba(0,0,0,.45) 90%, transparent 100%);
+    mask-image:radial-gradient(ellipse 100% 100% at 50% 50%,
+      #000 0%, #000 78%, rgba(0,0,0,.45) 90%, transparent 100%);
+  }
+  .proj-frame::after{display:none;content:none;}
+  .proj-frame.proj-frame-soft{
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(145deg, var(--mint), var(--mint-deep));
+    color:#fff;font-family:'Outfit',sans-serif;font-weight:800;
+    font-size:clamp(40px,6vw,72px);letter-spacing:.06em;
+    aspect-ratio:16 / 10;
+    border-radius:20px;
+    overflow:hidden;
+  }
+  .proj-frame.proj-frame-soft::after{
+    display:block;content:"";
+    background:radial-gradient(ellipse 70% 65% at 50% 45%, transparent 30%, rgba(8,28,26,.35) 100%);
+  }
+  .proj-frame.proj-frame-sealed{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;text-align:center;padding:28px 32px;
+    background:
+      radial-gradient(ellipse 80% 70% at 50% 40%, rgba(255,255,255,.55), transparent 60%),
+      linear-gradient(155deg, #d5ebe7 0%, #b9d8d3 45%, #9ec4c0 100%);
+    cursor:pointer;
+    border-radius:20px;
+    overflow:hidden;
+  }
+  .proj-frame.proj-frame-sealed::after{
+    display:block;content:"";
+    background:
+      radial-gradient(ellipse 70% 65% at 50% 45%, transparent 40%, rgba(8,28,26,.18) 100%);
+  }
+  .proj-frame-sealed .seal-kicker{
+    position:relative;z-index:3;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent-dim);
+  }
+  .proj-frame-sealed .seal-title{
+    position:relative;z-index:3;margin:0;
+    font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,28px);
+    letter-spacing:.02em;color:var(--text);line-height:1.2;
+  }
+  .proj-frame-sealed .seal-note{
+    position:relative;z-index:3;margin:0;max-width:280px;
+    font-size:13.5px;line-height:1.45;color:var(--text-dim);
+  }
+  .linger-sealed{
+    border:1px solid rgba(47,143,135,.22);
+    border-radius:18px;
+    padding:clamp(28px,4vw,40px);
+    background:
+      radial-gradient(ellipse 70% 60% at 20% 0%, rgba(255,255,255,.7), transparent 55%),
+      linear-gradient(160deg, var(--mint-pale), var(--mint-soft));
+  }
+  .linger-sealed .seal-kicker{
+    margin:0 0 12px;font-family:'JetBrains Mono',monospace;font-size:12px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--accent);
+  }
+  .linger-sealed h3{margin:0 0 12px;}
+  .linger-sealed p:last-child{margin-bottom:0;}
+  .proj-copy{max-width:420px;width:100%;justify-self:center;}
+  .proj-label{
+    margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:12px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+  }
+  .proj-blurb{
+    margin:0 0 22px;font-size:clamp(15px,1.5vw,18px);line-height:1.55;color:var(--text-dim);
+  }
+  .proj-more{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1.5px solid var(--accent);background:var(--accent);color:#fff;
+    border-radius:999px;padding:12px 22px;font-size:14px;font-weight:600;
+    font-family:'Manrope',sans-serif;cursor:pointer;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .proj-more:hover{background:var(--accent-dim);transform:translateY(-1px);}
+  .proj-progress{
+    position:absolute;left:0;right:0;bottom:20px;z-index:4;
+    display:flex;justify-content:center;gap:10px;
+    opacity:calc(1 - var(--hero-vis, 1));
+    transition:opacity .2s ease;
+  }
+  .proj-progress button{
+    width:9px;height:9px;border-radius:50%;border:none;padding:0;
+    background:var(--border);cursor:pointer;transition:transform .2s ease, background .2s ease;
+  }
+  .proj-progress button.is-on{background:var(--accent);transform:scale(1.25);}
+  .proj-continue-hint{
+    position:absolute;left:0;right:0;bottom:48px;z-index:5;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--accent-dim);
+    opacity:var(--continue-vis, 0);
+    pointer-events:none;
+    transition:opacity .15s ease;
+  }
+  .proj-continue-hint .chev{
+    width:18px;height:18px;border-right:2px solid var(--accent);
+    border-bottom:2px solid var(--accent);transform:rotate(45deg);
+    animation:scroll-chev 1.6s ease-in-out infinite;
+  }
+  #experience{
+    opacity:var(--exp-vis, 0);
+    transform:translate3d(0, calc((1 - var(--exp-vis, 0)) * 36px), 0);
+    will-change:opacity, transform;
+  }
 
   /* ---------- CARDS / GRIDS ---------- */
   .grid{display:grid;gap:20px;}
@@ -153,7 +371,7 @@
   .card p{font-size:14.5px;margin-bottom:0;}
   .card-icon{
     width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-    background:rgba(245,166,35,.1);color:var(--accent);margin-bottom:16px;font-size:19px;
+    background:var(--accent-soft);color:var(--accent);margin-bottom:16px;font-size:19px;
   }
 
   /* ---------- ABOUT ---------- */
@@ -207,25 +425,43 @@
   /* ---------- SKILLS ---------- */
   .skill-card{border-left:2px solid var(--accent);}
 
-  /* ---------- PORTFOLIO / TABS ---------- */
-  .tabs-nav{
-    display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:40px;
-    overflow-x:auto;
+  /* ---------- MODAL ---------- */
+  .modal-root{
+    position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;
+    padding:24px;
   }
-  .tab-btn{
-    background:none;border:none;color:var(--text-dim);font-family:'Inter',sans-serif;
-    font-size:14.5px;font-weight:600;padding:14px 20px;cursor:pointer;position:relative;
-    white-space:nowrap;transition:color .2s ease;
+  .modal-root.is-open{display:flex;}
+  .modal-backdrop{
+    position:absolute;inset:0;background:rgba(22,53,50,.45);backdrop-filter:blur(4px);
   }
-  .tab-btn:hover{color:var(--text);}
-  .tab-btn.active{color:var(--accent);}
-  .tab-btn.active::after{
-    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);
+  .modal-panel{
+    position:relative;z-index:1;width:min(920px,100%);max-height:min(88vh,900px);
+    background:var(--surface);border-radius:28px;border:1px solid var(--border);
+    box-shadow:0 30px 80px -30px rgba(22,53,50,.45);
+    display:flex;flex-direction:column;overflow:hidden;
+    animation:modalIn .28s cubic-bezier(.2,.7,.2,1);
   }
-  .tab-panel{display:none;animation:fadeIn .35s ease;}
-  .tab-panel.active{display:block;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes modalIn{
+    from{opacity:0;transform:translateY(16px) scale(.98);}
+    to{opacity:1;transform:none;}
+  }
+  .modal-top{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+    padding:22px 24px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);
+  }
+  .modal-top h2{font-size:clamp(20px,2.5vw,26px);margin:0;}
+  .modal-top p{margin:6px 0 0;font-size:14px;color:var(--text-dim);}
+  .modal-close{
+    flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);
+    background:var(--surface);color:var(--text);font-size:22px;line-height:1;cursor:pointer;
+  }
+  .modal-close:hover{border-color:var(--accent);color:var(--accent);}
+  .modal-body{
+    overflow:auto;padding:24px;overscroll-behavior:contain;
+  }
+  body.modal-open{overflow:hidden;}
 
+  .panel-head{max-width:760px;margin-bottom:32px;}
   .panel-head{max-width:760px;margin-bottom:32px;}
   .panel-head h3{font-size:24px;}
   .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;}
@@ -247,14 +483,14 @@
     display:flex;align-items:center;justify-content:center;gap:18px;
     padding:36px 16px;min-height:560px;position:relative;
     background:
-      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(245,166,35,.07), transparent 65%),
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(47,143,135,.08), transparent 65%),
       var(--bg-alt);
     touch-action:pan-y;
     user-select:none;
   }
   .pdf-page-wrap{
     position:relative;background:#fff;border-radius:5px;overflow:hidden;
-    box-shadow:0 30px 70px -25px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.06);
+    box-shadow:0 24px 50px -28px rgba(20,32,24,.35), 0 0 0 1px rgba(20,32,24,.06);
     max-width:100%;
     transition:opacity .22s ease, transform .22s ease;
   }
@@ -341,8 +577,7 @@
     border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface-2);
   }
   .shot-item img{display:block;width:100%;height:150px;object-fit:cover;object-position:top;}
-  #tab-mechanics .shot-item img{height:190px;object-position:center top;}
-  .shot-item figcaption{
+    .shot-item figcaption{
     padding:10px 12px;font-size:12px;line-height:1.4;color:var(--text-dim);margin:0;
   }
 
@@ -371,6 +606,15 @@
     nav.nav-links{display:none;}
     .nav-toggle{display:block;}
     .hero-grid{grid-template-columns:1fr;}
+    .proj{
+      grid-template-columns:1fr;align-content:center;gap:18px;
+      padding:32px 20px 56px;overflow:auto;
+    }
+    .proj[data-side="right"] .proj-visual,
+    .proj[data-side="right"] .proj-copy{order:initial;text-align:left;}
+    .proj[data-side="right"] .proj-copy .proj-more{float:none;}
+    .proj-frame{max-height:none;}
+    .proj-copy{justify-self:stretch;max-width:none;}
     .grid-3{grid-template-columns:repeat(2,1fr);}
     .grid-2{grid-template-columns:1fr;}
     .exp-item{grid-template-columns:1fr;gap:8px;}
@@ -393,10 +637,11 @@
 
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="#top" class="logo">Petr Gorskin<span>.</span></a>
+    <a href="#hero" class="logo">Petr Gorskin<span>.</span></a>
     <nav class="nav-links" id="navLinks">
+      <a href="#hero">Home</a>
+      <a href="#projects-start" id="navProjects">Projects</a>
       <a href="#experience">Experience</a>
-      <a href="#portfolio">Portfolio</a>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
@@ -410,32 +655,112 @@
 
 <main id="top">
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">Game Designer &mdash; Systems Design, Prototyping &amp; Level Design</span>
-        <h1>Petr Gorskin</h1>
-        <p class="role">Turning vague feature ideas into structured, testable, iterative game systems.</p>
-        <p class="desc">Game Designer transitioning from 6+ years in QA/SDET leadership and production ownership of complex software systems. Hands-on with Unreal Engine 4/5 and Unity through gameplay prototypes, graybox levels, and AI-assisted prototyping. Deep interest in story-driven RPGs, systemic gameplay, level flow, and memorable player experiences.</p>
-        <div class="hero-meta">
-          <span><i class="dot"></i> Open to relocation &mdash; anywhere in the world</span>
-          <span>&#9993; <a href="mailto:errorbest@gmail.com">errorbest@gmail.com</a></span>
-          <span>&#9742; +7 985 249-10-52</span>
+  <!-- ============ INTRO + PROJECTS ============ -->
+  <section id="portfolio" class="intro-stage">
+    <div class="intro-track" id="introTrack" style="--proj-count:5">
+      <div class="intro-sticky" id="introSticky">
+        <div class="hero-layer" id="heroLayer">
+          <span id="hero"></span>
+          <div class="hero-blobs" aria-hidden="true">
+            <span class="blob blob-a"></span>
+            <span class="blob blob-b"></span>
+            <span class="blob blob-c"></span>
+          </div>
+          <div class="wrap hero-grid">
+            <div>
+              <span class="eyebrow">Game Designer &mdash; Systems Design, Narrative, Prototyping &amp; Level Design</span>
+              <h1>Petr Gorskin</h1>
+              <p class="role">Turning vague feature ideas into structured, testable, iterative game systems.</p>
+              <p class="desc">Game Designer transitioning from 6+ years in QA/SDET leadership and production ownership of complex software systems. Hands-on with Unreal Engine 4/5 and Unity through gameplay prototypes, graybox levels, and AI-assisted prototyping. Deep interest in story-driven RPGs, systemic gameplay, level flow, and memorable player experiences.</p>
+              <div class="hero-meta">
+                <span><i class="dot"></i> Open to relocation &mdash; anywhere in the world</span>
+                <span>&#9993; <a href="mailto:errorbest@gmail.com">errorbest@gmail.com</a></span>
+                <span>&#9742; +7 985 249-10-52</span>
+              </div>
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="assets/cv/Petr-Gorskin-Game-Designer-CV.docx" target="_blank" rel="noopener" download>Download CV</a>
+                <a class="btn btn-ghost" href="#projects-start" id="viewProjectsBtn">View Projects</a>
+                <a class="btn btn-ghost" href="https://github.com/KinesisTrap" target="_blank" rel="noopener">GitHub &#8599;</a>
+              </div>
+            </div>
+            <div class="hero-card">
+              <h3>Snapshot</h3>
+              <div class="hero-stat"><span>Current focus</span><b>Game Design &amp; Prototyping</b></div>
+              <div class="hero-stat"><span>Background</span><b>QA / SDET Leadership, 6+ yrs</b></div>
+              <div class="hero-stat"><span>Engines</span><b>Unreal Engine 4/5, Unity</b></div>
+              <div class="hero-stat"><span>Languages</span><b>Russian (native), English (B2)</b></div>
+              <div class="hero-stat"><span>Education</span><b>MPEI &middot; MSc, IT &amp; CS</b></div>
+            </div>
+          </div>
+          <div class="hero-scroll-hint" aria-hidden="true">
+            <span>Scroll Down to Projects</span>
+            <span class="chev"></span>
+          </div>
         </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="assets/cv/Petr-Gorskin-Game-Designer-CV.docx" target="_blank" rel="noopener" download>Download CV</a>
-          <a class="btn btn-ghost" href="#portfolio">View Portfolio</a>
-          <a class="btn btn-ghost" href="https://github.com/KinesisTrap" target="_blank" rel="noopener">GitHub &#8599;</a>
+
+        <div class="proj-stage" id="projStage">
+        <article class="proj" data-side="left" data-modal="modal-evershift">
+          <div class="proj-visual">
+            <h3 class="proj-title">Evershift</h3>
+            <div class="proj-frame"><img src="assets/evershift/evershift-cover.png" alt="Evershift cover" loading="lazy"></div>
+          </div>
+          <div class="proj-copy">
+            <p class="proj-label">Dungeon Rogue</p>
+            <p class="proj-blurb">Roguelike card dungeon — combat loops, talent trees, meta-progression and a metrics-driven balance pipeline.</p>
+            <button type="button" class="proj-more" data-modal="modal-evershift">Details</button>
+          </div>
+        </article>
+        <article class="proj" data-side="right" data-modal="modal-chronoarchive">
+          <div class="proj-visual">
+            <h3 class="proj-title">ChronoArchive</h3>
+            <div class="proj-frame"><img src="assets/chronoarchive/chronoarchive-cover.png" alt="ChronoArchive cover" loading="lazy"></div>
+          </div>
+          <div class="proj-copy">
+            <p class="proj-label">Tabletop in development</p>
+            <p class="proj-blurb">Narrative board game spanning Flinn&rsquo;s Farm, Lockpicking and Social Encounter systems.</p>
+            <button type="button" class="proj-more" data-modal="modal-chronoarchive">Details</button>
+          </div>
+        </article>
+        <article class="proj" data-side="left" data-modal="modal-arcane">
+          <div class="proj-visual">
+            <h3 class="proj-title">Arcane Duel</h3>
+            <div class="proj-frame"><img src="assets/prototypes/arcane-duel-cover.jpg" alt="Arcane Duel" loading="lazy"></div>
+          </div>
+          <div class="proj-copy">
+            <p class="proj-label">Deck-building duel</p>
+            <p class="proj-blurb">Playable prototype of a fast deck-building duel — tempo, resources, and a data-driven rules core.</p>
+            <button type="button" class="proj-more" data-modal="modal-arcane">Details</button>
+          </div>
+        </article>
+        <article class="proj" data-side="right" data-modal="modal-badbot">
+          <div class="proj-visual">
+            <h3 class="proj-title">Bad Bot</h3>
+            <div class="proj-frame"><img src="assets/ue5-badbot/bad-bot-cover.jpg" alt="Bad Bot" loading="lazy"></div>
+          </div>
+          <div class="proj-copy">
+            <p class="proj-label">UE5 arcade study</p>
+            <p class="proj-blurb">Learning project: bot-enemy arcade slice with MetaSound, Niagara, materials and Blueprints.</p>
+            <button type="button" class="proj-more" data-modal="modal-badbot">Details</button>
+          </div>
+        </article>
+        <article class="proj" data-side="left" data-modal="modal-linger">
+          <div class="proj-visual">
+            <h3 class="proj-title">As Long As I Linger</h3>
+            <div class="proj-frame"><img src="assets/linger/linger-cover.png" alt="As Long As I Linger cover" loading="lazy"></div>
+          </div>
+          <div class="proj-copy">
+            <p class="proj-label">Narrative-driven</p>
+            <p class="proj-blurb">Ghost, estate, memory — a linear story diluted with Neighbour from Hell / Ghost Master–like mischief.</p>
+            <button type="button" class="proj-more" data-modal="modal-linger">Details</button>
+          </div>
+        </article>
         </div>
-      </div>
-      <div class="hero-card">
-        <h3>Snapshot</h3>
-        <div class="hero-stat"><span>Current focus</span><b>Game Design &amp; Prototyping</b></div>
-        <div class="hero-stat"><span>Background</span><b>QA / SDET Leadership, 6+ yrs</b></div>
-        <div class="hero-stat"><span>Engines</span><b>Unreal Engine 4/5, Unity</b></div>
-        <div class="hero-stat"><span>Languages</span><b>Russian (native), English (B2)</b></div>
-        <div class="hero-stat"><span>Education</span><b>MPEI &middot; MSc, IT &amp; CS</b></div>
+        <div class="proj-progress" id="projProgress" aria-hidden="true"></div>
+        <div class="proj-continue-hint" id="projContinueHint" aria-hidden="true">
+          <span>Scroll Down</span>
+          <span class="chev"></span>
+        </div>
+        <span id="projects-start" hidden></span>
       </div>
     </div>
   </section>
@@ -569,344 +894,15 @@
     </div>
   </section>
 
-  <!-- ============ PORTFOLIO ============ -->
-  <section id="portfolio">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="section-tag">Portfolio</span>
-        <h2>Game design portfolio</h2>
-        <p>Narrative writing, level/quest design, mechanic design and playable prototypes from an ongoing untitled narrative board game project, plus browser-playable digital prototypes.</p>
-      </div>
-
-      <div class="tabs-nav" id="tabsNav">
-        <button class="tab-btn active" data-tab="tab-github">GitHub</button>
-        <button class="tab-btn" data-tab="tab-narrative">Narrative</button>
-        <button class="tab-btn" data-tab="tab-level">Level Design</button>
-        <button class="tab-btn" data-tab="tab-mechanics">Game Mechanics</button>
-        <button class="tab-btn" data-tab="tab-prototypes">Prototypes</button>
-        <button class="tab-btn" data-tab="tab-ue5">UE5 Systems</button>
-      </div>
-
-      <!-- GITHUB -->
-      <div class="tab-panel active" id="tab-github">
-        <div class="panel-head">
-          <h3>GitHub</h3>
-          <p>Source code, rules engines, and design documentation for playable prototypes.</p>
-        </div>
-        <div class="card" style="margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-          <div>
-            <h3 style="margin-bottom:4px;">github.com/KinesisTrap</h3>
-            <p style="margin:0;">Game design and prototyping repositories: rules engines, card data, GDDs, and browser-playable builds.</p>
-          </div>
-          <a class="btn btn-primary" href="https://github.com/KinesisTrap" target="_blank" rel="noopener">Open Profile &#8599;</a>
-        </div>
-        <div class="grid grid-2">
-          <div class="repo-card">
-            <div class="repo-card-top">
-              <h4>arcane-duel-game-prototype</h4>
-              <span class="tag">TypeScript</span>
-            </div>
-            <p style="font-size:14px;">Deckbuilding &times; CCG hybrid duel prototype. Engine-agnostic rules core (state, actions, events, AI) with a React/Vite presentation layer.</p>
-            <div class="repo-links">
-              <a href="https://github.com/KinesisTrap/arcane-duel-game-prototype" target="_blank" rel="noopener">Repository &#8599;</a>
-              <a href="https://kinesistrap.github.io/arcane-duel-game-prototype/" target="_blank" rel="noopener">Live demo &#8599;</a>
-            </div>
-          </div>
-          <div class="repo-card">
-            <div class="repo-card-top">
-              <h4>lockpick-mechanic-prototype</h4>
-              <span class="tag">Prototype</span>
-            </div>
-            <p style="font-size:14px;">Playable implementation of the pin-based Lockpicking subsystem &mdash; the same design featured in the Game Mechanics tab.</p>
-            <div class="repo-links">
-              <a href="https://github.com/KinesisTrap/lockpick-mechanic-prototype" target="_blank" rel="noopener">Repository &#8599;</a>
-              <a href="https://kinesistrap.github.io/lockpick-mechanic-prototype/" target="_blank" rel="noopener">Live demo &#8599;</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- NARRATIVE -->
-      <div class="tab-panel" id="tab-narrative">
-        <div class="panel-head">
-          <h3>Flinn Farm &mdash; Location Chapter</h3>
-          <p>A 17-page fully branching location chapter written for an untitled narrative-driven board game. It demonstrates time-of-day gated content, persistent story-card state tracking, and consequence-driven dialogue between recurring NPCs.</p>
-          <div class="tag-row">
-            <span class="tag">Branching Narrative</span>
-            <span class="tag">Story Cards</span>
-            <span class="tag">NPC Consequence Chains</span>
-            <span class="tag">Adventure Book format</span>
-          </div>
-        </div>
-
-        <blockquote>
-          &ldquo;The trail from Red Creek thins to packed earth and hoof-churned mud. By the time you reach the fence line, the sun has slipped behind the ridge; the farmhouse is a low silhouette against a sky the colour of cooled iron.&rdquo;
-        </blockquote>
-
-        <p><strong>Design highlights:</strong></p>
-        <ul style="margin:0 0 8px 0;">
-          <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Four independent time-of-day branches (Evening / Night / Morning / Day), each gating different content and NPC availability.</li>
-          <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Persistent story-card flags (FF-1 through FF-7) that carry consequences across visits &mdash; injuries, suspicion, trust, and reputation.</li>
-          <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Direct integration with the Lockpicking and Social Encounter subsystems as diegetic obstacles (a padlocked barn, a wary NPC).</li>
-          <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Two named NPCs (Abigail &amp; Thomas Flinn) whose tone and dialogue shift based on prior player choices and Scene Noise/Suspicion state.</li>
-        </ul>
-
-        <div class="pdf-viewer" id="narrativePdfViewer" data-pages-base="assets/narrative/pages/" data-total-pages="17">
-          <div class="pdf-viewer-bar">
-            <strong>Flinn Farm — Location Chapter.pdf</strong>
-            <a class="btn btn-ghost btn-sm" href="assets/narrative/Flinn-Farm-Location-Chapter.pdf" target="_blank" rel="noopener">Open / Download &#8599;</a>
-          </div>
-          <div class="pdf-viewer-stage">
-            <button class="pdf-arrow pdf-arrow-prev" id="pdfPrevBtn" aria-label="Previous page" disabled>&#8249;</button>
-            <div class="pdf-page-wrap" id="pdfPageWrap">
-              <img id="pdfPageImage" alt="Flinn Farm — Location Chapter page" />
-              <div class="pdf-loading" id="pdfLoading">Loading pages&hellip;</div>
-            </div>
-            <button class="pdf-arrow pdf-arrow-next" id="pdfNextBtn" aria-label="Next page" disabled>&#8250;</button>
-          </div>
-          <div class="pdf-viewer-footer">
-            <span id="pdfPageIndicator">&nbsp;</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- LEVEL DESIGN -->
-      <div class="tab-panel" id="tab-level">
-        <div class="panel-head">
-          <h3>01-1 Flinn Family Route &mdash; Quest Flowchart</h3>
-          <p>An interactive branching flowchart mapping the full &ldquo;Find the Trace of Will&rdquo; quest across two independent locations &mdash; Churchyard Cemetery and Flinn Farm &mdash; each gated by time-of-day and story-card state. Built in draw.io as a quest-design planning tool prior to implementation.</p>
-          <div class="tag-row">
-            <span class="tag">Quest Flow</span>
-            <span class="tag">Branch Mapping</span>
-            <span class="tag">draw.io / diagrams.net</span>
-          </div>
-        </div>
-
-        <div class="legend-grid">
-          <div class="legend-item"><span class="legend-swatch" style="background:#b0e3e6;border:1px solid #0e8088;"></span> Location entry (independent)</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#dae8fc;border:1px solid #6c8ebf;"></span> Encounter step</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#e1d5e7;border:1px solid #9673a6;"></span> Social Encounter</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#fff2cc;border:1px solid #d6b656;"></span> Condition / card check</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#ffe6cc;border:1px solid #d79b00;"></span> Story card granted (dashed)</div>
-          <div class="legend-item"><span class="legend-swatch" style="background:#d5e8d4;border:1px solid #82b366;"></span> Quest result</div>
-        </div>
-        <p style="font-size:13.5px;"><strong>Rule:</strong> cards never gate the next step by arrow &mdash; only diamond (&#9670;) checks do.</p>
-
-        <div class="diagram-embed">
-          <div class="mxgraph" id="levelDesignDiagram" style="max-width:100%;border:none;"></div>
-        </div>
-        <p style="font-size:13px;margin-top:14px;">
-          <a href="assets/leveldesign/01-1-Flinn-Family-Route.drawio" target="_blank" rel="noopener">Download the source .drawio file &#8599;</a>
-          &nbsp;&middot;&nbsp; Scroll / drag to pan, use the zoom controls in the bottom-right corner.
-        </p>
-      </div>
-
-      <!-- GAME MECHANICS -->
-      <div class="tab-panel" id="tab-mechanics">
-        <div class="panel-head">
-          <h3>Game Mechanics</h3>
-          <p>Original combat and progression systems &mdash; from Evershift&rsquo;s live card-dungeon loop to board-game subsystems designed, documented, and balanced for play.</p>
-        </div>
-
-        <!-- EVERSHIFT -->
-        <div class="card mech-card">
-          <div class="mech-card-head">
-            <h4>Evershift &mdash; Roguelike Card Dungeon</h4>
-            <span class="status-pill ready">Systems Design &middot; itch.io</span>
-          </div>
-          <p>Pixel-art card dungeon on itch.io. Designed the combat loop, class talent trees, meta-progression and amulet systems; wrote mechanics specs; ran playtests and balance iteration. Built a parameterized run simulator with metrics stored in SQLite and visualized in Grafana.</p>
-          <div class="tag-row" style="margin:12px 0 18px;">
-            <span class="tag">Combat Systems</span>
-            <span class="tag">Talent Trees</span>
-            <span class="tag">Meta-Progression</span>
-            <span class="tag">Amulets</span>
-            <span class="tag">Balance &amp; Metrics</span>
-          </div>
-          <ul style="margin:0 0 16px 0;">
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Combat &amp; classes</strong> &mdash; equipment hands, enemy rows, armor/deflect, status effects; Warrior and Rogue loadouts, armor rules, and passives.</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Talent trees</strong> &mdash; Iron / Edge / Camp (Warrior) and Shadow / Ghost / Scoundrel (Rogue) with gated nodes and XP spend.</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Meta &amp; amulets</strong> &mdash; between-run progression and amulet modifiers that reshape shop and floor decisions.</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Balance pipeline</strong> &mdash; batch run simulator &rarr; SQLite metrics &rarr; Grafana dashboards for difficulty and pacing.</li>
-          </ul>
-          <div class="shot-gallery" style="margin-bottom:16px;">
-            <figure class="shot-item">
-              <img src="assets/evershift/hero-select.png" alt="Evershift hero select — Rogue vs Warrior" loading="lazy">
-              <figcaption>Hero select &mdash; Rogue vs Warrior kits, armor rules, and class passives.</figcaption>
-            </figure>
-            <figure class="shot-item">
-              <img src="assets/evershift/warrior-talents.png" alt="Evershift Warrior talent tree" loading="lazy">
-              <figcaption>Warrior talents &mdash; Iron branch live; Edge / Camp WIP.</figcaption>
-            </figure>
-            <figure class="shot-item">
-              <img src="assets/evershift/rogue-talents.png" alt="Evershift Rogue talent tree" loading="lazy">
-              <figcaption>Rogue talents &mdash; Shadow tree (Keen Edge, First Blood).</figcaption>
-            </figure>
-            <figure class="shot-item">
-              <img src="assets/evershift/combat-skeletons.png" alt="Evershift combat against skeletons" loading="lazy">
-              <figcaption>Combat slice &mdash; hand, enemy grid, armor/deflect, combat log.</figcaption>
-            </figure>
-            <figure class="shot-item">
-              <img src="assets/evershift/combat-boss.png" alt="Evershift Skeleton King boss fight" loading="lazy">
-              <figcaption>Boss encounter &mdash; Skeleton King with summons.</figcaption>
-            </figure>
-            <figure class="shot-item">
-              <img src="assets/evershift/shop-amulets.png" alt="Evershift shop with amulet sold" loading="lazy">
-              <figcaption>Shop &amp; amulets &mdash; economy and meta-run modifiers.</figcaption>
-            </figure>
-          </div>
-          <p style="margin-top:4px;"><a href="https://indigiseal.itch.io/evershift" target="_blank" rel="noopener">Play on itch.io &#8599;</a></p>
-        </div>
-
-        <!-- LOCKPICKING -->
-        <div class="card mech-card">
-          <div class="mech-card-head">
-            <h4>Lockpicking System</h4>
-            <span class="status-pill ready">Playtest Ready &middot; v0.1</span>
-          </div>
-          <p>Allows players to gain access to locked doors, chests, safes and archives during exploration and heist scenarios. Designed to create tension during infiltration, reward investment into the Lockpicking skill, and avoid hard-locking the game on failed rolls.</p>
-          <p><strong>Core loop:</strong> each lock is a set of colored D6 &ldquo;pins&rdquo; with a revealed target combination. Matching a die to its target fixes that pin; unresolved dice are re-rolled together with Modifier Dice earned from the character&rsquo;s skill level, which can nudge, re-roll, or directly fix pins.</p>
-          <table class="gdd-table">
-            <tr><th>Difficulty</th><th>Pins</th><th>Recommended Noise Threshold</th></tr>
-            <tr><td>Easy</td><td>3</td><td>2&ndash;3</td></tr>
-            <tr><td>Medium</td><td>4</td><td>2</td></tr>
-            <tr><td>Hard</td><td>5</td><td>1&ndash;2</td></tr>
-          </table>
-          <p style="font-size:13.5px;">Failed attempts accumulate local <strong>Lock Pressure</strong>; once it crosses the lock&rsquo;s Noise Threshold, it converts into global <strong>Scene Noise</strong> &mdash; driving stealth consequences (patrols, guard arrival, alarms) without ever fully blocking progress. Balanced with Monte Carlo simulations across skill levels.</p>
-          <p style="margin-top:14px;"><a href="https://kinesistrap.github.io/lockpick-mechanic-prototype/" target="_blank" rel="noopener">Play the Lockpicking prototype &#8599;</a></p>
-        </div>
-
-        <!-- SOCIAL ENCOUNTER -->
-        <div class="card mech-card">
-          <div class="mech-card-head">
-            <h4>Social Encounter System</h4>
-            <span class="status-pill proto">Design Draft</span>
-          </div>
-          <blockquote>The NPC presents a sequence of social defenses based on their personality. A player responds with cards from their Diplomacy Deck. The group tries to gain enough Influence before the conversation reaches its Tension limit.</blockquote>
-          <p>Each NPC has a Character Profile built from three trait pairs (Legality, Temperament, Generosity), which assembles a 15-card Diplomacy Defense Deck from six underlying Defense Decks. Players respond using cards from six Diplomacy Types &mdash; Seal, Blade, Heart, Mask, Coin, Freedom.</p>
-          <p><strong>Round structure:</strong> gain Tension &rarr; draw 3 cards &rarr; reveal 1 NPC Defense Card &rarr; play response cards &rarr; resolve Influence/Tension &rarr; discard &amp; repeat. Tension reaching the NPC&rsquo;s limit fails the encounter immediately, even if an Influence target was reached the same round.</p>
-          <table class="gdd-table">
-            <tr><th>Track</th><th>Range</th><th>Effect</th></tr>
-            <tr><td>Influence</td><td>-2 to 10</td><td>Progress toward the conversation goal</td></tr>
-            <tr><td>Tension</td><td>0 to 10</td><td>Reaching the NPC&rsquo;s limit fails the encounter</td></tr>
-          </table>
-          <p style="font-size:13.5px;">Design intent: NPC personality drives defense style rather than a flat difficulty number &mdash; Lawful NPCs escalate Tension formally, Outlaw NPCs disrupt structure and reduce Influence, and future traits (Prideful, Cowardly, Greedy, Generous) each get a distinct pressure pattern.</p>
-        </div>
-
-        <!-- CARD DUEL -->
-        <div class="card mech-card">
-          <div class="mech-card-head">
-            <h4>Arcane Duel &mdash; Card Duel Mechanic</h4>
-            <span class="status-pill ready">Playable Vertical Slice</span>
-          </div>
-          <p>A fast, decision-dense deckbuilding &times; CCG hybrid: two archmages duel by channelling Arcane Power into spells, creatures and artifacts, upgrading a personal deck and overwhelming the opponent. A single match lasts roughly 10&ndash;15 minutes.</p>
-          <ul style="margin:12px 0;">
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Two resources</strong> &mdash; per-turn Arcane (resets each turn) vs. bankable Essence, creating a tempo-vs-investment tension.</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Two identities</strong> &mdash; Fire (aggression and reach) vs. Water (sustain and resilience).</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Free play, paid acquisition</strong> &mdash; cards in hand are free to play; Arcane and Essence are spent to buy new cards into the deck.</li>
-            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Automatic, deterministic combat</strong> and low variance &mdash; randomness limited to deck shuffles and market order.</li>
-          </ul>
-          <p style="font-size:13.5px;">Shipped as a playable vertical slice with an engine-agnostic, data-driven rules core (TypeScript) decoupled from its React/Vite presentation layer, so it can migrate to a commercial engine without a rewrite.</p>
-          <p style="margin-top:14px;"><a href="https://kinesistrap.github.io/arcane-duel-game-prototype/" target="_blank" rel="noopener">Play the Arcane Duel demo &#8599;</a></p>
-        </div>
-      </div>
-
-      <!-- PROTOTYPES -->
-      <div class="tab-panel" id="tab-prototypes">
-        <div class="panel-head">
-          <h3>Playable Prototypes</h3>
-          <p>Browser-playable builds &mdash; no install required. Both update automatically on every push via GitHub Actions / Pages.</p>
-        </div>
-
-        <div class="proto-card">
-          <div class="proto-visual"><img src="assets/prototypes/arcane-duel-cover.jpg" alt="Arcane Duel prototype cover" loading="lazy"></div>
-          <div class="proto-body">
-            <h4>Arcane Duel</h4>
-            <p>Deckbuilding &times; CCG hybrid duel. Two archmages, two resources, ~10&ndash;15 minute matches, single-player vs. AI.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="https://kinesistrap.github.io/arcane-duel-game-prototype/" target="_blank" rel="noopener">Play Now &#8599;</a>
-              <a class="btn btn-ghost" href="https://github.com/KinesisTrap/arcane-duel-game-prototype" target="_blank" rel="noopener">Source &#8599;</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="proto-card">
-          <div class="proto-visual"><img src="assets/prototypes/lockpick-preview.png" alt="Lockpick Mechanic prototype screenshot" loading="lazy"></div>
-          <div class="proto-body">
-            <h4>Lockpick Mechanic</h4>
-            <p>Standalone playable implementation of the pin-based Lockpicking subsystem &mdash; try the difficulty curve and modifier-dice strategy first-hand.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="https://kinesistrap.github.io/lockpick-mechanic-prototype/" target="_blank" rel="noopener">Play Now &#8599;</a>
-              <a class="btn btn-ghost" href="https://github.com/KinesisTrap/lockpick-mechanic-prototype" target="_blank" rel="noopener">Source &#8599;</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- UE5 SYSTEMS -->
-      <div class="tab-panel" id="tab-ue5">
-        <div class="panel-head">
-          <h3>BadBotGame &mdash; Unreal Engine 5 Systems Project</h3>
-          <p>A bot-enemy combat vertical slice used to learn UE5 end to end: procedural weapon audio, VFX, material authoring, gameplay/AI Blueprints, and socket-driven mesh setup on a Nanite asset.</p>
-        </div>
-        <div class="card" style="margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-          <div>
-            <h3 style="margin-bottom:4px;">github.com/KinesisTrap/BadBotGame</h3>
-            <div class="tag-row" style="margin-top:10px;">
-              <span class="tag">MetaSound</span>
-              <span class="tag">Niagara VFX</span>
-              <span class="tag">Material Graphs</span>
-              <span class="tag">Blueprints &amp; AI</span>
-              <span class="tag">Nanite &amp; Sockets</span>
-            </div>
-          </div>
-          <a class="btn btn-primary" href="https://github.com/KinesisTrap/BadBotGame" target="_blank" rel="noopener">Repository &#8599;</a>
-        </div>
-        <div class="shot-gallery">
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/metasound-energy-rifle.png" alt="SFX_EnergyRifle MetaSound graph" loading="lazy">
-            <figcaption>SFX_EnergyRifle MetaSound graph &mdash; randomized wave-asset selection driving pitch/playback variation on the bot's energy rifle.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/gameplay-blaster-beam.png" alt="Blaster beam VFX in-engine" loading="lazy">
-            <figcaption>In-engine result &mdash; the bot firing a blaster beam under bloom-heavy lighting.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/niagara-beam-burst.png" alt="NS_BeamBurst Niagara system" loading="lazy">
-            <figcaption>NS_BeamBurst Niagara system &mdash; three synced OmnidirectionalBurst emitters driving the beam impact.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/material-blaster-beam.png" alt="M_BlasterBeam material graph" loading="lazy">
-            <figcaption>M_BlasterBeam material graph &mdash; a driven emissive constant powering the beam's glow.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/blueprint-spawn-blaster-beam.png" alt="BP_Bot SpawnBlasterBeam Blueprint" loading="lazy">
-            <figcaption>BP_Bot Blueprint &mdash; SpawnBlasterBeam function handling targeting, rotation interp and beam spawn.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/material-drone.png" alt="M_Drone material graph" loading="lazy">
-            <figcaption>M_Drone material graph &mdash; layered texture samples driving base color, normal and ORM.</figcaption>
-          </figure>
-          <figure class="shot-item">
-            <img src="assets/ue5-badbot/mesh-sockets-nanite.png" alt="Nanite drone mesh with weapon sockets" loading="lazy">
-            <figcaption>Nanite-enabled drone mesh with Rifle_L / Rifle_R weapon sockets and collision setup.</figcaption>
-          </figure>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- ============ ABOUT ============ -->
   <section id="about" style="background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="wrap">
       <div class="section-head">
         <span class="section-tag">About</span>
-        <h2>Summary</h2>
-        <p>Game Designer transitioning from 6+ years in QA/SDET leadership and production ownership of complex software systems. Strong at turning vague feature ideas into structured, documented, testable, and iterative systems: mechanics, rules, player flows, feedback loops, risk/reward, balance, edge cases, and quality criteria. Hands-on with Unreal Engine 4/5 and Unity through gameplay prototypes, graybox levels, editor workflows, Blueprint/functions practice, Actor spawning, Niagara, MetaSound, and AI-assisted UE/Cursor prototyping. Created game concepts, pitch documents, GDD-style documentation, subsystem specs, board game and digital game prototypes, and balancing simulations. Deep interest in story-driven RPGs, systemic gameplay, level flow, player emotion, and building memorable experiences that deliver fun through clear mechanics and strong iteration.</p>
+        <h2>Selected Design Focus</h2>
       </div>
 
       <div class="about-focus">
-        <h4>Selected Design Focus</h4>
         <div class="grid grid-3">
           <div class="card">
             <div class="card-icon">&#9881;</div>
@@ -1002,6 +998,368 @@
 
 </main>
 
+<!-- ============ PROJECT MODALS ============ -->
+  <div class="modal-root" id="modal-evershift" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-evershift-title">
+      <div class="modal-top">
+        <div>
+          <h2 id="modal-evershift-title">Evershift</h2>
+          <p>Dungeon rogue — systems design on itch.io.</p>
+        </div>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="panel-head">
+          <h3>Evershift &mdash; Roguelike Card Dungeon</h3>
+          <p>Pixel-art card dungeon on itch.io. Designed the combat loop, class talent trees, meta-progression and amulet systems; wrote mechanics specs; ran playtests and balance iteration. Built a parameterized run simulator with metrics stored in SQLite and visualized in Grafana.</p>
+          <div class="tag-row">
+            <span class="tag">Combat Systems</span>
+            <span class="tag">Talent Trees</span>
+            <span class="tag">Meta-Progression</span>
+            <span class="tag">Amulets</span>
+            <span class="tag">Balance &amp; Metrics</span>
+          </div>
+        </div>
+
+        <div class="card mech-card">
+          <div class="mech-card-head">
+            <h4>What I owned</h4>
+            <span class="status-pill ready">Systems Design &middot; itch.io</span>
+          </div>
+          <ul style="margin:0 0 16px 0;">
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Combat &amp; classes</strong> &mdash; equipment hands, enemy rows, armor/deflect, status effects; Warrior and Rogue loadouts, armor rules, and passives.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Talent trees</strong> &mdash; Iron / Edge / Camp (Warrior) and Shadow / Ghost / Scoundrel (Rogue) with gated nodes and XP spend.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Meta &amp; amulets</strong> &mdash; between-run progression and amulet modifiers that reshape shop and floor decisions.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Balance pipeline</strong> &mdash; batch run simulator &rarr; SQLite metrics &rarr; Grafana dashboards for difficulty and pacing.</li>
+          </ul>
+          <div class="shot-gallery" style="margin-bottom:16px;">
+            <figure class="shot-item">
+              <img src="assets/evershift/hero-select.png" alt="Evershift hero select — Rogue vs Warrior" loading="lazy">
+              <figcaption>Hero select &mdash; Rogue vs Warrior kits, armor rules, and class passives.</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/warrior-talents.png" alt="Evershift Warrior talent tree" loading="lazy">
+              <figcaption>Warrior talents &mdash; Iron branch live; Edge / Camp WIP.</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/rogue-talents.png" alt="Evershift Rogue talent tree" loading="lazy">
+              <figcaption>Rogue talents &mdash; Shadow tree (Keen Edge, First Blood).</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/combat-skeletons.png" alt="Evershift combat against skeletons" loading="lazy">
+              <figcaption>Combat slice &mdash; hand, enemy grid, armor/deflect, combat log.</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/combat-boss.png" alt="Evershift Skeleton King boss fight" loading="lazy">
+              <figcaption>Boss encounter &mdash; Skeleton King with summons.</figcaption>
+            </figure>
+            <figure class="shot-item">
+              <img src="assets/evershift/shop-amulets.png" alt="Evershift shop with amulet sold" loading="lazy">
+              <figcaption>Shop &amp; amulets &mdash; economy and meta-run modifiers.</figcaption>
+            </figure>
+          </div>
+          <p style="margin-top:4px;"><a href="https://indigiseal.itch.io/evershift" target="_blank" rel="noopener">Play on itch.io &#8599;</a></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-root" id="modal-chronoarchive" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-chronoarchive-title">
+      <div class="modal-top">
+        <div>
+          <h2 id="modal-chronoarchive-title">ChronoArchive</h2>
+          <p>Narrative tabletop in development — story, systems, quest flow.</p>
+        </div>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="panel-head">
+          <h3>ChronoArchive</h3>
+          <p>A story-driven board game in development. Sci-fi framing meets frontier-world locations: branching chapters, infiltration tension, and social pressure — designed as interlocking subsystems rather than isolated mechanics.</p>
+          <div class="tag-row">
+            <span class="tag">Tabletop</span>
+            <span class="tag">Narrative</span>
+            <span class="tag">Systems</span>
+            <span class="tag">Quest Flow</span>
+          </div>
+        </div>
+
+        <div class="card mech-card">
+          <div class="mech-card-head">
+            <h4>Flinn Farm &mdash; Location Chapter</h4>
+            <span class="status-pill ready">17-page chapter</span>
+          </div>
+          <p>A fully branching location chapter with time-of-day gated content, persistent story-card state, and consequence-driven dialogue between recurring NPCs.</p>
+          <blockquote>
+            &ldquo;The trail from Red Creek thins to packed earth and hoof-churned mud. By the time you reach the fence line, the sun has slipped behind the ridge; the farmhouse is a low silhouette against a sky the colour of cooled iron.&rdquo;
+          </blockquote>
+          <ul style="margin:0 0 8px 0;">
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Four independent time-of-day branches (Evening / Night / Morning / Day).</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Persistent story-card flags (FF-1 through FF-7) carrying injuries, suspicion, trust, and reputation.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Direct integration with Lockpicking and Social Encounter as diegetic obstacles.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Abigail &amp; Thomas Flinn — tone shifts with prior choices and Scene Noise / Suspicion.</li>
+          </ul>
+          <div class="pdf-viewer" id="narrativePdfViewer" data-pages-base="assets/narrative/pages/" data-total-pages="17">
+            <div class="pdf-viewer-bar">
+              <strong>Flinn Farm — Location Chapter.pdf</strong>
+              <a class="btn btn-ghost btn-sm" href="assets/narrative/Flinn-Farm-Location-Chapter.pdf" target="_blank" rel="noopener">Open / Download &#8599;</a>
+            </div>
+            <div class="pdf-viewer-stage">
+              <button class="pdf-arrow pdf-arrow-prev" id="pdfPrevBtn" aria-label="Previous page" disabled>&#8249;</button>
+              <div class="pdf-page-wrap" id="pdfPageWrap">
+                <img id="pdfPageImage" alt="Flinn Farm — Location Chapter page" />
+                <div class="pdf-loading" id="pdfLoading">Loading pages&hellip;</div>
+              </div>
+              <button class="pdf-arrow pdf-arrow-next" id="pdfNextBtn" aria-label="Next page" disabled>&#8250;</button>
+            </div>
+            <div class="pdf-viewer-footer">
+              <span id="pdfPageIndicator">&nbsp;</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mech-card">
+          <div class="mech-card-head">
+            <h4>Lockpicking System</h4>
+            <span class="status-pill ready">Playtest Ready &middot; v0.1</span>
+          </div>
+          <p>Access to locked doors, chests, safes and archives during exploration and heist scenarios. Creates infiltration tension, rewards Lockpicking skill investment, and never hard-locks progress on failed rolls.</p>
+          <p><strong>Core loop:</strong> each lock is a set of colored D6 &ldquo;pins&rdquo; with a revealed target combination. Matching a die to its target fixes that pin; unresolved dice are re-rolled with Modifier Dice from skill level.</p>
+          <table class="gdd-table">
+            <tr><th>Difficulty</th><th>Pins</th><th>Recommended Noise Threshold</th></tr>
+            <tr><td>Easy</td><td>3</td><td>2&ndash;3</td></tr>
+            <tr><td>Medium</td><td>4</td><td>2</td></tr>
+            <tr><td>Hard</td><td>5</td><td>1&ndash;2</td></tr>
+          </table>
+          <p style="font-size:13.5px;">Failed attempts accumulate local <strong>Lock Pressure</strong>; past the Noise Threshold it becomes global <strong>Scene Noise</strong> — stealth consequences without blocking progress. Balanced with Monte Carlo simulations.</p>
+          <p style="margin-top:14px;"><a href="https://kinesistrap.github.io/lockpick-mechanic-prototype/" target="_blank" rel="noopener">Play the Lockpicking prototype &#8599;</a>
+            &nbsp;&middot;&nbsp;
+            <a href="https://github.com/KinesisTrap/lockpick-mechanic-prototype" target="_blank" rel="noopener">Source &#8599;</a></p>
+        </div>
+
+        <div class="card mech-card">
+          <div class="mech-card-head">
+            <h4>Social Encounter System</h4>
+            <span class="status-pill proto">Design Draft</span>
+          </div>
+          <blockquote>The NPC presents a sequence of social defenses based on their personality. A player responds with cards from their Diplomacy Deck. The group tries to gain enough Influence before the conversation reaches its Tension limit.</blockquote>
+          <p>Each NPC has a Character Profile from three trait pairs (Legality, Temperament, Generosity), assembling a 15-card Diplomacy Defense Deck. Players respond with cards from six Diplomacy Types &mdash; Seal, Blade, Heart, Mask, Coin, Freedom.</p>
+          <p><strong>Round structure:</strong> gain Tension &rarr; draw 3 cards &rarr; reveal 1 NPC Defense Card &rarr; play response cards &rarr; resolve Influence/Tension &rarr; discard &amp; repeat.</p>
+          <table class="gdd-table">
+            <tr><th>Track</th><th>Range</th><th>Effect</th></tr>
+            <tr><td>Influence</td><td>-2 to 10</td><td>Progress toward the conversation goal</td></tr>
+            <tr><td>Tension</td><td>0 to 10</td><td>Reaching the NPC&rsquo;s limit fails the encounter</td></tr>
+          </table>
+          <p style="font-size:13.5px;">Design intent: personality drives defense style — Lawful NPCs escalate Tension formally; Outlaw NPCs disrupt structure and reduce Influence.</p>
+        </div>
+
+        <div class="card mech-card">
+          <div class="mech-card-head">
+            <h4>Find the Trace of Will &mdash; Main Quest Route</h4>
+            <span class="status-pill ready">Quest planning</span>
+          </div>
+          <p>Interactive branching flowchart for Act I across two locations, gated by time-of-day and story-card state. Built in draw.io before implementation.</p>
+          <div class="legend-grid">
+            <div class="legend-item"><span class="legend-swatch" style="background:#b0e3e6;border:1px solid #0e8088;"></span> Location entry (independent)</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#dae8fc;border:1px solid #6c8ebf;"></span> Encounter step</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#e1d5e7;border:1px solid #9673a6;"></span> Social Encounter</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#fff2cc;border:1px solid #d6b656;"></span> Condition / card check</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#ffe6cc;border:1px solid #d79b00;"></span> Story card granted (dashed)</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#d5e8d4;border:1px solid #82b366;"></span> Quest result</div>
+          </div>
+          <p style="font-size:13.5px;"><strong>Rule:</strong> cards never gate the next step by arrow &mdash; only diamond (&#9670;) checks do.</p>
+          <div class="diagram-embed">
+            <div class="mxgraph" id="levelDesignDiagram" style="max-width:100%;border:none;"></div>
+          </div>
+          <p style="font-size:13px;margin-top:14px;">
+            <a href="assets/leveldesign/01-1-Flinn-Family-Route.drawio" target="_blank" rel="noopener">Download the source .drawio file &#8599;</a>
+            &nbsp;&middot;&nbsp; Scroll / drag to pan, use the zoom controls in the bottom-right corner.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-root" id="modal-arcane" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-arcane-title">
+      <div class="modal-top">
+        <div>
+          <h2 id="modal-arcane-title">Arcane Duel</h2>
+          <p>Deck-building duel prototype — browser playable.</p>
+        </div>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="panel-head">
+          <h3>Arcane Duel</h3>
+          <p>A fast, decision-dense deckbuilding &times; CCG hybrid: two archmages duel by channelling Arcane Power into spells, creatures and artifacts. A single match lasts roughly 10&ndash;15 minutes.</p>
+          <div class="tag-row">
+            <span class="tag">Deckbuilding</span>
+            <span class="tag">CCG hybrid</span>
+            <span class="tag">Vertical slice</span>
+            <span class="tag">TypeScript core</span>
+          </div>
+        </div>
+
+        <div class="proto-card">
+          <div class="proto-visual"><img src="assets/prototypes/arcane-duel-cover.jpg" alt="Arcane Duel prototype cover" loading="lazy"></div>
+          <div class="proto-body">
+            <h4>Playable build</h4>
+            <p>Single-player vs. AI. Engine-agnostic, data-driven rules core (TypeScript) decoupled from a React/Vite presentation layer.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://kinesistrap.github.io/arcane-duel-game-prototype/" target="_blank" rel="noopener">Play Now &#8599;</a>
+              <a class="btn btn-ghost" href="https://github.com/KinesisTrap/arcane-duel-game-prototype" target="_blank" rel="noopener">Source &#8599;</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mech-card">
+          <div class="mech-card-head">
+            <h4>Design pillars</h4>
+            <span class="status-pill ready">Playable Vertical Slice</span>
+          </div>
+          <ul style="margin:12px 0;">
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Two resources</strong> &mdash; per-turn Arcane (resets) vs. bankable Essence — tempo vs. investment.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Two identities</strong> &mdash; Fire (aggression and reach) vs. Water (sustain and resilience).</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Free play, paid acquisition</strong> &mdash; cards in hand are free; Arcane and Essence buy new cards into the deck.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; <strong>Automatic, deterministic combat</strong> — randomness limited to deck shuffles and market order.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-root" id="modal-badbot" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-badbot-title">
+      <div class="modal-top">
+        <div>
+          <h2 id="modal-badbot-title">Bad Bot</h2>
+          <p>UE5 arcade learning project — combat systems slice.</p>
+        </div>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="panel-head">
+          <h3>Bad Bot &mdash; Unreal Engine 5 Arcade Study</h3>
+          <p>A bot-enemy combat vertical slice used to learn UE5 end to end: procedural weapon audio, VFX, material authoring, gameplay/AI Blueprints, and socket-driven mesh setup on a Nanite asset.</p>
+        </div>
+        <div class="card" style="margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+          <div>
+            <h3 style="margin-bottom:4px;">github.com/KinesisTrap/BadBotGame</h3>
+            <div class="tag-row" style="margin-top:10px;">
+              <span class="tag">MetaSound</span>
+              <span class="tag">Niagara VFX</span>
+              <span class="tag">Material Graphs</span>
+              <span class="tag">Blueprints &amp; AI</span>
+              <span class="tag">Nanite &amp; Sockets</span>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="https://github.com/KinesisTrap/BadBotGame" target="_blank" rel="noopener">Repository &#8599;</a>
+        </div>
+        <div class="shot-gallery">
+          <figure class="shot-item">
+            <img src="assets/ue5-badbot/metasound-energy-rifle.png" alt="SFX_EnergyRifle MetaSound graph" loading="lazy">
+            <figcaption>SFX_EnergyRifle MetaSound graph &mdash; randomized wave-asset selection driving pitch/playback variation on the bot's energy rifle.</figcaption>
+          </figure>
+          <figure class="shot-item">
+            <img src="assets/ue5-badbot/gameplay-blaster-beam.png" alt="Blaster beam VFX in-engine" loading="lazy">
+            <figcaption>In-engine result &mdash; the bot firing a blaster beam under bloom-heavy lighting.</figcaption>
+          </figure>
+          <figure class="shot-item">
+            <img src="assets/ue5-badbot/niagara-beam-burst.png" alt="NS_BeamBurst Niagara system" loading="lazy">
+            <figcaption>NS_BeamBurst Niagara system &mdash; three synced OmnidirectionalBurst emitters driving the beam impact.</figcaption>
+          </figure>
+          <figure class="shot-item">
+            <img src="assets/ue5-badbot/material-blaster-beam.png" alt="M_BlasterBeam material graph" loading="lazy">
+            <figcaption>M_BlasterBeam material graph &mdash; a driven emissive constant powering the beam's glow.</figcaption>
+          </figure>
+          <figure class="shot-item">
+            <img src="assets/ue5-badbot/blueprint-spawn-blaster-beam.png" alt="BP_Bot SpawnBlasterBeam Blueprint" loading="lazy">
+            <figcaption>BP_Bot Blueprint &mdash; SpawnBlasterBeam function handling targeting, rotation interp and beam spawn.</figcaption>
+          </figure>
+          <figure class="shot-item">
+            <img src="assets/ue5-badbot/material-drone.png" alt="M_Drone material graph" loading="lazy">
+            <figcaption>M_Drone material graph &mdash; layered texture samples driving base color, normal and ORM.</figcaption>
+          </figure>
+          <figure class="shot-item">
+            <img src="assets/ue5-badbot/mesh-sockets-nanite.png" alt="Nanite drone mesh with weapon sockets" loading="lazy">
+            <figcaption>Nanite-enabled drone mesh with Rifle_L / Rifle_R weapon sockets and collision setup.</figcaption>
+          </figure>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-root" id="modal-linger" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-linger-title">
+      <div class="modal-top">
+        <div>
+          <h2 id="modal-linger-title">As Long As I Linger</h2>
+          <p>Narrative-driven solo project — concept only, for now.</p>
+        </div>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="proto-card" style="margin-bottom:24px;">
+          <div class="proto-visual"><img src="assets/linger/linger-cover.png" alt="As Long As I Linger mood cover" loading="lazy"></div>
+          <div class="proto-body">
+            <h4>Mood cover</h4>
+            <p>Victorian estate, a ghost&rsquo;s hand, and a will without a name &mdash; atmosphere only. Playable builds and production art stay private for now.</p>
+          </div>
+        </div>
+
+        <div class="linger-sealed">
+          <p class="seal-kicker">No public materials yet</p>
+          <h3>A private concept, held on purpose</h3>
+          <p>Builds, art packs, and design docs for this title are not released publicly. What follows is the pitch — enough to place the game, without spoiling unfinished work.</p>
+        </div>
+
+        <div class="panel-head" style="margin-top:28px;">
+          <h3>The premise</h3>
+          <p>A linear narrative about a ghost who guards their estate from burglars while trying to remember the best moments of their life — and who the rightful heir of the manor truly is.</p>
+          <div class="tag-row">
+            <span class="tag">Narrative-driven</span>
+            <span class="tag">Solo project</span>
+            <span class="tag">Ghost / estate</span>
+            <span class="tag">Mischief systems</span>
+          </div>
+        </div>
+
+        <div class="card mech-card">
+          <div class="mech-card-head">
+            <h4>Gameplay texture</h4>
+            <span class="status-pill proto">In development</span>
+          </div>
+          <p>Story is the spine. Between chapters, play leans on mischievous haunting — systems in the spirit of <em>Neighbour from Hell</em> and <em>Ghost Master</em>: scare, misdirect, and rearrange the living until the manor is safe again and the past comes into focus.</p>
+          <ul style="margin:12px 0 0;">
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Protect the estate from intruders without turning the piece into a pure stealth sim.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Recover memories as parallel narrative currency — identity and inheritance unravel together.</li>
+            <li style="padding-left:18px;position:relative;margin-bottom:8px;font-size:14.5px;">&bull;&nbsp; Solo authorship: design, systems, and story under one roof.</li>
+          </ul>
+        </div>
+
+        <p style="font-size:13.5px;color:var(--text-faint);margin-top:8px;">When materials are ready for public eyes, they will live here. Until then — the seal stays closed.</p>
+
+      </div>
+    </div>
+  </div>
+
+
 <footer>
   <div class="wrap footer-inner">
     <p>&copy; <span id="year"></span> Petr Gorskin. Game Designer.</p>
@@ -1027,9 +1385,9 @@
     navLinks.style.top = '68px';
     navLinks.style.left = '0';
     navLinks.style.right = '0';
-    navLinks.style.background = 'rgba(12,13,16,.98)';
+    navLinks.style.background = 'rgba(245,251,250,.98)';
     navLinks.style.padding = '20px 24px';
-    navLinks.style.borderBottom = '1px solid #272c38';
+    navLinks.style.borderBottom = '1px solid #c5e0dc';
     navLinks.style.gap = '18px';
   });
   navLinks.querySelectorAll('a').forEach(function(a){
@@ -1038,16 +1396,263 @@
     });
   });
 
-  // Portfolio tabs
-  var tabBtns = document.querySelectorAll('.tab-btn');
-  var tabPanels = document.querySelectorAll('.tab-panel');
-  tabBtns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      tabBtns.forEach(function(b){ b.classList.remove('active'); });
-      tabPanels.forEach(function(p){ p.classList.remove('active'); });
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.tab).classList.add('active');
+  // Unified sticky stage: hero fades in-place, projects take the same viewport
+  var track = document.getElementById('introTrack');
+  var sticky = document.getElementById('introSticky');
+  var heroLayer = document.getElementById('heroLayer');
+  var stage = document.getElementById('projStage');
+  var progressEl = document.getElementById('projProgress');
+  var projs = stage ? Array.prototype.slice.call(stage.querySelectorAll('.proj')) : [];
+  var HERO_END = 0.028;      // quick hero fade — minimal dead scroll
+  var PROJ_ZONE_END = 0.97;  // projects run almost to the end; tiny handoff
+  var PROJ_LEAD = 0.015;
+  var ENTER_END = 0.18;
+  var HOLD_END = 0.82;
+  var TRAVEL = 38;
+  var SMOOTH = 0.16;
+  var smoothProg = 0;
+  var targetProg = 0;
+  var rafId = 0;
+  var expSection = document.getElementById('experience');
+
+  function easeOutCubic(t){
+    return 1 - Math.pow(1 - t, 3);
+  }
+  function easeInOutCubic(t){
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+  function smoothstep(t){
+    t = Math.min(1, Math.max(0, t));
+    return t * t * (3 - 2 * t);
+  }
+  function trackDocTop(){
+    return track.getBoundingClientRect().top + window.pageYOffset;
+  }
+  function trackMetrics(){
+    var total = Math.max(1, track.offsetHeight - window.innerHeight);
+    var rect = track.getBoundingClientRect();
+    var scrolled = Math.min(Math.max(-rect.top, 0), total);
+    return { total: total, scrolled: scrolled, progress: scrolled / total, rect: rect };
+  }
+  function progressForProject(i){
+    var n = projs.length || 1;
+    var holdMid = (ENTER_END + HOLD_END) / 2;
+    var zone = PROJ_ZONE_END - HERO_END;
+    return HERO_END + (PROJ_LEAD + (i + holdMid) * (1 - PROJ_LEAD) / n) * zone;
+  }
+  function scrollToProject(i){
+    if (!track) return;
+    var total = Math.max(1, track.offsetHeight - window.innerHeight);
+    window.scrollTo({ top: trackDocTop() + progressForProject(i) * total, behavior: 'smooth' });
+  }
+  function scrollToHero(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function updateExperienceFade(){
+    if (!expSection) return;
+    var r = expSection.getBoundingClientRect();
+    var vh = window.innerHeight || 1;
+    // Fade as Experience actually enters the viewport (not while sticky is still empty)
+    var start = vh * 0.88;
+    var end = vh * 0.42;
+    var expVis = 0;
+    if (r.top <= end){
+      expVis = 1;
+    } else if (r.top < start){
+      expVis = easeOutCubic(smoothstep((start - r.top) / (start - end)));
+    }
+    document.documentElement.style.setProperty('--exp-vis', expVis.toFixed(4));
+  }
+
+  if (track && projs.length){
+    track.style.setProperty('--proj-count', String(projs.length));
+    projs.forEach(function(_, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Project ' + (i + 1));
+      b.addEventListener('click', function(){ scrollToProject(i); });
+      progressEl.appendChild(b);
     });
+  }
+  var dots = progressEl ? progressEl.querySelectorAll('button') : [];
+
+  var viewBtn = document.getElementById('viewProjectsBtn');
+  if (viewBtn){
+    viewBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      scrollToProject(0);
+    });
+  }
+  var navProjects = document.getElementById('navProjects');
+  if (navProjects){
+    navProjects.addEventListener('click', function(e){
+      e.preventDefault();
+      scrollToProject(0);
+    });
+  }
+  document.querySelectorAll('a[href="#hero"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      scrollToHero();
+    });
+  });
+  document.querySelectorAll('a[href="#experience"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      window.setTimeout(function(){
+        document.documentElement.style.setProperty('--exp-vis', '1');
+      }, 320);
+    });
+  });
+  var logo = document.querySelector('a.logo');
+  if (logo){
+    logo.setAttribute('href', '#hero');
+  }
+
+  function renderAtProgress(progress){
+    if (!track || !projs.length) return;
+    var heroT = Math.min(1, progress / HERO_END);
+    var heroVis = 1 - easeInOutCubic(heroT);
+    if (sticky){
+      sticky.style.setProperty('--hero-vis', heroVis.toFixed(4));
+    }
+    if (heroLayer){
+      heroLayer.classList.toggle('is-gone', heroVis < 0.05);
+    }
+
+    var zone = Math.max(0.001, PROJ_ZONE_END - HERO_END);
+    var rawProj = Math.max(0, Math.min(1, (progress - HERO_END) / zone));
+    var projProgress = Math.max(0, (rawProj - PROJ_LEAD) / (1 - PROJ_LEAD));
+    if (progress >= PROJ_ZONE_END) projProgress = 1;
+    var n = projs.length;
+    var segment = 1 / n;
+    var active = -1;
+    var lastExit = 0;
+
+    projs.forEach(function(proj, i){
+      var local = (projProgress - i * segment) / segment;
+      var side = proj.getAttribute('data-side') === 'left' ? -1 : 1;
+      var x = side * TRAVEL;
+      var opacity = 0;
+      var scale = 0.985;
+
+      if (local >= -0.02 && local <= 1.02){
+        if (local < ENTER_END){
+          var t = smoothstep(Math.max(0, local) / ENTER_END);
+          t = easeOutCubic(t);
+          opacity = t;
+          x = side * TRAVEL * (1 - t);
+          scale = 0.975 + 0.025 * t;
+          if (t > 0.12) active = i;
+        } else if (local < HOLD_END){
+          opacity = 1;
+          x = 0;
+          scale = 1;
+          active = i;
+        } else {
+          var u = smoothstep((Math.min(1, local) - HOLD_END) / (1 - HOLD_END));
+          u = easeInOutCubic(u);
+          opacity = 1 - u;
+          x = side * TRAVEL * u;
+          scale = 1 - 0.025 * u;
+          if (u < 0.88) active = i;
+          if (i === n - 1) lastExit = u;
+        }
+      } else if (i === n - 1 && local > 1){
+        lastExit = 1;
+      }
+
+      proj.style.transform = 'translate3d(' + x.toFixed(2) + '%, 0, 0) scale(' + scale.toFixed(4) + ')';
+      proj.style.opacity = String(opacity);
+      proj.classList.toggle('is-live', opacity > 0.45);
+    });
+
+    dots.forEach(function(d, i){
+      d.classList.toggle('is-on', i === active);
+    });
+
+    // Continue hint only while the last project is leaving — no long empty screen
+    var continueVis = 0;
+    if (lastExit > 0.25){
+      continueVis = smoothstep((lastExit - 0.25) / 0.75);
+    }
+    if (progress >= PROJ_ZONE_END){
+      continueVis = Math.max(continueVis, 1 - (progress - PROJ_ZONE_END) / Math.max(0.001, 1 - PROJ_ZONE_END));
+    }
+    if (sticky) sticky.style.setProperty('--continue-vis', continueVis.toFixed(4));
+    if (progressEl){
+      progressEl.style.opacity = String(Math.max(0, (1 - heroVis) * (1 - continueVis * 0.85)));
+    }
+
+    updateExperienceFade();
+  }
+
+  function tickSmooth(){
+    rafId = 0;
+    var m = trackMetrics();
+    targetProg = m.progress;
+    var delta = targetProg - smoothProg;
+    if (Math.abs(delta) < 0.00015){
+      smoothProg = targetProg;
+    } else {
+      smoothProg += delta * SMOOTH;
+      rafId = requestAnimationFrame(tickSmooth);
+    }
+    renderAtProgress(smoothProg);
+    if (!rafId) updateExperienceFade();
+  }
+
+  function onScroll(){
+    if (!rafId) rafId = requestAnimationFrame(tickSmooth);
+    else updateExperienceFade();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function(){
+    if (track){
+      smoothProg = trackMetrics().progress;
+      renderAtProgress(smoothProg);
+    }
+    updateExperienceFade();
+  });
+  if (track){
+    smoothProg = trackMetrics().progress;
+    renderAtProgress(smoothProg);
+  }
+  updateExperienceFade();
+
+  // Project detail modals
+  var openModalId = null;
+  function openModal(id){
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (openModalId) closeModal();
+    el.classList.add('is-open');
+    el.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    openModalId = id;
+    window.dispatchEvent(new CustomEvent('project-modal-open', { detail: { id: id } }));
+  }
+  function closeModal(){
+    if (!openModalId) return;
+    var el = document.getElementById(openModalId);
+    if (el){
+      el.classList.remove('is-open');
+      el.setAttribute('aria-hidden', 'true');
+    }
+    document.body.classList.remove('modal-open');
+    openModalId = null;
+  }
+  document.querySelectorAll('.proj').forEach(function(proj){
+    var id = proj.getAttribute('data-modal');
+    var frame = proj.querySelector('.proj-frame');
+    var more = proj.querySelector('.proj-more');
+    if (frame) frame.addEventListener('click', function(){ openModal(id); });
+    if (more) more.addEventListener('click', function(e){ e.stopPropagation(); openModal(id); });
+  });
+  document.querySelectorAll('[data-close-modal]').forEach(function(el){
+    el.addEventListener('click', closeModal);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeModal();
   });
 
   // Professional Experience collapsible
@@ -1614,8 +2219,8 @@
   nextBtn.addEventListener('click', function(){ goToPage(currentPage + 1, 'next'); });
 
   document.addEventListener('keydown', function(e){
-    var narrativePanel = document.getElementById('tab-narrative');
-    if (!narrativePanel || !narrativePanel.classList.contains('active')) return;
+    var narrativeModal = document.getElementById('modal-chronoarchive');
+    if (!narrativeModal || !narrativeModal.classList.contains('is-open')) return;
     if (e.key === 'ArrowLeft') goToPage(currentPage - 1, 'prev');
     if (e.key === 'ArrowRight') goToPage(currentPage + 1, 'next');
   });
@@ -1634,17 +2239,20 @@
     else goToPage(currentPage - 1, 'prev');
   }, { passive: true });
 
-  var narrativeTabBtn = document.querySelector('.tab-btn[data-tab="tab-narrative"]');
   var loadedOnce = false;
   function ensureLoaded(){
     if (loadedOnce) return;
     loadedOnce = true;
     showPage(1);
   }
-  if (narrativeTabBtn){
-    narrativeTabBtn.addEventListener('click', ensureLoaded);
-    if (narrativeTabBtn.classList.contains('active')) ensureLoaded();
-  }
+  window.addEventListener('project-modal-open', function(e){
+    if (e.detail && e.detail.id === 'modal-chronoarchive'){
+      ensureLoaded();
+      if (window.GraphViewer){
+        try { GraphViewer.processElements(); } catch (err) {}
+      }
+    }
+  });
 })();
 </script>
 
